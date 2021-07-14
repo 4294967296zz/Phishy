@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header"></head>
+
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+<!--            <div class="navbar-minimize">-->
+<!--              <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">-->
+<!--                <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>-->
+<!--                <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>-->
+<!--              <div class="ripple-container"></div></button>-->
+<!--            </div>-->
+            <a class="navbar-brand" href="javascript:void(0)">사용자</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                  <i class="material-icons">dashboard</i>
+                  <p class="d-lg-none d-md-block">
+                    Stats
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="material-icons">notifications</i>
+                  <span class="notification">5</span>
+                  <p class="d-lg-none d-md-block">
+                    Some Actions
+                  </p>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                  <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
+                  <a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
+                  <a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
+                  <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
+                  <a class="dropdown-item" href="javascript:void(0)">Another One</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="javascript:void(0)">
+                  <i class="material-icons">person</i>
+                  <p class="d-lg-none d-md-block">
+                    Account
+                  </p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+<!--          <div class="row">-->
+<!--            <div class="col-md-8">-->
+<!--              <div class="card">-->
+<!--                <div class="card-header card-header-primary">-->
+<!--                  <h4 class="card-title">Edit Profile</h4>-->
+<!--                  <p class="card-category">Complete your profile</p>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                  <form>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-5">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Company (disabled)</label>-->
+<!--                          <input type="text" class="form-control" disabled>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-3">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Username</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-4">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Email address</label>-->
+<!--                          <input type="email" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-6">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Fist Name</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-6">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Last Name</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Adress</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-4">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">City</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-4">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Country</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-4">-->
+<!--                        <div class="form-group">-->
+<!--                          <label class="bmd-label-floating">Postal Code</label>-->
+<!--                          <input type="text" class="form-control">-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                          <label>About Me</label>-->
+<!--                          <div class="form-group">-->
+<!--                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>-->
+<!--                            <textarea class="form-control" rows="5"></textarea>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>-->
+<!--                    <div class="clearfix"></div>-->
+<!--                  </form>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--              <div class="card card-profile">-->
+<!--                <div class="card-avatar">-->
+<!--                  <a href="#pablo">-->
+<!--                    <img class="img" src="../assets/img/faces/marc.jpg" />-->
+<!--                  </a>-->
+<!--                </div>-->
+<!--                <div class="card-body">-->
+<!--                  <h6 class="card-category">CEO / Co-Founder</h6>-->
+<!--                  <h4 class="card-title">Alec Thompson</h4>-->
+<!--                  <p class="card-description">-->
+<!--                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...-->
+<!--                  </p>-->
+<!--                  <a href="#pablo" class="btn btn-primary btn-round">Follow</a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">사용자 리스트</h4>
+                  <div class="dropdown dt-action-btns">
+                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
+                      <a class="dropdown-item" href="#" id="excelUpload">일괄등록</a>
+                      <a class="dropdown-item" href="#" id="edit_user">수정</a>
+                      <a class="dropdown-item" href="#" id="del_user">삭제</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                  </div>
+                  <div class="material-datatables">
+                    <table id="datatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Position</th>
+                          <th>Office</th>
+                          <th>Age</th>
+                          <th>Date</th>
+                          <th class="disabled-sorting text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
+                          <th>Name</th>
+                          <th>Position</th>
+                          <th>Office</th>
+                          <th>Age</th>
+                          <th>Start date</th>
+                          <th class="text-right">Actions</th>
+                        </tr>
+                      </tfoot>
+                      <tbody>
+
+                        <tr>
+                          <td>Tiger Nixon</td>
+                          <td>System Architect</td>
+                          <td>Edinburgh</td>
+                          <td>61</td>
+                          <td>2011/04/25</td>
+                          <td class="text-right">
+                            <a href="javascript:;" class="btn btn-link text-info btn-just-icon like"><i class="material-icons">favorite</i></a>
+                            <a href="javascript:;" class="btn btn-link text-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
+                            <a href="javascript:;" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Garrett Winters</td>
+                          <td>Accountant</td>
+                          <td>Tokyo</td>
+                          <td>63</td>
+                          <td>2011/07/25</td>
+                          <td class="text-right">
+                            <a href="javascript:;" class="btn btn-link text-info btn-just-icon like"><i class="material-icons">favorite</i></a>
+                            <a href="javascript:;" class="btn btn-link text-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
+                            <a href="javascript:;" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Ashton Cox</td>
+                          <td>Junior Technical Author</td>
+                          <td>San Francisco</td>
+                          <td>66</td>
+                          <td>2009/01/12</td>
+                          <td class="text-right">
+                            <a href="javascript:;" class="btn btn-link text-info btn-just-icon like"><i class="material-icons">favorite</i></a>
+                            <a href="javascript:;" class="btn btn-link text-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
+                            <a href="javascript:;" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Cedric Kelly</td>
+                          <td>Senior Javascript Developer</td>
+                          <td>Edinburgh</td>
+                          <td>22</td>
+                          <td>2012/03/29</td>
+                          <td class="text-right">
+                            <a href="javascript:;" class="btn btn-link text-info btn-just-icon like"><i class="material-icons">favorite</i></a>
+                            <a href="javascript:;" class="btn btn-link text-warning btn-just-icon edit"><i class="material-icons">dvr</i></a>
+                            <a href="javascript:;" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- end content-->
+              </div>
+              <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+          </div>
+          <!-- end row -->
+
+
+
+        </div>
+      </div>
+
+      <footer th:replace="fragments/footer"></footer>
+
+      <div class="modal fade" id="regModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">사용자 추가</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" method="" action="">
+                  <p class="description text-center">신규 사용자를 등록합니다!</p>
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="row">
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">face</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="이름" id="user_nm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="이메일" name="email" email="true" id="user_email">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="소속코드" id="corp_cd">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="소속이름" id="corp_nm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="조직코드" id="org_cd">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="조직이름" id="org_nm">
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-group md-form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="material-icons">email</i>
+                          </div>
+                        </div>
+                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
+                          <option disabled selected>직급</option>
+                          <option value="2">사원</option>
+                          <option value="3">주임</option>
+                          <option value="4">대리</option>
+                          <option value="5">팀장</option>
+                          <option value="6">과장</option>
+                          <option value="7">부장</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group md-form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="material-icons">email</i>
+                          </div>
+                        </div>
+                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
+                          <option disabled selected>권한그룹</option>
+                          <option value="1">담당자</option>
+                          <option value="2">중간관리자</option>
+                          <option value="3">최고관리자</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group md-form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">
+                            <i class="material-icons">email</i>
+                          </div>
+                        </div>
+                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
+                          <option disabled selected>권한레벨</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a href="javascript:insertUser();" class="btn btn-primary btn">등록하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <script>
+
+    function insertUser() {
+        $.ajax({
+            url : "registerUser.do",
+            type : "POST",
+            dataType : "json",
+            data : {
+                'user_id' : $('input#user_email').val(),
+                'user_email' : $('input#user_email').val(),
+                'user_nm' : $('input#user_nm').val(),
+                'user_pwd' : $('input#user_pwd').val(),
+                'user_rank' : $('#reg_rank').val(),
+                'corp_cd' : $('input#corp_cd').val(),
+                'corp_nm' : $('input#corp_nm').val(),
+                'org_cd' : $('input#org_cd').val(),
+                'org_nm' : $('input#org_nm').val(),
+                'level_gp' : $('#level_gp').val(),
+                'level_lv' : $('#level_lv').val(),
+            }
+        });
+        return swal({
+            title : '등록 완료!',
+            text : '초기 비밀번호는 이메일주소 입니다!'
+        }, function() {
+            location.reload();
+        });
+    }
+
+    $(document).ready(function() {
+
+      $('#datatables').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        }
+
+      });
+
+      var table = $('#datatables').DataTable();
+
+      // Edit record
+      table.on('click', '.edit', function() {
+        $tr = $(this).closest('tr');
+        if ($($tr).hasClass('child')) {
+          $tr = $tr.prev('.parent');
+        }
+
+        var data = table.row($tr).data();
+        alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+      });
+
+      // Delete a record
+      table.on('click', '.remove', function(e) {
+        $tr = $(this).closest('tr');
+        if ($($tr).hasClass('child')) {
+          $tr = $tr.prev('.parent');
+        }
+        table.row($tr).remove().draw();
+        e.preventDefault();
+      });
+
+      //Like record
+      table.on('click', '.like', function() {
+        alert('You clicked on Like button');
+      });
+
+
+    });
+  </script>
+</body>
+
+</html>

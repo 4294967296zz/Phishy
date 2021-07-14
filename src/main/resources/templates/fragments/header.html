@@ -1,0 +1,257 @@
+<!--
+=========================================================
+* Material Dashboard Dark Edition - v2.1.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/material-dashboard-dark
+* Copyright 2019 Creative Tim (http://www.creative-tim.com)
+
+* Coded by www.creative-tim.com
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon.png">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    Phishy
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- CSS Files -->
+  <link href="css/material-dashboard.css?v=2.1.0" rel="stylesheet" />
+  <link href="css/material-dashboard.min.css?v=2.1.0" rel="stylesheet" />
+  <!-- Phishy Custom CSS Files -->
+  <link href="css/phishy-custom.css" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="demo/demo.css" rel="stylesheet" />
+
+    <!--   Core JS Files   -->
+  <script src="js/core/jquery.min.js"></script>
+  <script src="js/core/popper.min.js"></script>
+  <script src="js/core/bootstrap-material-design.min.js"></script>
+  <script src="https://unpkg.com/default-passive-events"></script>
+  <script src="js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Plugin for the momentJs  -->
+  <script src="js/plugins/moment.min.js"></script>
+  <!--  Plugin for Sweet Alert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Forms Validations Plugin -->
+  <script src="js/plugins/jquery.validate.min.js"></script>
+  <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+  <script src="js/plugins/jquery.bootstrap-wizard.js"></script>
+  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+  <script src="js/plugins/bootstrap-selectpicker.js"></script>
+  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+  <script src="js/plugins/bootstrap-datetimepicker.min.js"></script>
+  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+  <script src="js/plugins/jquery.dataTables.min.js"></script>
+  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+  <script src="js/plugins/bootstrap-tagsinput.js"></script>
+  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+  <script src="js/plugins/jasny-bootstrap.min.js"></script>
+  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+  <script src="js/plugins/fullcalendar/fullcalendar.min.js"></script>
+  <script src="js/plugins/fullcalendar/daygrid.min.js"></script>
+  <script src="js/plugins/fullcalendar/timegrid.min.js"></script>
+  <script src="js/plugins/fullcalendar/list.min.js"></script>
+  <script src="js/plugins/fullcalendar/interaction.min.js"></script>
+    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+  <script src="js/plugins/jquery-jvectormap.js"></script>
+  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+  <script src="js/plugins/nouislider.min.js"></script>
+  <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+  <!-- Library for adding dinamically elements -->
+  <script src="js/plugins/arrive.min.js"></script>
+
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!--  Google Maps Plugin    -->
+<!--  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>-->
+  <!-- Chartist JS -->
+  <script src="js/plugins/chartist.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<!--  <script src="js/material-dashboard.js?v=2.1.0"></script>-->
+  <script src="js/material-dashboard.min.js"></script>
+  <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+  <script src="demo/demo.js"></script>
+
+</head>
+
+
+<body class="dark-edition">
+  <div class="wrapper ">
+    <div class="sidebar" data-color="azure" data-background-color="black" data-image="">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+      <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+          Phishy<br>이메일 모의훈련 시스템
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+
+        <ul class="nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">
+              <i class="material-icons">dashboard</i>
+              <p> 대시보드 </p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#pagesExamples">
+              <i class="material-icons">book</i>
+              <p> 훈련정보 설정
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="pagesExamples">
+              <ul class="nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="mailform">
+                    <span class="sidebar-mini"> 01 </span>
+                    <span class="sidebar-normal"> 메일 양식 </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/usergroup">
+                    <span class="sidebar-mini"> 02 </span>
+                    <span class="sidebar-normal"> 훈련 대상자그룹 </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/project">
+                    <span class="sidebar-mini"> 03 </span>
+                    <span class="sidebar-normal"> 훈련 프로젝트 </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#componentsExamples">
+              <i class="material-icons">email</i>
+              <p> 훈련 진행
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="componentsExamples">
+              <ul class="nav">
+<!--                <li class="nav-item ">-->
+<!--                  <a class="nav-link" data-toggle="collapse" href="#componentsCollapse">-->
+<!--                    <span class="sidebar-mini"> 01 </span>-->
+<!--                    <span class="sidebar-normal"> Multi Level Collapse-->
+<!--                      <b class="caret"></b>-->
+<!--                    </span>-->
+<!--                  </a>-->
+<!--                  <div class="collapse" id="componentsCollapse">-->
+<!--                    <ul class="nav">-->
+<!--                      <li class="nav-item ">-->
+<!--                        <a class="nav-link" href="#0">-->
+<!--                          <span class="sidebar-mini"> E </span>-->
+<!--                          <span class="sidebar-normal"> Example </span>-->
+<!--                        </a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </li>-->
+                <li class="nav-item ">
+                  <a class="nav-link" href="/status">
+                    <span class="sidebar-mini"> 01 </span>
+                    <span class="sidebar-normal"> 훈련 현황 </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#formsExamples">
+              <i class="material-icons">content_paste</i>
+              <p> 훈련 결과
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="formsExamples">
+              <ul class="nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="/result">
+                    <span class="sidebar-mini"> 01 </span>
+                    <span class="sidebar-normal"> 프로젝트별 결과 </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#tablesExamples">
+              <i class="material-icons">list</i>
+              <p> 훈련 보고서
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="tablesExamples">
+              <ul class="nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="/report">
+                    <span class="sidebar-mini"> 01 </span>
+                    <span class="sidebar-normal"> 결과보고서 </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" data-toggle="collapse" href="#mapsExamples">
+              <i class="material-icons">place</i>
+              <p> 기본 설정
+                <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse" id="mapsExamples">
+              <ul class="nav">
+                <li class="nav-item ">
+                  <a class="nav-link" href="/user">
+                    <span class="sidebar-mini"> 01 </span>
+                    <span class="sidebar-normal"> 사용자 </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/org">
+                    <span class="sidebar-mini"> 02 </span>
+                    <span class="sidebar-normal"> 조직 </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/sys_setting">
+                    <span class="sidebar-mini"> 03 </span>
+                    <span class="sidebar-normal"> 시스템 설정 </span>
+                  </a>
+                </li>
+                <li class="nav-item ">
+                  <a class="nav-link" href="/training_setting">
+                    <span class="sidebar-mini"> 04 </span>
+                    <span class="sidebar-normal"> 훈련 설정 </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </div>

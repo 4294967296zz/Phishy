@@ -1,0 +1,71 @@
+package phishy.model;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class PageRouter {
+
+    @GetMapping("/")
+    public String index() {
+        return "pages/dashboard";
+    }
+
+    @GetMapping("/dashboard")
+    public String dashboard() {
+        return "pages/dashboard";
+    }
+
+    @GetMapping("/mailform")
+    public String mailform() {
+        return "pages/mailform";
+    }
+
+    @GetMapping("/org")
+    public String org() {
+        return "pages/org";
+    }
+
+    @GetMapping("/project")
+    public String project() {
+        return "pages/project";
+    }
+
+    @GetMapping("/report")
+    public String report() {
+        return "pages/report";
+    }
+
+    @GetMapping("/status")
+    public String status() {
+        return "pages/status";
+    }
+
+    @GetMapping("/sys_setting")
+    public String sys_setting() {
+        return "pages/sys_setting";
+    }
+
+    @GetMapping("/training_setting")
+    public String training_setting() {
+        return "pages/training_setting";
+    }
+
+    @GetMapping("/usergroup")
+    public String usergroup() {
+        return "pages/usergroup";
+    }
+
+    @GetMapping("/result")
+    public String result() {
+        return "pages/result";
+    }
+
+    @GetMapping("/user")
+    public String user() {
+        return "pages/tables";
+    }
+
+
+
+}

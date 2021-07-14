@@ -1,0 +1,24 @@
+/*!
+
+ =========================================================
+ * Phishy - v1.0.0
+ =========================================================
+
+ * Copyright 2021 Jiho Kim
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
+
+
+.dt-action-btns {
+        float: right;
+    margin-top: -35px;
+}
+
+.modal .modal-dialog.modal-login {
+    margin-top: 15vh !important;
+    width: 100%;
+}

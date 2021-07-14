@@ -1,0 +1,73 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'war'
+}
+
+group 'jiho.marvelsystem'
+version '1.0'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+apply plugin: 'war'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // 추가
+    implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect') // 추가
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    compile 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+    testAnnotationProcessor('org.projectlombok:lombok')
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+     compile group: 'org.hibernate.ogm', name: 'hibernate-ogm-infinispan', version: '5.0.2.Final'
+    compile group: 'org.jboss.spec.javax.transaction', name: 'jboss-transaction-api_1.2_spec', version: '1.0.0.Final'
+    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile group: 'org.jboss.narayana.jta', name: 'narayana-jta', version: '5.3.5.Final'
+    compile group: 'org.jboss', name: 'jboss-transaction-spi', version: '7.5.0.Final'
+    compile group: 'javax.transaction', name: 'jta', version: '1.1'
+    compile group: 'org.hibernate.common', name: 'hibernate-commons-annotations', version: '5.0.1.Final'
+    compile group: 'com.vladmihalcea', name: 'hibernate-types-52', version: '1.0.0'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.16.8'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
+
+    compile('org.apache.poi:poi-ooxml:3.16') // .xlsx
+    compile('org.apache.poi:poi:3.16') // .xls
+
+    testCompile("junit:junit")
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+test {
+    useJUnitPlatform()
+}
