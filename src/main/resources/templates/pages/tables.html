@@ -452,7 +452,7 @@
 
     function insertUser() {
       $.ajax({
-          url : "registerUser",
+          url : "registerUser.do",
           type : "POST",
           dataType : "json",
           beforeSend : function(xhr) {
@@ -490,7 +490,7 @@
 
     function updateUser(uid) {
       $.ajax({
-          url : "updateUser",
+          url : "updateUser.do",
           type : "POST",
           dataType : "json",
           beforeSend : function(xhr) {
@@ -529,7 +529,7 @@
 
     function editUser(uid) {
         $.ajax({
-          url: "getUser",
+          url: "getUser.do",
           type: "POST",
           dataType: "json",
           beforeSend: function (xhr) {
@@ -559,7 +559,7 @@
 
     function deleteUser(uid) {
         $.ajax({
-          url : "deleteuser",
+          url : "deleteuser.do",
           type : "POST",
           dataType : "json",
           beforeSend: function (xhr) {
@@ -567,7 +567,7 @@
           },
           data: {'uid': uid},
           success: function () {
-            swal.fire('삭제가 완료되었습니다.');
+            location.reload();
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -590,7 +590,7 @@
         },
         ajax : {
           type : "POST",
-          url : "getUserDatatable",
+          url : "getUserDatatable.do",
           dataType : "JSON",
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);

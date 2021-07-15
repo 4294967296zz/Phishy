@@ -25,7 +25,7 @@ public class UserController {
 
     private UserService userService;
 
-    @PostMapping(value = "/registerUser")
+    @PostMapping(value = "/registerUser.do")
     public @ResponseBody Object register(
             @RequestParam("user_id") String user_id,
             @RequestParam("user_email") String user_email,
@@ -55,7 +55,7 @@ public class UserController {
         return list;
     }
 
-    @PostMapping(value = "/updateUser")
+    @PostMapping(value = "/updateUser.do")
     public @ResponseBody Object update(
             @RequestParam("uid") Long uid,
             @RequestParam("user_id") String user_id,
@@ -86,7 +86,7 @@ public class UserController {
         return list;
     }
 
-    @RequestMapping(value = "/excelUpload", method = RequestMethod.POST)
+    @RequestMapping(value = "/excelUpload.do", method = RequestMethod.POST)
     public @ResponseBody
     Object excelUploadAjax(MultipartHttpServletRequest request)  throws Exception{
         MultipartFile excelFile =request.getFile("excelFile");
@@ -129,7 +129,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/getUserDatatable", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUserDatatable.do", method = RequestMethod.POST)
     public @ResponseBody Object getDatatable(HttpServletRequest request,
                                              HttpServletResponse response) {
         Map<String, Object> mp = new HashMap<String, Object>();
@@ -138,7 +138,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/getUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/getUser.do", method = RequestMethod.POST)
     public @ResponseBody Object getUser(@RequestParam("uid") Long uid) {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("data", userService.getUser(uid));
@@ -146,7 +146,7 @@ public class UserController {
         return mp;
     }
 
-    @RequestMapping(value = "/deleteuser", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteuser.do", method = RequestMethod.POST)
     public String deleteuser(@RequestParam("uid") Long uid) {
         userService.deleteUser(uid);
         return "redirect:/user";
