@@ -309,7 +309,7 @@
                       <div class="col-sm-12">
                         <div class="row">
 
-                          <div class="col-md-6">
+                          <div class="col-md-8">
                             <div class="form-group md-form-group">
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -322,7 +322,23 @@
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-4">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
+                                  <option disabled selected>직급</option>
+                                  <option value="2">사원</option>
+                                  <option value="3">주임</option>
+                                  <option value="4">대리</option>
+                                  <option value="5">팀장</option>
+                                  <option value="6">과장</option>
+                                  <option value="7">부장</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
                             <div class="form-group md-form-group">
                               <div class="input-group">
                                 <div class="input-group-prepend">
@@ -387,73 +403,42 @@
                             </div>
                           </div>
 
-
-                        </div>
-                      </div>
-                    </div>
-
-
-
-
-
-                    <div class="form-group md-form-group">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="material-icons">email</i>
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
+                                  <option disabled selected>권한그룹</option>
+                                  <option value="1">담당자</option>
+                                  <option value="2">중간관리자</option>
+                                  <option value="3">최고관리자</option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
-                          <option disabled selected>직급</option>
-                          <option value="2">사원</option>
-                          <option value="3">주임</option>
-                          <option value="4">대리</option>
-                          <option value="5">팀장</option>
-                          <option value="6">과장</option>
-                          <option value="7">부장</option>
-                        </select>
-                      </div>
-                    </div>
 
-                    <div class="form-group md-form-group">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="material-icons">email</i>
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
+                                  <option disabled selected>권한레벨</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
+
                         </div>
-                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
-                          <option disabled selected>권한그룹</option>
-                          <option value="1">담당자</option>
-                          <option value="2">중간관리자</option>
-                          <option value="3">최고관리자</option>
-                        </select>
                       </div>
                     </div>
-
-                    <div class="form-group md-form-group">
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text">
-                            <i class="material-icons">email</i>
-                          </div>
-                        </div>
-                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
-                          <option disabled selected>권한레벨</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                        </select>
-                      </div>
-                    </div>
-
 
 
                   </div>
                 </form>
               </div>
               <div class="modal-footer justify-content-center">
-                <a href="javascript:insertUser();" class="btn btn-primary btn">등록하기</a>
+                <a href="javascript:insertUser();" class="btn btn-success btn">등록하기</a>
               </div>
             </div>
           </div>
@@ -461,6 +446,42 @@
       </div>
 
   <script>
+
+    function checkFileType(filePath) {
+        var fileFormat = filePath.split(".");
+        if (fileFormat.indexOf("xlsx") > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function check() {
+        var file = $("#excelFile").val();
+        if (file == "" || file == null) {
+            alert("파일을 선택해주세요.");
+            return false;
+        } else if (!checkFileType(file)) {
+            alert("엑셀 파일만 업로드 가능합니다.");
+            return false;
+        }
+        if (confirm("업로드 하시겠습니까?")) {
+            var options = {
+                success : function(data) {
+                    console.log(data);
+                    swal({
+                        'title' : '완료!',
+                        'text'  : '유저 일괄등록을 완료하였습니다. \n',
+                        'icon'  : 'success'
+                    }, function() {
+                        location.reload();
+                    });
+                },
+                type : "POST"
+            };
+            $("#excelUploadForm").ajaxSubmit(options);
+        }
+    }
 
     function insertUser() {
         $.ajax({
@@ -471,8 +492,8 @@
                 'user_id' : $('input#user_email').val(),
                 'user_email' : $('input#user_email').val(),
                 'user_nm' : $('input#user_nm').val(),
-                'user_pwd' : $('input#user_pwd').val(),
-                'user_rank' : $('#reg_rank').val(),
+                'user_pwd' : $('input#user_email').val(),
+                'user_rank' : $('#user_rank').val(),
                 'corp_cd' : $('input#corp_cd').val(),
                 'corp_nm' : $('input#corp_nm').val(),
                 'org_cd' : $('input#org_cd').val(),
