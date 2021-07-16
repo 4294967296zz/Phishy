@@ -180,12 +180,12 @@
                   </div>
                   <h4 class="card-title">사용자 리스트</h4>
                   <div class="dropdown dt-action-btns">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Actions
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
-                      <a class="dropdown-item" href="#" id="excelUpload">일괄등록</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                     </div>
                   </div>
                 </div>
@@ -285,7 +285,7 @@
 
                           <div class="col-md-4">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group rank">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
                                   <option disabled selected>직급</option>
                                   <option value="사원">사원</option>
@@ -366,7 +366,7 @@
 
                           <div class="col-md-6">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group level_gp">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
                                   <option disabled selected>권한그룹</option>
                                   <option value="담당자">담당자</option>
@@ -379,7 +379,7 @@
 
                           <div class="col-md-6">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group level_lv">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
                                   <option disabled selected>권한레벨</option>
                                   <option value="1">1</option>
@@ -406,6 +406,55 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="excelModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">사용자 일괄 등록</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" method="" action="">
+                  <p class="description text-center">엑셀 파일을 업로드해주세요</p>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="fileinput fileinput-new text-center mr-5 col-sm-12" data-provides="fileinput">
+                           <div class="fileinput-new thumbnail img-raised">
+                            <img src="/img/image_placeholder.jpg" alt="...">
+                           </div>
+                           <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                           <div>
+                            <span class="btn btn-raised btn-round btn-primary btn-simple btn-file">
+                               <span class="fileinput-new">파일 선택하기</span>
+                               <span class="fileinput-exists">파일 변경하기</span>
+                               <input type="file" name="..." />
+                            </span>
+                                <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                <i class="fa fa-times"></i> 파일 삭제</a>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a href="#" class="btn btn-success btn" id="upload_btn">등록하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
   <script>
 
@@ -546,7 +595,15 @@
             $('#level_gp').val(datas.level_gp);
             $('#level_lv').val(datas.level_lv);
             $('#reg_btn').attr('data-uid',datas.uid);
-            console.log(result);
+
+            $('.input-group.rank button').attr('title',datas.user_rank);
+            $('.input-group.rank .filter-option-inner-inner').html(datas.user_rank);
+
+            $('.input-group.level_gp button').attr('title',datas.level_gp);
+            $('.input-group.level_gp .filter-option-inner-inner').html(datas.level_gp);
+
+            $('.input-group.level_lv button').attr('title',datas.level_lv);
+            $('.input-group.level_lv .filter-option-inner-inner').html(datas.level_lv);
 
           },
           error: function (thrownError) {
