@@ -180,12 +180,12 @@
                   </div>
                   <h4 class="card-title">사용자 리스트</h4>
                   <div class="dropdown dt-action-btns">
-                    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       Actions
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
-                      <a class="dropdown-item" href="#" id="excelUpload">일괄등록</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                     </div>
                   </div>
                 </div>
@@ -285,7 +285,7 @@
 
                           <div class="col-md-4">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group rank">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
                                   <option disabled selected>직급</option>
                                   <option value="사원">사원</option>
@@ -366,9 +366,10 @@
 
                           <div class="col-md-6">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group level_gp">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
                                   <option disabled selected>권한그룹</option>
+                                  <option value="훈련자">훈련자</option>
                                   <option value="담당자">담당자</option>
                                   <option value="중간관리자">중간관리자</option>
                                   <option value="최고관리자">최고관리자</option>
@@ -379,7 +380,7 @@
 
                           <div class="col-md-6">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
+                              <div class="input-group level_lv">
                                 <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
                                   <option disabled selected>권한레벨</option>
                                   <option value="1">1</option>
@@ -407,46 +408,130 @@
         </div>
       </div>
 
+      <div class="modal fade" id="excelModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">사용자 일괄 등록</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action= "/excelUpload.do">
+                  <p class="description text-center">엑셀 파일을 업로드해주세요</p>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="fileinput fileinput-new text-center mr-5 col-sm-12" data-provides="fileinput">
+                           <div>
+                            <span class="btn btn-raised btn-round btn-primary btn-simple btn-file">
+                               <span class="fileinput-new">파일 선택하기</span>
+                               <span class="fileinput-exists">파일 변경하기</span>
+                               <input type="file" id="excelFile" name="excelFile" />
+                            </span>
+                                <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                <i class="fa fa-times"></i> 파일 삭제</a>
+                           </div>
+                           <div class="fileinput-new thumbnail img-raised">
+                            <img src="/img/image_placeholder.jpg" alt="...">
+                           </div>
+                           <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                        </div>
+                      </div>
+                    </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+
+              <div class="modal-footer justify-content-center">
+                <a href="javascript:check();" class="btn btn-success btn" id="upload_btn">등록하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
+
   <script>
 
-    // function checkFileType(filePath) {
-    //     var fileFormat = filePath.split(".");
-    //     if (fileFormat.indexOf("xlsx") > -1) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-    //
-    // function check() {
-    //     var file = $("#excelFile").val();
-    //     if (file == "" || file == null) {
-    //         alert("파일을 선택해주세요.");
-    //         return false;
-    //     } else if (!checkFileType(file)) {
-    //         alert("엑셀 파일만 업로드 가능합니다.");
-    //         return false;
-    //     }
-    //     if (confirm("업로드 하시겠습니까?")) {
-    //         var options = {
-    //             success : function(data) {
-    //                 console.log(data);
-    //                 swal({
-    //                     'title' : '완료!',
-    //                     'text'  : '유저 일괄등록을 완료하였습니다. \n',
-    //                     'icon'  : 'success'
-    //                 }, function() {
-    //                     location.reload();
-    //                 });
-    //             },
-    //             type : "POST"
-    //         };
-    //         $("#excelUploadForm").ajaxSubmit(options);
-    //     }
-    // }
     var token = $("input[name='_csrf']").val();
     var header = "X-CSRF-TOKEN";
 
+    function checkFileType(filePath) {
+        var fileFormat = filePath.split(".");
+        if (fileFormat.indexOf("xlsx") > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function check() {
+        var file = $("#excelFile").val();
+        if (file == "" || file == null) {
+          swal.fire({
+            'text'  : '파일을 선택해주세요!',
+          });
+            return false;
+        } else if (!checkFileType(file)) {
+            swal.fire({
+            'text'  : '엑셀파일만 업로드 가능합니다.',
+          });
+            return false;
+        }
+
+        swal.fire({
+          'text'  : '업로드 하시겠습니까?',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '네!',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var options = {
+                success : function(data) {
+                    console.log(data);
+                    swal.fire({
+                        'title' : '완료!',
+                        'text'  : '유저 일괄등록을 완료하였습니다. 권한레벨은 기본 1단계 입니다.',
+                        'icon'  : 'success'
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        location.reload();
+                      }
+                    });
+                },
+                type : "POST"
+            };
+            $("#excelUploadForm").ajaxSubmit(options);
+          }
+        });
+
+        // if (confirm("업로드 하시겠습니까?")) {
+        //     var options = {
+        //         success : function(data) {
+        //             console.log(data);
+        //             swal.fire({
+        //                 'title' : '완료!',
+        //                 'text'  : '유저 일괄등록을 완료하였습니다. 권한레벨은 기본 1단계 입니다.',
+        //                 'icon'  : 'success'
+        //             }).then((result) => {
+        //               if (result.isConfirmed) {
+        //                 location.reload();
+        //               }
+        //             });
+        //         },
+        //         type : "POST"
+        //     };
+        //     $("#excelUploadForm").ajaxSubmit(options);
+        // }
+    }
 
     function insertUser() {
       $.ajax({
@@ -546,7 +631,15 @@
             $('#level_gp').val(datas.level_gp);
             $('#level_lv').val(datas.level_lv);
             $('#reg_btn').attr('data-uid',datas.uid);
-            console.log(result);
+
+            $('.input-group.rank button').attr('title',datas.user_rank);
+            $('.input-group.rank .filter-option-inner-inner').html(datas.user_rank);
+
+            $('.input-group.level_gp button').attr('title',datas.level_gp);
+            $('.input-group.level_gp .filter-option-inner-inner').html(datas.level_gp);
+
+            $('.input-group.level_lv button').attr('title',datas.level_lv);
+            $('.input-group.level_lv .filter-option-inner-inner').html(datas.level_lv);
 
           },
           error: function (thrownError) {
@@ -575,13 +668,43 @@
 
     $(document).ready(function() {
 
+      // Korean
+      var lang_kor = {
+          "decimal" : "",
+          "emptyTable" : "데이터가 없습니다.",
+          "info" : "_START_ - _END_ (총 _TOTAL_ 명)",
+          "infoEmpty" : "0명",
+          "infoFiltered" : "(전체 _MAX_ 명 중 검색결과)",
+          "infoPostFix" : "",
+          "thousands" : ",",
+          "lengthMenu" : "_MENU_ 개씩 보기",
+          "loadingRecords" : "로딩중...",
+          "processing" : "처리중...",
+          "search" : "검색 : ",
+          "zeroRecords" : "검색된 데이터가 없습니다.",
+          "paginate" : {
+              "first" : "첫 페이지",
+              "last" : "마지막 페이지",
+              "next" : "다음",
+              "previous" : "이전"
+          },
+          "aria" : {
+              "sortAscending" : " :  오름차순 정렬",
+              "sortDescending" : " :  내림차순 정렬"
+          }
+      };
+
       $('#UserDatable').DataTable({
+
+
+
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
           [10, 25, 50, "All"]
         ],
         responsive: true,
+        language : lang_kor,
         language: {
           search: "_INPUT_",
           searchPlaceholder: "Search records",

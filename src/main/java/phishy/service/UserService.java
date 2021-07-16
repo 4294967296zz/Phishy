@@ -47,17 +47,17 @@ public class UserService {
 
         for(int idx = 0; idx < datas.size(); idx++) {
             UserEntity userEntity = userDto.toEntity();
-            userEntity.setUser_id(datas.get(idx).get("user_id"));
-            userEntity.setUser_pwd(passwordEncoder.encode(datas.get(idx).get("user_pwd")));
+            userEntity.setUser_id(datas.get(idx).get("user_email"));
+            userEntity.setUser_pwd(passwordEncoder.encode(datas.get(idx).get("user_email")));
             userEntity.setUser_email(datas.get(idx).get("user_email"));
-            userEntity.setUser_rank(datas.get(idx).get("user_nm"));
-            userEntity.setUser_nm(datas.get(idx).get("user_rank"));
+            userEntity.setUser_rank(datas.get(idx).get("user_rank"));
+            userEntity.setUser_nm(datas.get(idx).get("user_nm"));
             userEntity.setCorp_cd(datas.get(idx).get("corp_cd"));
             userEntity.setCorp_nm(datas.get(idx).get("corp_nm"));
             userEntity.setOrg_cd(datas.get(idx).get("org_cd"));
             userEntity.setOrg_nm(datas.get(idx).get("org_nm"));
             userEntity.setLevel_gp(datas.get(idx).get("level_gp"));
-            userEntity.setLevel_lv(datas.get(idx).get("level_lv"));
+            userEntity.setLevel_lv("1");
 
             userRepository.save(userEntity).getUid();
         }

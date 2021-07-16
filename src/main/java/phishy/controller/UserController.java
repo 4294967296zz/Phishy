@@ -104,8 +104,8 @@ public class UserController {
 
         ExcelReadOption excelReadOption = new ExcelReadOption();
         excelReadOption.setFilePath(destFile.getAbsolutePath());
-        excelReadOption.setOutputColumns("B","C","D","E","F","G","H","I");
-        excelReadOption.setStartRow(2);
+        excelReadOption.setOutputColumns("A","B","C","D","E","F","G","H");
+        excelReadOption.setStartRow(3);
 
         List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
         List<Map<String, String>> totallist = new ArrayList<Map<String, String>>();
@@ -113,14 +113,15 @@ public class UserController {
 
         for(int rpt = 0; rpt < excelContent.size(); rpt++) {
             map = new HashMap<String, String>();
-            map.put("email",excelContent.get(rpt).get("B"));
-            map.put("name",excelContent.get(rpt).get("C"));
-            map.put("corp",excelContent.get(rpt).get("D"));
-            map.put("dept",excelContent.get(rpt).get("E"));
-            map.put("ranks",excelContent.get(rpt).get("F"));
-            map.put("codes",excelContent.get(rpt).get("G"));
-            map.put("status",excelContent.get(rpt).get("H"));
-            map.put("i_group",excelContent.get(rpt).get("I"));
+            map.put("user_nm",excelContent.get(rpt).get("A"));
+            map.put("corp_nm",excelContent.get(rpt).get("B"));
+            map.put("corp_cd",excelContent.get(rpt).get("C"));
+            map.put("org_nm",excelContent.get(rpt).get("D"));
+            map.put("org_cd",excelContent.get(rpt).get("E"));
+            map.put("user_rank",excelContent.get(rpt).get("F"));
+            map.put("user_email",excelContent.get(rpt).get("G"));
+            map.put("level_gp",excelContent.get(rpt).get("H"));
+
             totallist.add(map);
         }
         userService.insertMultiUsers(totallist);

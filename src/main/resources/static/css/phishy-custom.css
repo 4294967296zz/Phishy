@@ -22,3 +22,9 @@
     margin-top: 15vh !important;
     width: 100%;
 }
+
+/*사용자 일괄등록 모달 파일 명*/
+.fileinput .thumbnail {
+    color: white;
+    margin-top: 15px;
+}
