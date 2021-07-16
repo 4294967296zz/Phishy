@@ -513,24 +513,6 @@
           }
         });
 
-        // if (confirm("업로드 하시겠습니까?")) {
-        //     var options = {
-        //         success : function(data) {
-        //             console.log(data);
-        //             swal.fire({
-        //                 'title' : '완료!',
-        //                 'text'  : '유저 일괄등록을 완료하였습니다. 권한레벨은 기본 1단계 입니다.',
-        //                 'icon'  : 'success'
-        //             }).then((result) => {
-        //               if (result.isConfirmed) {
-        //                 location.reload();
-        //               }
-        //             });
-        //         },
-        //         type : "POST"
-        //     };
-        //     $("#excelUploadForm").ajaxSubmit(options);
-        // }
     }
 
     function insertUser() {
@@ -668,32 +650,6 @@
 
     $(document).ready(function() {
 
-      // Korean
-      var lang_kor = {
-          "decimal" : "",
-          "emptyTable" : "데이터가 없습니다.",
-          "info" : "_START_ - _END_ (총 _TOTAL_ 명)",
-          "infoEmpty" : "0명",
-          "infoFiltered" : "(전체 _MAX_ 명 중 검색결과)",
-          "infoPostFix" : "",
-          "thousands" : ",",
-          "lengthMenu" : "_MENU_ 개씩 보기",
-          "loadingRecords" : "로딩중...",
-          "processing" : "처리중...",
-          "search" : "검색 : ",
-          "zeroRecords" : "검색된 데이터가 없습니다.",
-          "paginate" : {
-              "first" : "첫 페이지",
-              "last" : "마지막 페이지",
-              "next" : "다음",
-              "previous" : "이전"
-          },
-          "aria" : {
-              "sortAscending" : " :  오름차순 정렬",
-              "sortDescending" : " :  내림차순 정렬"
-          }
-      };
-
       $('#UserDatable').DataTable({
 
         "pagingType": "full_numbers",
@@ -702,7 +658,6 @@
           [10, 25, 50, "All"]
         ],
         responsive: true,
-        language : lang_kor,
         language: {
           search: "_INPUT_",
           searchPlaceholder: "Search records",

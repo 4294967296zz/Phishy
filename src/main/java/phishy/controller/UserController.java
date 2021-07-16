@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import phishy.dto.UserDto;
 import phishy.service.UserService;
 import phishy.util.ExcelRead;
 import phishy.util.ExcelReadOption;
@@ -57,7 +56,7 @@ public class UserController {
 
     @PostMapping(value = "/updateUser.do")
     public @ResponseBody Object update(
-            @RequestParam("uid") Long uid,
+            @RequestParam("u_id") Long u_id,
             @RequestParam("user_id") String user_id,
             @RequestParam("user_email") String user_email,
             @RequestParam("user_nm") String user_nm,
@@ -81,7 +80,7 @@ public class UserController {
         list.put("org_nm",org_nm);
         list.put("level_gp",level_gp);
         list.put("level_lv",level_lv);
-        userService.updateUser(uid, list);
+        userService.updateUser(u_id, list);
 
         return list;
     }
@@ -140,16 +139,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/getUser.do", method = RequestMethod.POST)
-    public @ResponseBody Object getUser(@RequestParam("uid") Long uid) {
+    public @ResponseBody Object getUser(@RequestParam("u_id") Long u_id) {
         Map<String, Object> mp = new HashMap<String, Object>();
-        mp.put("data", userService.getUser(uid));
+        mp.put("data", userService.getUser(u_id));
         Object result = mp;
         return mp;
     }
 
     @RequestMapping(value = "/deleteuser.do", method = RequestMethod.POST)
-    public String deleteuser(@RequestParam("uid") Long uid) {
-        userService.deleteUser(uid);
+    public String deleteuser(@RequestParam("u_id") Long u_id) {
+        userService.deleteUser(u_id);
         return "redirect:/user";
     }
 

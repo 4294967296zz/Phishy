@@ -14,7 +14,7 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
+    private Long u_id;
 
     public UserEntity() {}
 
@@ -52,7 +52,7 @@ public class UserEntity {
     private String level_lv;
 
     @Builder
-    public UserEntity(Long uid, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String org_cd, String org_nm, String level_gp, String level_lv) {
+    public UserEntity(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String org_cd, String org_nm, String level_gp, String level_lv) {
         this.user_id    = user_id;
         this.user_nm    = user_nm;
         this.user_pwd   = user_pwd;

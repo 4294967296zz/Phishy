@@ -8,6 +8,12 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
+<!--            <div class="navbar-minimize">-->
+<!--              <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">-->
+<!--                <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>-->
+<!--                <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>-->
+<!--              <div class="ripple-container"></div></button>-->
+<!--            </div>-->
             <a class="navbar-brand" href="javascript:void(0)">조직</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
@@ -20,7 +26,7 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">dashboard</i>
+                  <i class="material-icons">dashboard</i>f
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
@@ -58,321 +64,571 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6 col-md-12">
+
+            <div class="col-md-3">
               <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Employees Stats</h4>
-                  <p class="card-category">New employees on 15th September, 2016</p>
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">조직 트리</h4>
                 </div>
-                <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-warning">
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Salary</th>
-                      <th>Country</th>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Niger</td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Minerva Hooper</td>
-                        <td>$23,789</td>
-                        <td>Curaçao</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Sage Rodriguez</td>
-                        <td>$56,142</td>
-                        <td>Netherlands</td>
-                      </tr>
-                      <tr>
-                        <td>4</td>
-                        <td>Philip Chaney</td>
-                        <td>$38,735</td>
-                        <td>Korea, South</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+
+                  <!-- 트리메뉴-->
+                  <!-- 마지막 리스트부분에 class="last",class="end" 넣어주세요 -->
+                  <div class="tree_box">
+                      <div class="con">
+                          <ul id="tree_menu" class="tree_menu">
+                              <li class="depth_1">
+                                  <strong id="depth_1_strong"></strong>
+                                  <ul class="depth_2" >
+                                      <li>
+                                          <a href="#none"><em>폴더</em> 관리부</a>
+                                          <ul class="depth_3">
+                                              <li><a href="#none" value="영업지원팀">영업지원팀</a></li>
+                                              <li class="end"><a href="#none" value="관리팀">관리팀</a></li>
+                                          </ul>
+                                      </li>
+                                      <li class="depth_2">
+                                          <a href="#none" value=""><em>폴더</em> 영업부</a>
+                                          <ul class="depth_3">
+                                              <li><a href="#none" value="영업1팀">영업1팀</a></li>
+                                              <li><a href="#none" value="영업2팀">영업2팀</a></li>
+                                              <li class="end"><a href="#none" value="영업3팀">영업3팀</a></li>
+                                          </ul>
+                                      </li>
+                                      <li class="last">
+                                          <a href="#none" value=""><em>폴더</em> 기술부</a>
+                                          <ul class="depth_3">
+                                              <li><a href="#none" value="엔지니어팀">엔지니어팀</a></li>
+                                              <li><a href="#none" value="개발1팀">개발1팀</a></li>
+                                              <li class="end"><a href="#none" value="개발2팀">개발2팀</a></li>
+                                          </ul>
+                                      </li>
+                                  </ul>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+                  <!--//트리메뉴-->
+
                 </div>
+                <!-- end content-->
               </div>
+              <!--  end card  -->
             </div>
-            <div class="col-lg-6 col-md-12">
+
+            <div class="col-md-9">
               <div class="card">
-                <div class="card-header card-header-tabs card-header-warning">
-                  <div class="nav-tabs-navigation">
-                    <div class="nav-tabs-wrapper">
-                      <span class="nav-tabs-title">Tasks:</span>
-                      <ul class="nav nav-tabs" data-tabs="tabs">
-                        <li class="nav-item">
-                          <a class="nav-link active" href="#profile" data-toggle="tab">
-                            <i class="material-icons">bug_report</i> Bugs
-                            <div class="ripple-container"></div>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#messages" data-toggle="tab">
-                            <i class="material-icons">code</i> Website
-                            <div class="ripple-container"></div>
-                          </a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#settings" data-toggle="tab">
-                            <i class="material-icons">cloud</i> Server
-                            <div class="ripple-container"></div>
-                          </a>
-                        </li>
-                      </ul>
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">assignment</i>
+                  </div>
+                  <h4 class="card-title">조직리스트</h4>
+                  <div class="dropdown dt-action-btns">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Actions
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                     </div>
                   </div>
                 </div>
                 <div class="card-body">
-                  <div class="tab-content">
-                    <div class="tab-pane active" id="profile">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Create 4 Invisible User Experiences you Never Knew About</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="tab-pane" id="messages">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="tab-pane" id="settings">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-white btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                  <div class="toolbar">
+                    <!--        Here you can write extra buttons/actions for the toolbar              -->
+                  </div>
+                  <div class="material-datatables">
+                    <table id="OrgDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                      <thead>
+                        <tr>
+                          <th>소속이름</th>
+                          <th>소속코드</th>
+                          <th>부서이름</th>
+                          <th>부서코드</th>
+                          <th>상위코드</th>
+                          <th class="disabled-sorting text-right">Actions</th>
+                        </tr>
+                      </thead>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+                <!-- end content-->
+              </div>
+              <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+          </div>
+          <!-- end row -->
+
+
+
+        </div>
+      </div>
+
+      <footer th:replace="fragments/footer"></footer>
+
+      <div class="modal fade" id="regModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">조직 추가</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" method="" action="">
+                  <p class="description text-center">신규 조직을 등록합니다!</p>
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="row">
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="소속코드" id="corp_cd">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="소속이름" id="corp_nm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="조직코드" id="dept_cd">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <div class="input-group-prepend">
+                                  <div class="input-group-text">
+                                    <i class="material-icons">email</i>
+                                  </div>
+                                </div>
+                                <input type="text" class="form-control" placeholder="조직이름" id="dept_nm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group upper_cd">
+                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="upper_cd">
+                                  <option disabled selected>상위조직</option>
+                                  <option value="0">최상위조직</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a href="#" class="btn btn-success btn" id="reg_btn">등록하기</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <footer th:replace="fragments/footer"></footer>
+
+      <div class="modal fade" id="excelModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">조직 일괄 등록</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action= "/excelUpload.do">
+                  <p class="description text-center">엑셀 파일을 업로드해주세요</p>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="fileinput fileinput-new text-center mr-5 col-sm-12" data-provides="fileinput">
+                           <div>
+                            <span class="btn btn-raised btn-round btn-primary btn-simple btn-file">
+                               <span class="fileinput-new">파일 선택하기</span>
+                               <span class="fileinput-exists">파일 변경하기</span>
+                               <input type="file" id="excelFile" name="excelFile" />
+                            </span>
+                                <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput">
+                                <i class="fa fa-times"></i> 파일 삭제</a>
+                           </div>
+                           <div class="fileinput-new thumbnail img-raised">
+                            <img src="/img/image_placeholder.jpg" alt="...">
+                           </div>
+                           <div class="fileinput-preview fileinput-exists thumbnail img-raised"></div>
+                        </div>
+                      </div>
+                    </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+
+              <div class="modal-footer justify-content-center">
+                <a href="javascript:check();" class="btn btn-success btn" id="upload_btn">등록하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
 
   <script>
 
+    var token = $("input[name='_csrf']").val();
+    var header = "X-CSRF-TOKEN";
+
+    function checkFileType(filePath) {
+        var fileFormat = filePath.split(".");
+        if (fileFormat.indexOf("xlsx") > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function check() {
+        var file = $("#excelFile").val();
+        if (file == "" || file == null) {
+          swal.fire({
+            'text'  : '파일을 선택해주세요!',
+          });
+            return false;
+        } else if (!checkFileType(file)) {
+            swal.fire({
+            'text'  : '엑셀파일만 업로드 가능합니다.',
+          });
+            return false;
+        }
+
+        swal.fire({
+          'text'  : '업로드 하시겠습니까?',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '네!',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            var options = {
+                success : function(data) {
+                    console.log(data);
+                    swal.fire({
+                        'title' : '완료!',
+                        'text'  : '조직 일괄등록을 완료하였습니다.',
+                        'icon'  : 'success'
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        location.reload();
+                      }
+                    });
+                },
+                type : "POST"
+            };
+            $("#excelUploadForm").ajaxSubmit(options);
+          }
+        });
+    }
+
+    function insertOrg() {
+      $.ajax({
+          url : "registerORg.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          data : {
+            'corp_cd' : $('input#corp_cd').val(),
+            'corp_nm' : $('input#corp_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
+            'upper_cd' : $('#upper_cd').val(),
+          },
+          success : function(result) {
+            console.log(result);
+            Swal.fire({
+              title : '등록 완료!',
+              text : '초기 비밀번호는 이메일주소 입니다!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+    function updateOrg(o_id) {
+      $.ajax({
+          url : "updateOrg.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          data : {
+            'o_id' : o_id,
+            'corp_cd' : $('input#corp_cd').val(),
+            'corp_nm' : $('input#corp_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
+            'upper_cd' : $('#upper_cd').val(),
+          },
+          success : function(result) {
+            console.log(result);
+            Swal.fire({
+              title : '수정 완료!',
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+    function editOrg(o_id) {
+        $.ajax({
+          url: "getOrg.do",
+          type: "POST",
+          dataType: "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'o_id': o_id},
+          success: function (result) {
+            var datas = result.data;
+            $('input#corp_cd').val(datas.corp_cd);
+            $('input#corp_nm').val(datas.corp_nm);
+            $('input#dept_cd').val(datas.dept_cd);
+            $('input#dept_nm').val(datas.dept_nm);
+            $('#upper_cd').val(datas.upper_cd);
+            $('#reg_btn').attr('data-o_id',datas.o_id);
+
+            $('.input-group.upper_cd button').attr('title',datas.upper_cd);
+            $('.input-group.upper_cd .filter-option-inner-inner').html(datas.upper_cd);
+
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
+    function deleteOrg(o_id) {
+        $.ajax({
+          url : "deleteorg.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'o_id': o_id},
+          success: function () {
+            location.reload();
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
     $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
 
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
+      $('#OrgDatatable').DataTable({
 
-        $full_page = $('.full-page');
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        },
+        ajax : {
+          type : "POST",
+          url : "getUserDatatable.do",
+          dataType : "JSON",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+        },
+        columns : [
+          {data : "user_nm"},
+          {data : "user_email"},
+          {data : "user_rank"},
+          {data : "corp_nm"},
+          {data : "org_nm"},
+          {
+              data : "uid",
+              defaultContent:"",
+              'targets': 0,
+              'searchable': false,
+              'className': 'text-right',
+              "render": function (data, type, row) {
+                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-uid="'+data+'"><i class="material-icons">dvr</i></a>';
+                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-uid="'+data+'"><i class="material-icons">close</i></a>';
+                return edit_btn+remove_btn;
 
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+              }
+            },
+            //     {
+            //   data : "uid",
+            //   defaultContent:"",
+            //   'targets': 0,
+            //   'searchable': false,
+            //   'className': 'dt-2',
+            //   "render": function (data, type, row) {
+            //       return '<a href="#" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>';
+            //   }
+            // },
+      ],
 
       });
+
+      var table = $('#OrgDatatable').DataTable();
+
+      // Edit record
+      table.on('click', '.edit', function() {
+        // alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
+
+        $('a[data-target="#regModal"]').click();
+        $('a[data-toggle="modal"]').click();
+        var uid = $(this).attr('data-uid');
+        console.log(uid);
+        editUser(uid);
+
+      });
+
+
+      // Delete a record
+      table.on('click', '.remove', function(e) {
+        // $tr = $(this).closest('tr');
+        // if ($($tr).hasClass('child')) {
+        //   $tr = $tr.prev('.parent');
+        // }
+        // table.row($tr).remove().draw();
+        // e.preventDefault();
+
+        var uid = $(this).data('uid');
+
+        Swal.fire({
+          title: '조직을 삭제하시겠습니까?',
+          text: "삭제한 조직은 되돌릴 수 없습니다.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '네!',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+              deleteUser(uid);
+          }
+        });
+
+      });
+
+      // //Like record
+      // table.on('click', '.like', function() {
+      //   alert('You clicked on Like button');
+      // });
+
+      $('#reg_btn').click(function(e) {
+        e.preventDefault();
+        var uid = $(this).data('uid');
+        if(uid) {
+          updateUser(uid);
+        } else {
+          insertUser();
+        }
+      });
+
+      // 트리메뉴
+      function tree_menu() {
+        $('ul.depth_2 >li > a').click(function(e) {
+          var temp_el = $(this).next('ul');
+          var depth_3 = $('.depth_3');
+
+          depth_3.slideUp(300);
+          depth_3.parent().find('em').removeClass('on');
+
+          if (temp_el.is(':hidden')) {
+            temp_el.slideDown(300);
+            $(this).find('em').addClass('on').html('하위폴더 열림');
+          } else {
+            temp_el.slideUp(300);
+            $(this).find('em').removeClass('on').html('하위폴더 닫힘');
+          }
+          return false;
+        });
+      }
+
+      if ($('#tree_menu').is(':visible')) {
+          tree_menu();
+      }
+
     });
   </script>
-
 </body>
 
 </html>

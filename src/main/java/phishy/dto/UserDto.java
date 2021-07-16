@@ -11,7 +11,7 @@ import phishy.domain.Entity.UserEntity;
 @NoArgsConstructor
 public class UserDto {
 
-    private Long uid;
+    private Long u_id;
     private String user_id;
     private String user_nm;
     private String user_pwd;
@@ -26,7 +26,7 @@ public class UserDto {
 
     public UserEntity toEntity() {
         UserEntity userEntity = UserEntity.builder()
-            .uid(uid)
+            .u_id(u_id)
             .user_id(user_id)
             .user_nm(user_nm)
             .user_pwd(user_pwd)
@@ -43,8 +43,8 @@ public class UserDto {
     }
 
     @Builder
-    public UserDto(Long uid, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String org_cd, String org_nm, String level_gp, String level_lv) {
-        this.uid        = uid;
+    public UserDto(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String org_cd, String org_nm, String level_gp, String level_lv) {
+        this.u_id       = u_id;
         this.user_id    = user_id;
         this.user_nm    = user_nm;
         this.user_pwd   = user_pwd;

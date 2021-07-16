@@ -37,7 +37,7 @@ public class UserService {
         userEntity.setLevel_gp(datas.get("level_gp"));
         userEntity.setLevel_lv(datas.get("level_lv"));
 
-        userRepository.save(userEntity).getUid();
+        userRepository.save(userEntity).getU_id();
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class UserService {
             userEntity.setLevel_gp(datas.get(idx).get("level_gp"));
             userEntity.setLevel_lv("1");
 
-            userRepository.save(userEntity).getUid();
+            userRepository.save(userEntity).getU_id();
         }
     }
 
@@ -70,7 +70,7 @@ public class UserService {
 
         for(UserEntity userEntity : userEntities) {
             UserDto userDTO = UserDto.builder()
-                    .uid(userEntity.getUid())
+                    .u_id(userEntity.getU_id())
                     .user_nm(userEntity.getUser_nm())
                     .user_email(userEntity.getUser_email())
                     .user_rank(userEntity.getUser_rank())
@@ -84,8 +84,8 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long uid, Map<String, String> datas) {
-        Optional<UserEntity> userEntityWrapper = userRepository.findById(uid);
+    public void updateUser(Long u_id, Map<String, String> datas) {
+        Optional<UserEntity> userEntityWrapper = userRepository.findById(u_id);
         UserEntity userEntity = userEntityWrapper.get();
 
         userEntity.setUser_id(datas.get("user_id"));
@@ -104,12 +104,12 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto getUser(Long uid) {
-        Optional<UserEntity> userEntityWrapper = userRepository.findById(uid);
+    public UserDto getUser(Long u_id) {
+        Optional<UserEntity> userEntityWrapper = userRepository.findById(u_id);
         UserEntity userEntity = userEntityWrapper.get();
 
         UserDto userDTO = UserDto.builder()
-                .uid(userEntity.getUid())
+                .u_id(userEntity.getU_id())
                 .user_id(userEntity.getUser_id())
                 .user_email(userEntity.getUser_email())
                 .user_nm(userEntity.getUser_nm())
@@ -126,8 +126,8 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(Long uid) {
-        userRepository.deleteById(uid);
+    public void deleteUser(Long u_id) {
+        userRepository.deleteById(u_id);
     }
 
 }

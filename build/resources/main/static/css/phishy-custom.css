@@ -22,3 +22,32 @@
     margin-top: 15vh !important;
     width: 100%;
 }
+
+/*사용자 일괄등록 모달 파일 명*/
+.fileinput .thumbnail {
+    color: white;
+    margin-top: 15px;
+}
+
+/* 트리메뉴 */
+.tree_box { width:100%;}
+.tree_box .title { padding:5px 0 5px 19px ;background:#f8f8f9;border-bottom:1px solid #ccd3d9;}
+.tree_box .title strong {margin-right:12px;}
+.tree_box ul {list-style:none; font-size: 12px;padding-left:0px;}
+.tree_menu {line-height:18px;}
+.tree_menu strong {font-weight:normal;}
+.tree_menu label input {vertical-align:-2px;}
+.tree_menu .depth_1 a {vertical-align:bottom;text-decoration:none;}
+.tree_menu .depth_1 strong {padding-left:19px;background:url(http://cfile26.uf.tistory.com/image/224E6B45569458082AA795) no-repeat 0px 2px;}
+.tree_menu .depth_2 li {background:url(http://cfile9.uf.tistory.com/image/22601F4B569457FF051E7E) no-repeat 5px 0px;}
+.tree_menu .depth_2 li a em {display:inline-block;width:31px;height:11px;background:url(http://cfile27.uf.tistory.com/image/2265AB4B569457FD1306CB) 100% 0;font-size:0;line-height:0;vertical-align:middle;}
+.tree_menu .depth_2 li a em.on {background-position:0 100%;}
+.tree_menu li.last {background:none;}
+.tree_menu li.last {background:none;}
+.tree_menu .depth_3 {display:none;padding-left:23px;}
+.tree_menu .depth_3 li {margin:0;padding:3px 0 0 14px;line-height:1.5;background:url(http://cfile8.uf.tistory.com/image/2456D34B569457FC14828D) no-repeat 0 0;}
+.tree_menu .depth_3 li a {display:block;padding-left:15px;background:url(http://cfile26.uf.tistory.com/image/216841455694580A1ADE12) no-repeat 0 2px;}
+.msie6 .tree_menu .depth_3 li a {display:inline-block;}
+.tree_menu li.end {background:url(http://cfile23.uf.tistory.com/image/2272CF4B5694580418FF9C) no-repeat 0 0;}
+.form_tree_menu .depth_1 {background:url(http://cfile9.uf.tistory.com/image/22601F4B569457FF051E7E) no-repeat 5px 5px;}
+.form_tree_menu ul.depth_2 li {margin-left:6px;padding-left:27px;background:url(http://cfile25.uf.tistory.com/image/2757834B5694580514C5D6) no-repeat 0 5px;}
