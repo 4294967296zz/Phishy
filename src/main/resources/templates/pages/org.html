@@ -41,14 +41,14 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
+                  <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>Exception: could not execute sta
                   <a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
                   <a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
                   <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
                   <a class="dropdown-item" href="javascript:void(0)">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
+              <li class="nav-item">oid
                 <a class="nav-link" href="javascript:void(0)">
                   <i class="material-icons">person</i>
                   <p class="d-lg-none d-md-block">
@@ -377,7 +377,7 @@
         });
     }
 
-    function upperList() {
+    function upperList(upperCd = false) {
         $.ajax({
           url: "getUppers.do",
           type: "POST",
@@ -389,16 +389,26 @@
             var datas = result.data;
 
             var options = '<option disabled selected>상위조직</option>';
-                options += '<option value="0">최상위조직</option>';
 
             for(i=0;i<datas.length;i++) {
-                options += '<option value="'+datas[i].dept_cd+'">'+datas[i].dept_nm+'</option>';
+
+                if(upperCd) {
+                    if(upperCd == 0){
+                        options += '<option value="0" selected>최상위조직</option>';
+                    } else {
+                        options += '<option value="0">최상위조직</option>';
+                        if(upperCd == datas[i].deptCd) {
+                            options += '<option value="'+datas[i].deptCd+'" selected>'+datas[i].deptNm+'</option>';
+                        }
+                    }
+                } else {
+                    options += '<option value="'+datas[i].deptCd+'">'+datas[i].deptNm+'</option>';
+                }
+
             }
 
-            $('select#upper_cd').html(options).selectpicker('refresh');
             console.log(datas);
-            console.log(options);
-
+            $('select#upper_cd').html(options).selectpicker('refresh');
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -470,6 +480,24 @@
       });
     }
 
+    function getUpperCorpnm(upper_cd) {
+        $.ajax({
+            url: "getUpperCorpnm.do",
+            type: "POST",
+            dataType: "json",
+            data : {'upper_cd' : upper_cd},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function (result) {
+                return result;
+            },
+            error: function (thrownError) {
+                console.log(thrownError);
+            }
+        });
+    }
+
     function editOrg(o_id) {
         $.ajax({
           url: "getOrg.do",
@@ -480,17 +508,17 @@
           },
           data: {'o_id': o_id},
           success: function (result) {
-            var datas = result.data;
-            $('input#corp_cd').val(datas.corp_cd);
-            $('input#corp_nm').val(datas.corp_nm);
-            $('input#dept_cd').val(datas.dept_cd);
-            $('input#dept_nm').val(datas.dept_nm);
-            $('#upper_cd').val(datas.upper_cd);
-            $('#reg_btn').attr('data-o_id',datas.o_id);
+              console.log('editOrg : ');
+              console.log(result);
 
-            $('.input-group.upper_cd button').attr('title',datas.upper_cd);
-            $('.input-group.upper_cd .filter-option-inner-inner').html(datas.upper_cd);
-
+              var datas = result.data;
+              $('input#corp_cd').val(datas.corpCd);
+              $('input#corp_nm').val(datas.corpNm);
+              $('input#dept_cd').val(datas.deptCd);
+              $('input#dept_nm').val(datas.deptNm);
+              $('#upper_cd').val(datas.upperCd);
+              $('#reg_btn').attr('data-o_id',o_id);
+              upperList(datas.upperCd);
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -542,11 +570,11 @@
               },
             },
             columns : [
-              {data : "corp_nm"},
-              {data : "corp_cd"},
-              {data : "dept_nm"},
-              {data : "dept_cd"},
-              {data : "upper_cd"},
+              {data : "corpNm"},
+              {data : "corpCd"},
+              {data : "deptNm"},
+              {data : "deptCd"},
+              {data : "upperCd"},
               {
                   data : "o_id",
                   defaultContent:"",

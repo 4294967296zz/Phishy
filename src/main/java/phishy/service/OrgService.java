@@ -22,11 +22,11 @@ public class OrgService {
     public void registerOrg(Map<String, String> datas) {
         OrgDto orgDto = new OrgDto();
         OrgEntity orgEntity = orgDto.toEntity();
-        orgEntity.setCorp_cd(datas.get("corp_cd"));
-        orgEntity.setCorp_nm(datas.get("corp_nm"));
-        orgEntity.setDept_cd(datas.get("dept_cd"));
-        orgEntity.setDept_nm(datas.get("dept_nm"));
-        orgEntity.setUpper_cd(datas.get("upper_cd"));
+        orgEntity.setCorpCd(datas.get("corp_cd"));
+        orgEntity.setCorpNm(datas.get("corp_nm"));
+        orgEntity.setDeptCd(datas.get("dept_cd"));
+        orgEntity.setDeptNm(datas.get("dept_nm"));
+        orgEntity.setUpperCd(datas.get("upper_cd"));
         orgRepository.save(orgEntity).getO_id();
     }
 
@@ -36,11 +36,11 @@ public class OrgService {
 
         for(int idx = 0; idx < datas.size(); idx++) {
             OrgEntity orgEntity = orgDto.toEntity();
-            orgEntity.setCorp_cd(datas.get(idx).get("corp_cd"));
-            orgEntity.setCorp_nm(datas.get(idx).get("corp_nm"));
-            orgEntity.setDept_cd(datas.get(idx).get("dept_cd"));
-            orgEntity.setDept_nm(datas.get(idx).get("dept_nm"));
-            orgEntity.setUpper_cd(datas.get(idx).get("upper_cd"));
+            orgEntity.setCorpCd(datas.get(idx).get("corp_cd"));
+            orgEntity.setCorpNm(datas.get(idx).get("corp_nm"));
+            orgEntity.setDeptCd(datas.get(idx).get("dept_cd"));
+            orgEntity.setDeptNm(datas.get(idx).get("dept_nm"));
+            orgEntity.setUpperCd(datas.get(idx).get("upper_cd"));
 
             orgRepository.save(orgEntity).getO_id();
         }
@@ -54,11 +54,11 @@ public class OrgService {
         for(OrgEntity orgEntity : orgEntities) {
             OrgDto orgDto = OrgDto.builder()
                     .o_id(orgEntity.getO_id())
-                    .corp_cd(orgEntity.getCorp_cd())
-                    .corp_nm(orgEntity.getCorp_nm())
-                    .dept_cd(orgEntity.getDept_cd())
-                    .dept_nm(orgEntity.getDept_nm())
-                    .upper_cd(orgEntity.getUpper_cd())
+                    .corpCd(orgEntity.getCorpCd())
+                    .corpNm(orgEntity.getCorpNm())
+                    .deptCd(orgEntity.getDeptCd())
+                    .deptNm(orgEntity.getDeptNm())
+                    .upperCd(orgEntity.getUpperCd())
                     .build();
 
             orgDtoList.add(orgDto);
@@ -72,11 +72,11 @@ public class OrgService {
         OrgEntity orgEntity = orgEntityWrapper.get();
 
         orgEntity.setO_id(o_id);
-        orgEntity.setCorp_cd(datas.get("corp_cd"));
-        orgEntity.setCorp_nm(datas.get("corp_nm"));
-        orgEntity.setDept_cd(datas.get("dept_cd"));
-        orgEntity.setDept_nm(datas.get("dept_nm"));
-        orgEntity.setUpper_cd(datas.get("upper_cd"));
+        orgEntity.setCorpCd(datas.get("corp_cd"));
+        orgEntity.setCorpNm(datas.get("corp_nm"));
+        orgEntity.setDeptCd(datas.get("dept_cd"));
+        orgEntity.setDeptNm(datas.get("dept_nm"));
+        orgEntity.setUpperCd(datas.get("upper_cd"));
 
         orgRepository.save(orgEntity);
 
@@ -88,14 +88,21 @@ public class OrgService {
         OrgEntity orgEntity = orgEntityWrapper.get();
 
         OrgDto orgDto = OrgDto.builder()
-                .corp_cd(orgEntity.getCorp_cd())
-                .corp_nm(orgEntity.getCorp_nm())
-                .dept_cd(orgEntity.getDept_cd())
-                .dept_nm(orgEntity.getDept_nm())
-                .upper_cd(orgEntity.getUpper_cd())
+                .corpCd(orgEntity.getCorpCd())
+                .corpNm(orgEntity.getCorpNm())
+                .deptCd(orgEntity.getDeptCd())
+                .deptNm(orgEntity.getDeptNm())
+                .upperCd(orgEntity.getUpperCd())
                 .build();
 
         return orgDto;
+    }
+
+    @Transactional
+    public OrgDto getUpperCorp_nm(String upper_cd) {
+        Optional<OrgEntity> orgEntityWrapper = orgRepository.findByDeptCd(upper_cd);
+        OrgEntity orgEntity = orgEntityWrapper.get();
+        return OrgDto.builder().deptNm(orgEntity.getDeptNm()).build();
     }
 
     @Transactional
@@ -105,8 +112,8 @@ public class OrgService {
 
         for(OrgEntity orgEntity : orgEntities) {
             OrgDto orgDto = OrgDto.builder()
-                    .dept_cd(orgEntity.getDept_cd())
-                    .dept_nm(orgEntity.getDept_nm())
+                    .deptCd(orgEntity.getDeptCd())
+                    .deptNm(orgEntity.getDeptNm())
                     .build();
 
             orgDtoList.add(orgDto);

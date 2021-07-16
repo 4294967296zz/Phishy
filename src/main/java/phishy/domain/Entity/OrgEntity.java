@@ -18,29 +18,29 @@ public class OrgEntity {
 
     public OrgEntity() {}
 
-    @Column(name = "corp_cd")
-    private String corp_cd;
+    @Column(name = "corpCd")
+    private String corpCd;
 
     @Column(name = "corp_nm")
-    private String corp_nm;
+    private String corpNm;
 
     @Column(name = "dept_cd")
-    private String dept_cd;
+    private String deptCd;
 
     @Column(name = "dept_nm")
-    private String dept_nm;
+    private String deptNm;
 
     @Column(name = "upper_cd")
-    private String upper_cd;
+    private String upperCd;
 
     @Builder
-    public OrgEntity(Long o_id, String corp_cd, String corp_nm , String dept_cd , String dept_nm , String upper_cd) {
+    public OrgEntity(Long o_id, String corpCd, String corpNm , String deptCd , String deptNm , String upperCd) {
         this.o_id = o_id;
-        this.corp_cd = corp_cd;
-        this.corp_nm = corp_nm;
-        this.dept_cd = dept_cd;
-        this.dept_nm = dept_nm;
-        this.upper_cd = upper_cd;
+        this.corpCd = corpCd;
+        this.corpNm = corpNm;
+        this.deptCd = deptCd;
+        this.deptNm = deptNm;
+        this.upperCd = upperCd;
     }
 
 }

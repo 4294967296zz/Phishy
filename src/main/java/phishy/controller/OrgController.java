@@ -52,6 +52,14 @@ public class OrgController {
         return mp;
     }
 
+    @RequestMapping(value = "/getUpperCorpnm.do", method = RequestMethod.POST)
+    public @ResponseBody Object getUpperCorpnm(@RequestParam("upper_cd") String upper_cd) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", orgService.getUpperCorp_nm(upper_cd));
+        Object result = mp;
+        return mp;
+    }
+
     @RequestMapping(value = "/getUppers.do", method = RequestMethod.POST)
     public @ResponseBody Object getUppers() {
         Map<String, Object> mp = new HashMap<String, Object>();
