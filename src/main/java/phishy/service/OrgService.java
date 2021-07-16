@@ -99,6 +99,22 @@ public class OrgService {
     }
 
     @Transactional
+    public List<OrgDto> getUppers() {
+        List<OrgEntity> orgEntities = orgRepository.findAll();
+        List<OrgDto> orgDtoList = new ArrayList<>();
+
+        for(OrgEntity orgEntity : orgEntities) {
+            OrgDto orgDto = OrgDto.builder()
+                    .dept_cd(orgEntity.getDept_cd())
+                    .dept_nm(orgEntity.getDept_nm())
+                    .build();
+
+            orgDtoList.add(orgDto);
+        }
+        return orgDtoList;
+    }
+
+    @Transactional
     public void deleteOrg(Long o_id) {
         orgRepository.deleteById(o_id);
     }

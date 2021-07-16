@@ -44,17 +44,25 @@ public class OrgController {
         return result;
     }
 
-    @RequestMapping(value = "/getUser.do", method = RequestMethod.POST)
-    public @ResponseBody Object getUser(@RequestParam("o_id") Long o_id) {
+    @RequestMapping(value = "/getOrg.do", method = RequestMethod.POST)
+    public @ResponseBody Object getOrg(@RequestParam("o_id") Long o_id) {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("data", orgService.getOrg(o_id));
         Object result = mp;
         return mp;
     }
 
-    @RequestMapping(value = "/deleteuser.do", method = RequestMethod.POST)
-    public String deleteuser(@RequestParam("o_id") Long o_id) {
+    @RequestMapping(value = "/getUppers.do", method = RequestMethod.POST)
+    public @ResponseBody Object getUppers() {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", orgService.getUppers());
+        Object result = mp;
+        return mp;
+    }
+
+    @RequestMapping(value = "/deleteOrg.do", method = RequestMethod.POST)
+    public String deleteOrg(@RequestParam("o_id") Long o_id) {
         orgService.deleteOrg(o_id);
-        return "redirect:/user";
+        return "redirect:/org";
     }
 }
