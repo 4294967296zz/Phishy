@@ -2,11 +2,13 @@ package phishy.dto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import phishy.domain.Entity.MailformEntity;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class MailformDto {
 
     private Long mfi_id;
