@@ -387,27 +387,24 @@
           },
           success: function (result) {
             var datas = result.data;
+            console.log(datas);
+            console.log(upperCd);
 
-            var options = '<option disabled selected>상위조직</option>';
+            var options = '<option value="default" disabled selected>상위조직 선택</option>';
+            if(upperCd == "최상위조직"){
+                options += '<option value="최상위조직" selected>최상위조직</option>';
+            } else {
+                options += '<option value="최상위조직">최상위조직</option>';
+            }
 
             for(i=0;i<datas.length;i++) {
-
-                if(upperCd) {
-                    if(upperCd == 0){
-                        options += '<option value="0" selected>최상위조직</option>';
-                    } else {
-                        options += '<option value="0">최상위조직</option>';
-                        if(upperCd == datas[i].deptCd) {
-                            options += '<option value="'+datas[i].deptCd+'" selected>'+datas[i].deptNm+'</option>';
-                        }
-                    }
+                if(upperCd == datas[i].deptCd){
+                    options += '<option value="'+datas[i].deptCd+'" selected>'+datas[i].deptNm+'</option>';
                 } else {
                     options += '<option value="'+datas[i].deptCd+'">'+datas[i].deptNm+'</option>';
                 }
-
             }
 
-            console.log(datas);
             $('select#upper_cd').html(options).selectpicker('refresh');
           },
           error: function (thrownError) {
@@ -508,8 +505,6 @@
           },
           data: {'o_id': o_id},
           success: function (result) {
-              console.log('editOrg : ');
-              console.log(result);
 
               var datas = result.data;
               $('input#corp_cd').val(datas.corpCd);
@@ -601,8 +596,6 @@
             editOrg(o_id);
 
           });
-
-
           // Delete a record
           table.on('click', '.remove', function(e) {
             // $tr = $(this).closest('tr');
@@ -635,6 +628,15 @@
           // table.on('click', '.like', function() {
           //   alert('You clicked on Like button');
           // });
+
+        $('.close').click(function(e){
+           e.preventDefault();
+           $('input#corp_cd').val('');
+            $('input#corp_nm').val('');
+            $('input#dept_cd').val('');
+            $('input#dept_nm').val('');
+            $('#upper_cd').val('default').selectpicker('refresh');
+        });
 
           $('#reg_btn').click(function(e) {
             e.preventDefault();

@@ -35,6 +35,26 @@ public class OrgController {
         return list;
     }
 
+    @PostMapping(value = "/updateOrg.do")
+    public @ResponseBody
+    Object update(
+            @RequestParam("o_id") Long o_id,
+            @RequestParam("corp_cd") String corp_cd,
+            @RequestParam("corp_nm") String corp_nm,
+            @RequestParam("dept_cd") String dept_cd,
+            @RequestParam("dept_nm") String dept_nm,
+            @RequestParam("upper_cd") String upper_cd) {
+        Map<String, String> list = new HashMap<String, String>();
+        list.put("corp_cd",corp_cd);
+        list.put("corp_nm",corp_nm);
+        list.put("dept_cd",dept_cd);
+        list.put("dept_nm",dept_nm);
+        list.put("upper_cd",upper_cd);
+        orgService.updateOrg(o_id, list);
+
+        return list;
+    }
+
     @RequestMapping(value = "/getOrgDatatable.do", method = RequestMethod.POST)
     public @ResponseBody Object getDatatable(HttpServletRequest request,
                                              HttpServletResponse response) {
