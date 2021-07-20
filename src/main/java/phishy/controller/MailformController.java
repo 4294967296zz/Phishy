@@ -2,10 +2,7 @@ package phishy.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import phishy.service.MailformService;
 
@@ -32,6 +29,10 @@ public class MailformController {
         String basePath = rootPath + "/" + "phishy_contents";
         String filePath = basePath + "/" + mfi_file.getOriginalFilename();
         File dest = new File(filePath);
+
+        if(!new File(basePath).exists()){
+            new File(basePath).mkdirs();
+        }
         mfi_file.transferTo(dest);
 
         Map<String, String> list = new HashMap<String, String>();
@@ -61,6 +62,22 @@ public class MailformController {
         list.put("mfi_file_title",mfi_file_title);
         mailformService.updateMailform(mfi_id,list);
         return list;
+    }
+
+    @RequestMapping(value = "/getMailforms.do", method = RequestMethod.POST)
+    public @ResponseBody Object getMailforms() {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", mailformService.getMailformlist());
+        Object result = mp;
+        return result;
+    }
+
+    @RequestMapping(value = "/getMailform.do", method = RequestMethod.POST)
+    public @ResponseBody Object getUser(@RequestParam("mfi_id") Long mfi_id) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", mailformService.getMailform(mfi_id));
+        Object result = mp;
+        return mp;
     }
 }
 
