@@ -80,4 +80,9 @@ public class MailformService {
         return mailformDto;
     }
 
+    @Transactional
+    public void deleteMailform(Long mfi_id) {
+        mailformRepository.deleteById(mfi_id);
+    }
+
 }

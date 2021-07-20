@@ -79,5 +79,11 @@ public class MailformController {
         Object result = mp;
         return mp;
     }
+
+    @RequestMapping(value = "/deleteMailform.do", method = RequestMethod.POST)
+    public String deleteMailform(@RequestParam("mfi_id") Long mfi_id) {
+        mailformService.deleteMailform(mfi_id);
+        return "redirect:/user";
+    }
 }
 

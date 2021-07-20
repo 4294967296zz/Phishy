@@ -553,7 +553,7 @@
       });
     }
 
-    function updateUser(uid) {
+    function updateUser(u_id) {
       $.ajax({
           url : "updateUser.do",
           type : "POST",
@@ -562,7 +562,7 @@
           xhr.setRequestHeader(header, token);
           },
           data : {
-            'uid' : uid,
+            'u_id' : u_id,
             'user_id' : $('input#user_email').val(),
             'user_email' : $('input#user_email').val(),
             'user_nm' : $('input#user_nm').val(),
@@ -592,7 +592,7 @@
       });
     }
 
-    function editUser(uid) {
+    function editUser(u_id) {
         $.ajax({
           url: "getUser.do",
           type: "POST",
@@ -600,7 +600,7 @@
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
-          data: {'uid': uid},
+          data: {'u_id': u_id},
           success: function (result) {
             var datas = result.data;
             $('input#user_email').val(datas.user_email);
@@ -612,7 +612,7 @@
             $('input#org_nm').val(datas.org_nm);
             $('#level_gp').val(datas.level_gp);
             $('#level_lv').val(datas.level_lv);
-            $('#reg_btn').attr('data-uid',datas.uid);
+            $('#reg_btn').attr('data-u_id',datas.u_id);
 
             $('.input-group.rank button').attr('title',datas.user_rank);
             $('.input-group.rank .filter-option-inner-inner').html(datas.user_rank);
@@ -630,7 +630,7 @@
         });
     }
 
-    function deleteUser(uid) {
+    function deleteUser(u_id) {
         $.ajax({
           url : "deleteuser.do",
           type : "POST",
@@ -638,7 +638,7 @@
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
-          data: {'uid': uid},
+          data: {'u_id': u_id},
           success: function () {
             location.reload();
           },
@@ -651,7 +651,6 @@
     $(document).ready(function() {
 
       $('#UserDatable').DataTable({
-
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -677,28 +676,18 @@
           {data : "corp_nm"},
           {data : "org_nm"},
           {
-              data : "uid",
+              data : "u_id",
               defaultContent:"",
               'targets': 0,
               'searchable': false,
               'className': 'text-right',
-              "render": function (data, type, row) {
-                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-uid="'+data+'"><i class="material-icons">dvr</i></a>';
-                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-uid="'+data+'"><i class="material-icons">close</i></a>';
+              "render": function (data) {
+                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-u_id="'+data+'"><i class="material-icons">dvr</i></a>';
+                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-u_id="'+data+'"><i class="material-icons">close</i></a>';
                 return edit_btn+remove_btn;
 
               }
             },
-            //     {
-            //   data : "uid",
-            //   defaultContent:"",
-            //   'targets': 0,
-            //   'searchable': false,
-            //   'className': 'dt-2',
-            //   "render": function (data, type, row) {
-            //       return '<a href="#" class="btn btn-link text-danger btn-just-icon remove"><i class="material-icons">close</i></a>';
-            //   }
-            // },
       ],
 
       });
@@ -708,15 +697,12 @@
       // Edit record
       table.on('click', '.edit', function() {
         // alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-
         $('a[data-target="#regModal"]').click();
-        $('a[data-toggle="modal"]').click();
-        var uid = $(this).attr('data-uid');
-        console.log(uid);
-        editUser(uid);
+        var u_id = $(this).attr('data-u_id');
+        console.log(u_id);
+        editUser(u_id);
 
       });
-
 
       // Delete a record
       table.on('click', '.remove', function(e) {
@@ -727,7 +713,7 @@
         // table.row($tr).remove().draw();
         // e.preventDefault();
 
-        var uid = $(this).data('uid');
+        var u_id = $(this).data('u_id');
 
         Swal.fire({
           title: '사용자를 삭제하시겠습니까?',
@@ -740,10 +726,9 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
-              deleteUser(uid);
+              deleteUser(u_id);
           }
         });
-
       });
 
       // //Like record
@@ -753,13 +738,37 @@
 
       $('#reg_btn').click(function(e) {
         e.preventDefault();
-        var uid = $(this).data('uid');
-        if(uid) {
-          updateUser(uid);
+        var u_id = $(this).data('u_id');
+        if(u_id) {
+          updateUser(u_id);
         } else {
           insertUser();
         }
       });
+
+      $('.close').click(function(e){
+           e.preventDefault();
+           $('input#user_email').val('');
+            $('input#user_nm').val('');
+            $('input#corp_cd').val('');
+            $('input#corp_nm').val('');
+            $('input#org_cd').val('');
+            $('input#org_nm').val('');
+            $('#user_rank').val('');
+            $('#level_gp').val('');
+            $('#level_lv').val('');
+            $('#reg_btn').attr('data-u_id','');
+
+            $('.input-group.rank button').attr('title','직급');
+            $('.input-group.rank .filter-option-inner-inner').html('직급');
+
+            $('.input-group.level_gp button').attr('title','권한그룹');
+            $('.input-group.level_gp .filter-option-inner-inner').html('권한그룹');
+
+            $('.input-group.level_lv button').attr('title','권한레벨');
+            $('.input-group.level_lv .filter-option-inner-inner').html('권한레벨');
+
+        });
 
     });
   </script>

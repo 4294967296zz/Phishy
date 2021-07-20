@@ -349,13 +349,31 @@
           },
           data: {'mfi_id': mfi_id},
           success: function (result) {
-
+              console.log(result.data);
               var datas = result.data;
               $('input[name="mfi_nm"]').val(datas.mfi_nm);
               $('input[name="mfi_mail_addr"]').val(datas.mfi_mail_addr);
               $('input[name="mfi_mail_nm"]').val(datas.mfi_mail_nm);
               $('input[name="mfi_mail_title"]').val(datas.mfi_mail_title);
               $('#reg_btn').attr('data-mfi_id',mfi_id);
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
+    function deleteMailform(mfi_id) {
+        $.ajax({
+          url : "deleteMailform.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'mfi_id': mfi_id},
+          success: function () {
+            location.reload();
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -377,20 +395,45 @@
         }
       });
 
-      $('button.edit').click(function(e) {
+      $('body').on('click', 'button.view', function(e) {
+        e.preventDefault();
+        var mfi_id = $(this).parent().attr('data-mfi_id');
+        swal.fire('메일양식 자세히보기!');
+      });
+
+      $('body').on('click', 'button.edit', function(e) {
         e.preventDefault();
         $('a[data-target="#regModal"]').click();
-        var mfi_id = $(this).attr('data-mfi_id');
-        console.log(mfi_id);
+        var mfi_id = $(this).parent().attr('data-mfi_id');
         editMailform(mfi_id);
       });
 
-      $('.close').click(function(e){
+      $('body').on('click', 'button.remove', function() {
+        var mfi_id = $(this).parent().data('mfi_id');
+
+          Swal.fire({
+            title: '양식을 삭제하시겠습니까?',
+            text: "삭제한 양식은 되돌릴 수 없습니다.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '네!',
+            cancelButtonText: '취소',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                deleteMailform(mfi_id);
+            }
+          });
+      });
+
+      $('body').on('click', '.close', function(e){
         e.preventDefault();
-        $('input[name="mfi_nm"]').val();
-        $('input[name="mfi_mail_addr"]').val();
-        $('input[name="mfi_mail_nm"]').val();
-        $('input[name="mfi_mail_title"]').val();
+        $('input#mfi_nm').val('');
+        $('input#mfi_mail_addr').val('');
+        $('input#mfi_mail_nm').val('');
+        $('input#mfi_mail_title').val('');
+        $('reg_btn').attr('data-mfi_id','');
       });
 
     });
