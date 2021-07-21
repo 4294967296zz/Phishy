@@ -201,7 +201,7 @@
                           <th>이메일</th>
                           <th>직급</th>
                           <th>소속이름</th>
-                          <th>조직이름</th>
+                          <th>부서이름</th>
                           <th class="disabled-sorting text-right">Actions</th>
                         </tr>
                       </thead>
@@ -346,7 +346,7 @@
                                     <i class="material-icons">email</i>
                                   </div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="조직코드" id="org_cd">
+                                <input type="text" class="form-control" placeholder="조직코드" id="dept_cd">
                               </div>
                             </div>
                           </div>
@@ -359,7 +359,7 @@
                                     <i class="material-icons">email</i>
                                   </div>
                                 </div>
-                                <input type="text" class="form-control" placeholder="조직이름" id="org_nm">
+                                <input type="text" class="form-control" placeholder="조직이름" id="dept_nm">
                               </div>
                             </div>
                           </div>
@@ -531,8 +531,8 @@
             'user_rank' : $('#user_rank').val(),
             'corp_cd' : $('input#corp_cd').val(),
             'corp_nm' : $('input#corp_nm').val(),
-            'org_cd' : $('input#org_cd').val(),
-            'org_nm' : $('input#org_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
             'level_gp' : $('#level_gp').val(),
             'level_lv' : $('#level_lv').val(),
           },
@@ -570,8 +570,8 @@
             'user_rank' : $('#user_rank').val(),
             'corp_cd' : $('input#corp_cd').val(),
             'corp_nm' : $('input#corp_nm').val(),
-            'org_cd' : $('input#org_cd').val(),
-            'org_nm' : $('input#org_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
             'level_gp' : $('#level_gp').val(),
             'level_lv' : $('#level_lv').val(),
           },
@@ -608,8 +608,8 @@
             $('#user_rank').val(datas.user_rank);
             $('input#corp_cd').val(datas.corp_cd);
             $('input#corp_nm').val(datas.corp_nm);
-            $('input#org_cd').val(datas.org_cd);
-            $('input#org_nm').val(datas.org_nm);
+            $('input#dept_cd').val(datas.dept_cd);
+            $('input#dept_nm').val(datas.dept_nm);
             $('#level_gp').val(datas.level_gp);
             $('#level_lv').val(datas.level_lv);
             $('#reg_btn').attr('data-u_id',datas.u_id);
@@ -674,7 +674,7 @@
           {data : "user_email"},
           {data : "user_rank"},
           {data : "corp_nm"},
-          {data : "org_nm"},
+          {data : "dept_nm"},
           {
               data : "u_id",
               defaultContent:"",
@@ -752,8 +752,8 @@
             $('input#user_nm').val('');
             $('input#corp_cd').val('');
             $('input#corp_nm').val('');
-            $('input#org_cd').val('');
-            $('input#org_nm').val('');
+            $('input#dept_cd').val('');
+            $('input#dept_nm').val('');
             $('#user_rank').val('');
             $('#level_gp').val('');
             $('#level_lv').val('');

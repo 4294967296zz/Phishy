@@ -33,8 +33,8 @@ public class UserController {
             @RequestParam("user_rank") String user_rank,
             @RequestParam("corp_cd") String corp_cd,
             @RequestParam("corp_nm") String corp_nm,
-            @RequestParam("org_cd") String org_cd,
-            @RequestParam("org_nm") String org_nm,
+            @RequestParam("dept_cd") String dept_cd,
+            @RequestParam("dept_nm") String dept_nm,
             @RequestParam("level_gp") String level_gp,
             @RequestParam("level_lv") String level_lv) {
         Map<String, String> list = new HashMap<String, String>();
@@ -45,8 +45,8 @@ public class UserController {
         list.put("user_rank",user_rank);
         list.put("corp_cd",corp_cd);
         list.put("corp_nm",corp_nm);
-        list.put("org_cd",org_cd);
-        list.put("org_nm",org_nm);
+        list.put("dept_cd",dept_cd);
+        list.put("dept_nm",dept_nm);
         list.put("level_gp",level_gp);
         list.put("level_lv",level_lv);
         userService.registerUser(list);
@@ -64,8 +64,8 @@ public class UserController {
             @RequestParam("user_rank") String user_rank,
             @RequestParam("corp_cd") String corp_cd,
             @RequestParam("corp_nm") String corp_nm,
-            @RequestParam("org_cd") String org_cd,
-            @RequestParam("org_nm") String org_nm,
+            @RequestParam("dept_cd") String dept_cd,
+            @RequestParam("dept_nm") String dept_nm,
             @RequestParam("level_gp") String level_gp,
             @RequestParam("level_lv") String level_lv) {
         Map<String, String> list = new HashMap<String, String>();
@@ -76,8 +76,8 @@ public class UserController {
         list.put("user_rank",user_rank);
         list.put("corp_cd",corp_cd);
         list.put("corp_nm",corp_nm);
-        list.put("org_cd",org_cd);
-        list.put("org_nm",org_nm);
+        list.put("dept_cd",dept_cd);
+        list.put("dept_nm",dept_nm);
         list.put("level_gp",level_gp);
         list.put("level_lv",level_lv);
         userService.updateUser(u_id, list);
@@ -115,8 +115,8 @@ public class UserController {
             map.put("user_nm",excelContent.get(rpt).get("A"));
             map.put("corp_nm",excelContent.get(rpt).get("B"));
             map.put("corp_cd",excelContent.get(rpt).get("C"));
-            map.put("org_nm",excelContent.get(rpt).get("D"));
-            map.put("org_cd",excelContent.get(rpt).get("E"));
+            map.put("dept_nm",excelContent.get(rpt).get("D"));
+            map.put("dept_cd",excelContent.get(rpt).get("E"));
             map.put("user_rank",excelContent.get(rpt).get("F"));
             map.put("user_email",excelContent.get(rpt).get("G"));
             map.put("level_gp",excelContent.get(rpt).get("H"));

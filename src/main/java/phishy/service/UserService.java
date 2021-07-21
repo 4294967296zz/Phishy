@@ -32,8 +32,8 @@ public class UserService {
         userEntity.setUser_rank(datas.get("user_rank"));
         userEntity.setCorp_cd(datas.get("corp_cd"));
         userEntity.setCorp_nm(datas.get("corp_nm"));
-        userEntity.setOrg_cd(datas.get("org_cd"));
-        userEntity.setOrg_nm(datas.get("org_nm"));
+        userEntity.setDept_cd(datas.get("dept_cd"));
+        userEntity.setDept_nm(datas.get("dept_nm"));
         userEntity.setLevel_gp(datas.get("level_gp"));
         userEntity.setLevel_lv(datas.get("level_lv"));
 
@@ -54,8 +54,8 @@ public class UserService {
             userEntity.setUser_nm(datas.get(idx).get("user_nm"));
             userEntity.setCorp_cd(datas.get(idx).get("corp_cd"));
             userEntity.setCorp_nm(datas.get(idx).get("corp_nm"));
-            userEntity.setOrg_cd(datas.get(idx).get("org_cd"));
-            userEntity.setOrg_nm(datas.get(idx).get("org_nm"));
+            userEntity.setDept_cd(datas.get(idx).get("dept_cd"));
+            userEntity.setDept_nm(datas.get(idx).get("dept_nm"));
             userEntity.setLevel_gp(datas.get(idx).get("level_gp"));
             userEntity.setLevel_lv("1");
 
@@ -75,7 +75,7 @@ public class UserService {
                     .user_email(userEntity.getUser_email())
                     .user_rank(userEntity.getUser_rank())
                     .corp_nm(userEntity.getCorp_nm())
-                    .org_nm(userEntity.getOrg_nm())
+                    .dept_nm(userEntity.getDept_nm())
                     .build();
 
             userDtoList.add(userDTO);
@@ -94,8 +94,8 @@ public class UserService {
         userEntity.setUser_rank(datas.get("user_rank"));
         userEntity.setCorp_cd(datas.get("corp_cd"));
         userEntity.setCorp_nm(datas.get("corp_nm"));
-        userEntity.setOrg_cd(datas.get("org_cd"));
-        userEntity.setOrg_nm(datas.get("org_nm"));
+        userEntity.setDept_cd(datas.get("dept_cd"));
+        userEntity.setDept_nm(datas.get("dept_nm"));
         userEntity.setLevel_gp(datas.get("level_gp"));
         userEntity.setLevel_lv(datas.get("level_lv"));
 
@@ -116,8 +116,8 @@ public class UserService {
                 .user_rank(userEntity.getUser_rank())
                 .corp_cd(userEntity.getCorp_cd())
                 .corp_nm(userEntity.getCorp_nm())
-                .org_nm(userEntity.getOrg_nm())
-                .org_cd(userEntity.getOrg_cd())
+                .dept_nm(userEntity.getDept_nm())
+                .dept_cd(userEntity.getDept_cd())
                 .level_gp(userEntity.getLevel_gp())
                 .level_lv(userEntity.getLevel_lv())
                 .build();

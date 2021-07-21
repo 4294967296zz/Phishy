@@ -19,8 +19,8 @@ public class UserDto {
     private String user_rank;
     private String corp_cd;
     private String corp_nm;
-    private String org_cd;
-    private String org_nm;
+    private String dept_cd;
+    private String dept_nm;
     private String level_gp;
     private String level_lv;
 
@@ -34,8 +34,8 @@ public class UserDto {
             .user_rank(user_rank)
             .corp_cd(corp_cd)
             .corp_nm(corp_nm)
-            .org_cd(org_cd)
-            .org_nm(org_nm)
+            .dept_cd(dept_cd)
+            .dept_nm(dept_nm)
             .level_gp(level_gp)
             .level_lv(level_lv)
                 .build();
@@ -43,7 +43,7 @@ public class UserDto {
     }
 
     @Builder
-    public UserDto(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String org_cd, String org_nm, String level_gp, String level_lv) {
+    public UserDto(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String dept_cd, String dept_nm, String level_gp, String level_lv) {
         this.u_id       = u_id;
         this.user_id    = user_id;
         this.user_nm    = user_nm;
@@ -52,8 +52,8 @@ public class UserDto {
         this.user_rank  = user_rank;
         this.corp_cd    = corp_cd;
         this.corp_nm    = corp_nm;
-        this.org_cd     = org_cd;
-        this.org_nm     = org_nm;
+        this.dept_cd    = dept_cd;
+        this.dept_nm    = dept_nm;
         this.level_gp   = level_gp;
         this.level_lv   = level_lv;
     }

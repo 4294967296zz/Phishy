@@ -71,7 +71,7 @@
                       Actions
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="">신규 제작</a>
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#builderModal">신규 제작</a>
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">업로드</a>
                     </div>
                   </div>
@@ -239,6 +239,30 @@
           </div>
         </div>
       </div>
+
+      <div class="modal fade" id="builderModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document" style="margin-left: 8%; margin-top:4% !important;">
+          <div class="modal-content" style="width: 1200px;">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-info text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">메일양식 빌더</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+                <script src="//editor.unlayer.com/embed.js"></script>
+                <div id="editor-container" style="height: 700px;"></div>
+              </div>
+              <div class="modal-footer justify-content-center">
+              <a href="#" class="btn btn-success btn" id="save_btn">완료하기</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
 <footer th:replace="fragments/footer"></footer>
@@ -382,6 +406,14 @@
     }
 
     $(document).ready(function() {
+
+      unlayer.init({
+        id: 'editor-container',
+        displayMode: 'email',
+        appearance: {
+          theme: 'dark'
+        }
+      })
 
       getMailforms();
 
