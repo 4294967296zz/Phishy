@@ -89,11 +89,8 @@
                     <table id="UsergroupDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                         <tr>
-                          <th>이름</th>
-                          <th>이메일</th>
-                          <th>직급</th>
-                          <th>소속이름</th>
-                          <th>조직이름</th>
+                          <th>훈련 대상자그룹 이름</th>
+                          <th>대상자 인원</th>
                           <th class="disabled-sorting text-right">Actions</th>
                         </tr>
                       </thead>
@@ -116,9 +113,9 @@
 
       <footer th:replace="fragments/footer"></footer>
 
-      <div class="modal fade" id="regModal" tabindex="-1" role="">
+      <div class="modal fade" id="regModal" tabindex="-1" role="" style="margin-left: -8%;">
         <div class="modal-dialog modal-login" role="document">
-          <div class="modal-content">
+          <div class="modal-content" style="width: 1000px;">
             <div class="card card-signup">
               <div class="modal-header">
                 <div class="card-header card-header-primary text-center">
@@ -129,141 +126,37 @@
                 </div>
               </div>
               <div class="modal-body">
-
                 <form class="form" method="" action="">
-                  <p class="description text-center">신규 사용자를 등록합니다!</p>
+                  <p class="description text-center"></p>
                   <div class="card-body">
-
                     <div class="row">
                       <div class="col-sm-12">
-                        <div class="row">
 
-                          <div class="col-md-8">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">face</i>
-                                  </div>
+                        <table id="UserDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                          <thead>
+                            <tr>
+                              <th>
+                                <div class="form-check userdatatable">
+                                  <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" id="check_all">
+                                    <span class="form-check-sign">
+                                      <span class="check"></span>
+                                    </span>
+                                  </label>
                                 </div>
-                                <input type="text" class="form-control" placeholder="이름" id="user_nm">
-                              </div>
-                            </div>
-                          </div>
+                              </th>
+                              <th>이름</th>
+                              <th>이메일</th>
+                              <th>직급</th>
+                              <th>소속이름</th>
+                              <th>부서이름</th>
+                            </tr>
+                          </thead>
+                          </tbody>
+                        </table>
 
-                          <div class="col-md-4">
-                            <div class="form-group md-form-group">
-                              <div class="input-group rank">
-                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="user_rank">
-                                  <option disabled selected>직급</option>
-                                  <option value="사원">사원</option>
-                                  <option value="주임">주임</option>
-                                  <option value="대리">대리</option>
-                                  <option value="팀장">팀장</option>
-                                  <option value="과장">과장</option>
-                                  <option value="부장">부장</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-12">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">email</i>
-                                  </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="이메일" name="email" email="true" id="user_email">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">email</i>
-                                  </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="소속코드" id="corp_cd">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">email</i>
-                                  </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="소속이름" id="corp_nm">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">email</i>
-                                  </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="조직코드" id="org_cd">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group">
-                                <div class="input-group-prepend">
-                                  <div class="input-group-text">
-                                    <i class="material-icons">email</i>
-                                  </div>
-                                </div>
-                                <input type="text" class="form-control" placeholder="조직이름" id="org_nm">
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group level_gp">
-                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_gp">
-                                  <option disabled selected>권한그룹</option>
-                                  <option value="훈련자">훈련자</option>
-                                  <option value="담당자">담당자</option>
-                                  <option value="중간관리자">중간관리자</option>
-                                  <option value="최고관리자">최고관리자</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="col-md-6">
-                            <div class="form-group md-form-group">
-                              <div class="input-group level_lv">
-                                <select class="selectpicker" data-size="7" data-style="btn btn-primary" id="level_lv">
-                                  <option disabled selected>권한레벨</option>
-                                  <option value="1">1</option>
-                                  <option value="2">2</option>
-                                  <option value="3">3</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-
-                        </div>
                       </div>
                     </div>
-
-
                   </div>
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
@@ -471,7 +364,86 @@
 
     $(document).ready(function() {
 
-      $('#UserDatable').DataTable({
+      $('#UsergroupDatatable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search records",
+        },
+        ajax : {
+          type : "POST",
+          url : "getUsergroupDatatable.do",
+          dataType : "JSON",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+        },
+        columns : [
+          {data : "tugNm"},
+          {
+              data : "tugId",
+              defaultContent:"",
+              'targets': 0,
+              'searchable': false,
+              'className': 'text-right',
+              "render": function (data) {
+                return data.length;
+              }
+          },
+          {
+              data : "u_id",
+              defaultContent:"",
+              'targets': 0,
+              'searchable': false,
+              'className': 'text-right',
+              "render": function (data) {
+                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-u_id="'+data+'"><i class="material-icons">dvr</i></a>';
+                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-u_id="'+data+'"><i class="material-icons">close</i></a>';
+                return edit_btn+remove_btn;
+
+              }
+            },
+      ],
+
+      });
+
+      var table = $('#UsergroupDatatable').DataTable();
+
+      // Edit record
+      table.on('click', '.edit', function() {
+        $('a[data-target="#regModal"]').click();
+        var u_id = $(this).attr('data-u_id');
+        console.log(u_id);
+        editUser(u_id);
+
+      });
+
+      // Delete a record
+      table.on('click', '.remove', function(e) {
+        var u_id = $(this).data('u_id');
+
+        Swal.fire({
+          title: '사용자를 삭제하시겠습니까?',
+          text: "사용한 사용자는 되돌릴 수 없습니다.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '네!',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+              deleteUser(u_id);
+          }
+        });
+      });
+
+      $('#UserDatatable').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -491,79 +463,53 @@
           },
         },
         columns : [
-          {data : "user_nm"},
-          {data : "user_email"},
-          {data : "user_rank"},
-          {data : "corp_nm"},
-          {data : "org_nm"},
           {
               data : "u_id",
               defaultContent:"",
-              'targets': 0,
-              'searchable': false,
-              'className': 'text-right',
-              "render": function (data) {
-                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-u_id="'+data+'"><i class="material-icons">dvr</i></a>';
-                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-u_id="'+data+'"><i class="material-icons">close</i></a>';
-                return edit_btn+remove_btn;
-
+              targets: 0,
+              searchable: false,
+              render: function (data) {
+                return '<div class="form-check userdatatable"><label class="form-check-label">'+
+                        '<input class="form-check-input checked" type="checkbox" name="user_check" data-u_id="'+data+'" value="'+data+'">'+
+                        '<span class="form-check-sign"><span class="check"></span></span></label></div>';
+                // return '<input type="checkbox" name="user_check" data-u_id="'+data+'" value="'+data+'" class="checked">';
               }
             },
+          {data : "user_nm"},
+          {data : "user_email", className:'Userdatatable-email',},
+          {data : "user_rank"},
+          {data : "corp_nm"},
+          {data : "dept_nm"},
       ],
 
       });
 
-      var table = $('#UserDatable').DataTable();
+      var table = $('#UserDatatable').DataTable();
 
-      // Edit record
-      table.on('click', '.edit', function() {
-        // alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
-        $('a[data-target="#regModal"]').click();
-        var u_id = $(this).attr('data-u_id');
-        console.log(u_id);
-        editUser(u_id);
-
-      });
-
-      // Delete a record
-      table.on('click', '.remove', function(e) {
-        // $tr = $(this).closest('tr');
-        // if ($($tr).hasClass('child')) {
-        //   $tr = $tr.prev('.parent');
-        // }
-        // table.row($tr).remove().draw();
-        // e.preventDefault();
-
-        var u_id = $(this).data('u_id');
-
-        Swal.fire({
-          title: '사용자를 삭제하시겠습니까?',
-          text: "사용한 사용자는 되돌릴 수 없습니다.",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: '네!',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-              deleteUser(u_id);
+      $('#check_all').on('change',function() {
+          var checked = $(this).is(':checked');
+          if(checked) {
+              $('.checked').prop('checked',true);
+          } else {
+              $('.checked').prop('checked',false);
           }
-        });
       });
-
-      // //Like record
-      // table.on('click', '.like', function() {
-      //   alert('You clicked on Like button');
-      // });
 
       $('#reg_btn').click(function(e) {
         e.preventDefault();
-        var u_id = $(this).data('u_id');
-        if(u_id) {
-          updateUser(u_id);
+        var tugId = $(this).data('tugId');
+        var userIds = [];
+
+        $('input[name="user_check"]:checked').each(function() {
+          userIds.push($(this).val());
+        });
+        var users = userIds.join(", ");
+
+        console.log(users);
+        if(tugId) {
+          // updateUserGroup(tugId,users);
         } else {
-          insertUser();
+          // insertUserGroup(users);
         }
       });
 
