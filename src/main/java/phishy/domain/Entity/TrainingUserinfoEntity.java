@@ -2,10 +2,7 @@ package phishy.domain.Entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -16,6 +13,7 @@ public class TrainingUserinfoEntity {
     public TrainingUserinfoEntity() {}
 
     @Id
+    @GeneratedValue
     @Column(name = "tug_id")
     private Long tugId;
 
