@@ -130,6 +130,20 @@
                   <p class="description text-center"></p>
                   <div class="card-body">
                     <div class="row">
+                      <div class="col-sm-8">
+                        <div class="form-group md-form-group">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <div class="input-group-text">
+                                <i class="material-icons">email</i>
+                              </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="대상자그룹 이름" name="tugNm" id="tugNm">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
                       <div class="col-sm-12">
 
                         <table id="UserDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
@@ -229,32 +243,22 @@
 
     }
 
-    function insertUser() {
+    function insertUserGroup(userIds) {
       $.ajax({
-          url : "registerUser.do",
+          url : "registerTUG.do",
           type : "POST",
           dataType : "json",
           beforeSend : function(xhr) {
           xhr.setRequestHeader(header, token);
           },
           data : {
-            'user_id' : $('input#user_email').val(),
-            'user_email' : $('input#user_email').val(),
-            'user_nm' : $('input#user_nm').val(),
-            'user_pwd' : $('input#user_email').val(),
-            'user_rank' : $('#user_rank').val(),
-            'corp_cd' : $('input#corp_cd').val(),
-            'corp_nm' : $('input#corp_nm').val(),
-            'org_cd' : $('input#org_cd').val(),
-            'org_nm' : $('input#org_nm').val(),
-            'level_gp' : $('#level_gp').val(),
-            'level_lv' : $('#level_lv').val(),
+            'tugNm' : $('input#tugNm').val(),
+            'userIds' : userIds,
           },
           success : function(result) {
             console.log(result);
             Swal.fire({
-              title : '등록 완료!',
-              text : '초기 비밀번호는 이메일주소 입니다!'
+              title : '그룹 등록 완료!',
             }).then((result) => {
               if (result.isConfirmed) {
                 location.reload();
@@ -468,6 +472,7 @@
               defaultContent:"",
               targets: 0,
               searchable: false,
+              className:'Userdatatable-check',
               render: function (data) {
                 return '<div class="form-check userdatatable"><label class="form-check-label">'+
                         '<input class="form-check-input checked" type="checkbox" name="user_check" data-u_id="'+data+'" value="'+data+'">'+
@@ -509,7 +514,7 @@
         if(tugId) {
           // updateUserGroup(tugId,users);
         } else {
-          // insertUserGroup(users);
+          insertUserGroup(users);
         }
       });
 

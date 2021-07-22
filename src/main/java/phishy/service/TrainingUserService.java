@@ -12,6 +12,7 @@ import phishy.dto.TrainingUserinfoDto;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -50,5 +51,28 @@ public class TrainingUserService {
             TUIDtoList.add(TUGDto);
         }
         return TUIDtoList;
+    }
+
+    @Transactional
+    public Long registerTUG(Map<String, String> datas) {
+        TrainingUsergroupDto trainingUsergroupDto = new TrainingUsergroupDto();
+        TrainingUsergroupEntity trainingUsergroupEntity = trainingUsergroupDto.toEntity();
+        trainingUsergroupEntity.setTugNm(datas.get("tugNm"));
+        return trainingUsergroupRepository.save(trainingUsergroupEntity).getTugId();
+    }
+
+    @Transactional
+    public Object registerTUI(Map<String, Object> datas, Long tugId) {
+        TrainingUserinfoDto trainingUserinfoDto = new TrainingUserinfoDto();
+
+        for(int idx = 0; idx < datas.size(); idx++) {
+            TrainingUserinfoEntity trainingUserinfoEntity = trainingUserinfoDto.toEntity();
+            Object user_id = datas.get(idx);
+            trainingUserinfoEntity.setUserId(String.valueOf(user_id.getClass()));
+            trainingUserinfoEntity.setDeptCd(String.valueOf(datas.get("dept_cd")));
+            trainingUserinfoEntity.setDeptNm(String.valueOf(datas.get("dept_nm")));
+            trainingUserinfoRepository.save(trainingUserinfoEntity).getTugId();
+        }
+        return datas.get(0);
     }
 }

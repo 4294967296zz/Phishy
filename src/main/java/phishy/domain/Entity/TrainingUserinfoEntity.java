@@ -13,7 +13,10 @@ public class TrainingUserinfoEntity {
     public TrainingUserinfoEntity() {}
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tui_id")
+    private Long tuiId;
+
     @Column(name = "tug_id")
     private Long tugId;
 
@@ -27,7 +30,8 @@ public class TrainingUserinfoEntity {
     private String deptNm;
 
     @Builder
-    public TrainingUserinfoEntity(Long tugId, String userId, String deptCd, String deptNm) {
+    public TrainingUserinfoEntity(Long tuiId, Long tugId, String userId, String deptCd, String deptNm) {
+        this.tuiId = tuiId;
         this.tugId = tugId;
         this.userId = userId;
         this.deptCd = deptCd;

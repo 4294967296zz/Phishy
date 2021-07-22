@@ -62,6 +62,22 @@ public class UserService {
             userRepository.save(userEntity).getU_id();
         }
     }
+     @Transactional
+    public List<UserDto> getUserlistsforTUI(List<Long> u_ids) {
+        List<UserEntity> userEntities = userRepository.findAllById(u_ids);
+        List<UserDto> userDtoList = new ArrayList<>();
+
+        for(UserEntity userEntity : userEntities) {
+            UserDto userDTO = UserDto.builder()
+                    .u_id(userEntity.getU_id())
+                    .dept_cd(userEntity.getCorp_nm())
+                    .dept_nm(userEntity.getDept_nm())
+                    .user_email(userEntity.getUser_email())
+                    .build();
+            userDtoList.add(userDTO);
+        }
+        return userDtoList;
+    }
 
     @Transactional
     public List<UserDto> getUserlist() {

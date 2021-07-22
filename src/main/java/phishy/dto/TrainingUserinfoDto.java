@@ -12,12 +12,14 @@ import phishy.domain.Entity.TrainingUserinfoEntity;
 public class TrainingUserinfoDto {
 
     private Long tugId;
+    private Long tuiId;
     private String userId;
     private String deptCd;
     private String deptNm;
 
     public TrainingUserinfoEntity toEntity() {
         TrainingUserinfoEntity trainingUserinfoEntity = TrainingUserinfoEntity.builder()
+                .tuiId(tuiId)
                 .tugId(tugId)
                 .userId(userId)
                 .deptCd(deptCd)
@@ -27,7 +29,8 @@ public class TrainingUserinfoDto {
     }
 
     @Builder
-    public TrainingUserinfoDto(Long tugId, String userId, String deptCd, String deptNm) {
+    public TrainingUserinfoDto(Long tuiId, Long tugId, String userId, String deptCd, String deptNm) {
+        this.tuiId = tuiId;
         this.tugId = tugId;
         this.userId = userId;
         this.deptCd = deptCd;

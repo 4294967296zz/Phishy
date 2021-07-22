@@ -54,4 +54,5 @@
 
 /*유저테이블 이메일 td*/
 .Userdatatable-email { width: 40%; }
+.Userdatatable-check { width: 8%; }
 .form-check.userdatatable { padding-top : 0px; }
