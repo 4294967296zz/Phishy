@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import phishy.service.TrainingUserService;
 import phishy.service.UserService;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,10 +38,7 @@ public class TrainingUserContoller {
     public @ResponseBody Object register(
             @RequestParam("tugNm") String tugNm,
             @RequestParam("userIds") String userIds) {
-        Map<String, String> list = new HashMap<String, String>();
-        list.put("tugNm",tugNm);
-
-        Long tugId = trainingUserService.registerTUG(list);
+        Long tugId = trainingUserService.registerTUG(tugNm);
 
         String str = userIds;
         List<Long> userlist = new ArrayList<Long>();
@@ -49,21 +47,37 @@ public class TrainingUserContoller {
 
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("deptData", userService.getUserlistsforTUI(userlist));
-//
-//        List<Map<String, String>> totallist = new ArrayList<Map<String, String>>();
-//        Map<String, String> map = null;
-//
-//        for(int rpt = 0; rpt < mp.size(); rpt++) {
-//            map = new HashMap<String, String>();
-//            map.put("user_nm",mp.get(rpt).getClass());
-//
-//            totallist.add(map);
-//        }
-//
 
-        Map<String, Object> test = new HashMap<String, Object>();
-        test.put("registerTUI", trainingUserService.registerTUI(mp, tugId));
-
-        return test;
+        return trainingUserService.registerTUI(tugId,userlist);
     }
+
+    @RequestMapping(value = "/updateTUG.do")
+    public String updateTUG(@RequestParam("tugId") Long tugId,
+                            @RequestParam("tugNm") String tugNm,
+                            @RequestParam("userIds") String userIds) {
+        String str = userIds;
+        List<Long> userlist = new ArrayList<Long>();
+        for (String s : str.split(", "))
+            userlist.add(Long.parseLong(s));
+
+        trainingUserService.updateTUG(tugId,tugNm);
+        trainingUserService.updateTUI(tugId,userlist);
+        return "success";
+    }
+
+    @RequestMapping(value = "/deleteTUG.do", method = RequestMethod.POST)
+    public String deleteTUG(@RequestParam("tugId") Long tugId) {
+        trainingUserService.deleteTUG(tugId);
+        return "success";
+    }
+
+    @RequestMapping(value = "/getTUG.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTUG(@RequestParam("tugId") Long tugId) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("tug_data", trainingUserService.getTUG(tugId));
+        mp.put("tui_data", trainingUserService.getTUI(tugId));
+        Object result = mp;
+        return mp;
+    }
+
 }

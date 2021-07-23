@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +21,7 @@ public class TrainingUserService {
 
     private TrainingUserinfoRepository trainingUserinfoRepository;
     private TrainingUsergroupRepository trainingUsergroupRepository;
+    private UserService userService;
 
     @Transactional
     public List<TrainingUsergroupDto> getUsergroupList() {
@@ -34,6 +36,33 @@ public class TrainingUserService {
             TUGDtoList.add(TUGDto);
         }
         return TUGDtoList;
+    }
+    @Transactional
+    public TrainingUsergroupDto getTUG(Long tugId) {
+        Optional<TrainingUsergroupEntity> TUGEntityWrapper = trainingUsergroupRepository.findById(tugId);
+        TrainingUsergroupEntity trainingUsergroupEntity = TUGEntityWrapper.get();
+        TrainingUsergroupDto trainingUsergroupDto = TrainingUsergroupDto.builder()
+                .tugId(trainingUsergroupEntity.getTugId())
+                .tugNm(trainingUsergroupEntity.getTugNm())
+                .build();
+        return trainingUsergroupDto;
+    }
+
+    @Transactional
+    public List<TrainingUserinfoDto> getTUI(Long tugId) {
+        List<TrainingUserinfoEntity> TUIEntities = trainingUserinfoRepository.findAllByTugId(tugId);
+        List<TrainingUserinfoDto> TUIDtoList = new ArrayList<>();
+
+        for(TrainingUserinfoEntity TrainingUserinfoEntity : TUIEntities) {
+            TrainingUserinfoDto TUGDto = TrainingUserinfoDto.builder()
+                    .tugId(TrainingUserinfoEntity.getTugId())
+                    .userId(TrainingUserinfoEntity.getUserId())
+                    .deptCd(TrainingUserinfoEntity.getDeptCd())
+                    .deptNm(TrainingUserinfoEntity.getDeptNm())
+                    .build();
+            TUIDtoList.add(TUGDto);
+        }
+        return TUIDtoList;
     }
 
     @Transactional
@@ -54,25 +83,45 @@ public class TrainingUserService {
     }
 
     @Transactional
-    public Long registerTUG(Map<String, String> datas) {
+    public Long registerTUG(String tugNm) {
         TrainingUsergroupDto trainingUsergroupDto = new TrainingUsergroupDto();
         TrainingUsergroupEntity trainingUsergroupEntity = trainingUsergroupDto.toEntity();
-        trainingUsergroupEntity.setTugNm(datas.get("tugNm"));
+        trainingUsergroupEntity.setTugNm(tugNm);
         return trainingUsergroupRepository.save(trainingUsergroupEntity).getTugId();
     }
 
     @Transactional
-    public Object registerTUI(Map<String, Object> datas, Long tugId) {
+    public void updateTUG(Long tugId, String tugNm) {
+        Optional<TrainingUsergroupEntity> TUGEntityWrapper = trainingUsergroupRepository.findById(tugId);
+        TrainingUsergroupEntity trainingUsergroupEntity = TUGEntityWrapper.get();
+        trainingUsergroupEntity.setTugNm(tugNm);
+        trainingUsergroupRepository.save(trainingUsergroupEntity);
+    }
+
+    @Transactional
+    public String registerTUI(Long tugId, List<Long> userIds) {
         TrainingUserinfoDto trainingUserinfoDto = new TrainingUserinfoDto();
 
-        for(int idx = 0; idx < datas.size(); idx++) {
+        for(Long str : userIds) {
             TrainingUserinfoEntity trainingUserinfoEntity = trainingUserinfoDto.toEntity();
-            Object user_id = datas.get(idx);
-            trainingUserinfoEntity.setUserId(String.valueOf(user_id.getClass()));
-            trainingUserinfoEntity.setDeptCd(String.valueOf(datas.get("dept_cd")));
-            trainingUserinfoEntity.setDeptNm(String.valueOf(datas.get("dept_nm")));
+            trainingUserinfoEntity.setTugId(tugId);
+            trainingUserinfoEntity.setUserId(userService.getUser(str).getUser_email());
+            trainingUserinfoEntity.setDeptCd(userService.getUser(str).getDept_cd());
+            trainingUserinfoEntity.setDeptNm(userService.getUser(str).getDept_nm());
             trainingUserinfoRepository.save(trainingUserinfoEntity).getTugId();
         }
-        return datas.get(0);
+        return "success";
+    }
+
+    @Transactional
+    public void updateTUI(Long tugId, List<Long> userIds) {
+        trainingUserinfoRepository.deleteAllByTugId(tugId);
+        registerTUI(tugId, userIds);
+    }
+
+    @Transactional
+    public void deleteTUG(Long tugId) {
+        trainingUsergroupRepository.deleteById(tugId);
+        trainingUserinfoRepository.deleteAllByTugId(tugId);
     }
 }
