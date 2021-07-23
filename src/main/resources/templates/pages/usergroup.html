@@ -402,7 +402,7 @@
       // Edit record
       table.on('click', '.edit', function() {
         $('a[data-target="#regModal"]').click();
-        var tugId = $(this).attr('data-tugId');
+        var tugId = $(this).attr('data-tugid');
         console.log(tugId);
         editTUG(tugId);
 
@@ -410,7 +410,7 @@
 
       // Delete a record
       table.on('click', '.remove', function(e) {
-        var tugId = $(this).data('tugId');
+        var tugId = $(this).data('tugid');
 
         Swal.fire({
           title: '그룹을 삭제하시겠습니까?',
@@ -475,7 +475,7 @@
       $('#check_all').on('change',function() {
           var checked = $(this).is(':checked');
           if(checked) {
-              $('.checked').prop('checked',true);
+              $('.checked').prop('checked',true);f
           } else {
               $('.checked').prop('checked',false);
           }
@@ -483,7 +483,7 @@
 
       $('#reg_btn').click(function(e) {
         e.preventDefault();
-        var tugId = $(this).data('tugId');
+        var tugId = $(this).data('tugid');
         var userIds = [];
 
         $('input[name="user_check"]:checked').each(function() {
@@ -491,9 +491,8 @@
         });
         var users = userIds.join(", ");
 
-        console.log(users);
         if(tugId) {
-          // updateUserGroup(tugId,users);
+          updateTUG(tugId,users);
         } else {
           insertUserGroup(users);
         }
@@ -503,7 +502,7 @@
            e.preventDefault();
            $('input#tugNm').val('');
            $('.checked').prop('checked',false);
-           $('#reg_btn').attr('data-tugId','');
+           $('#reg_btn').attr('data-tugid','');
         });
 
     });

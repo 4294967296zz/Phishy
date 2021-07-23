@@ -38,6 +38,7 @@ public class TrainingUserContoller {
     public @ResponseBody Object register(
             @RequestParam("tugNm") String tugNm,
             @RequestParam("userIds") String userIds) {
+
         Long tugId = trainingUserService.registerTUG(tugNm);
 
         String str = userIds;
@@ -48,11 +49,13 @@ public class TrainingUserContoller {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("deptData", userService.getUserlistsforTUI(userlist));
 
-        return trainingUserService.registerTUI(tugId,userlist);
+        trainingUserService.registerTUI(tugId,userlist);
+
+        return userlist;
     }
 
-    @RequestMapping(value = "/updateTUG.do")
-    public String updateTUG(@RequestParam("tugId") Long tugId,
+    @PostMapping(value = "/updateTUG.do")
+    public Object pdateTUG(@RequestParam("tugId") Long tugId,
                             @RequestParam("tugNm") String tugNm,
                             @RequestParam("userIds") String userIds) {
         String str = userIds;
@@ -62,13 +65,14 @@ public class TrainingUserContoller {
 
         trainingUserService.updateTUG(tugId,tugNm);
         trainingUserService.updateTUI(tugId,userlist);
-        return "success";
+
+        return userlist;
     }
 
-    @RequestMapping(value = "/deleteTUG.do", method = RequestMethod.POST)
-    public String deleteTUG(@RequestParam("tugId") Long tugId) {
+    @PostMapping(value = "/deleteTUG.do")
+    public Long deleteTUG(@RequestParam("tugId") Long tugId) {
         trainingUserService.deleteTUG(tugId);
-        return "success";
+        return tugId;
     }
 
     @RequestMapping(value = "/getTUG.do", method = RequestMethod.POST)

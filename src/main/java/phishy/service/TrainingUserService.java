@@ -99,7 +99,7 @@ public class TrainingUserService {
     }
 
     @Transactional
-    public String registerTUI(Long tugId, List<Long> userIds) {
+    public void registerTUI(Long tugId, List<Long> userIds) {
         TrainingUserinfoDto trainingUserinfoDto = new TrainingUserinfoDto();
 
         for(Long str : userIds) {
@@ -110,7 +110,6 @@ public class TrainingUserService {
             trainingUserinfoEntity.setDeptNm(userService.getUser(str).getDept_nm());
             trainingUserinfoRepository.save(trainingUserinfoEntity).getTugId();
         }
-        return "success";
     }
 
     @Transactional
