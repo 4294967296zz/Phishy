@@ -77,7 +77,6 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
-                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                     </div>
                   </div>
                 </div>
@@ -284,10 +283,9 @@
             'tugNm' : $('input#tugNm').val(),
             'userIds' : userIds,
           },
-          success : function(result) {
-            console.log(result);
+          complete : function(result) {
             Swal.fire({
-              title : '그룹 등록 완료!',
+              title : '그룹 수정 완료!',
             }).then((result) => {
               if (result.isConfirmed) {
                 location.reload();
@@ -338,7 +336,7 @@
             xhr.setRequestHeader(header, token);
           },
           data: {'tugId': tugId},
-          success: function () {
+          complete: function () {
             location.reload();
           },
           error: function (thrownError) {
@@ -360,6 +358,7 @@
           search: "_INPUT_",
           searchPlaceholder: "Search records",
         },
+        ordering : false,
         ajax : {
           type : "POST",
           url : "getUsergroupDatatable.do",
@@ -370,16 +369,7 @@
         },
         columns : [
           {data : "tugNm"},
-          {
-              data : "tugId",
-              defaultContent:"",
-              'targets': 0,
-              'searchable': false,
-              'className': 'text-right',
-              "render": function (data) {
-                return data.length;
-              }
-          },
+          {data : "tugCount",'className': 'text-right',},
           {
               data : "tugId",
               defaultContent:"",
@@ -475,7 +465,7 @@
       $('#check_all').on('change',function() {
           var checked = $(this).is(':checked');
           if(checked) {
-              $('.checked').prop('checked',true);f
+              $('.checked').prop('checked',true);
           } else {
               $('.checked').prop('checked',false);
           }

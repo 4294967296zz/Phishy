@@ -21,10 +21,14 @@ public class TrainingUsergroupEntity {
     @Column(name = "tug_nm")
     private String tugNm;
 
+    @Column(name = "tug_count")
+    private Integer tugCount;
+
     @Builder
-    public TrainingUsergroupEntity(Long tugId, String tugNm) {
-        this.tugId = tugId;
-        this.tugNm = tugNm;
+    public TrainingUsergroupEntity(Long tugId, String tugNm, Integer tugCount) {
+        this.tugId      = tugId;
+        this.tugNm      = tugNm;
+        this.tugCount   = tugCount;
     }
 
 }

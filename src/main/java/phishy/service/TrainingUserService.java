@@ -32,6 +32,7 @@ public class TrainingUserService {
             TrainingUsergroupDto TUGDto = TrainingUsergroupDto.builder()
                     .tugId(TrainingUsergroupEntity.getTugId())
                     .tugNm(TrainingUsergroupEntity.getTugNm())
+                    .tugCount(TrainingUsergroupEntity.getTugCount())
                     .build();
             TUGDtoList.add(TUGDto);
         }
@@ -44,6 +45,7 @@ public class TrainingUserService {
         TrainingUsergroupDto trainingUsergroupDto = TrainingUsergroupDto.builder()
                 .tugId(trainingUsergroupEntity.getTugId())
                 .tugNm(trainingUsergroupEntity.getTugNm())
+                .tugCount(trainingUsergroupEntity.getTugCount())
                 .build();
         return trainingUsergroupDto;
     }
@@ -83,18 +85,20 @@ public class TrainingUserService {
     }
 
     @Transactional
-    public Long registerTUG(String tugNm) {
+    public Long registerTUG(String tugNm, Integer tugCount) {
         TrainingUsergroupDto trainingUsergroupDto = new TrainingUsergroupDto();
         TrainingUsergroupEntity trainingUsergroupEntity = trainingUsergroupDto.toEntity();
         trainingUsergroupEntity.setTugNm(tugNm);
+        trainingUsergroupEntity.setTugCount(tugCount);
         return trainingUsergroupRepository.save(trainingUsergroupEntity).getTugId();
     }
 
     @Transactional
-    public void updateTUG(Long tugId, String tugNm) {
+    public void updateTUG(Long tugId, String tugNm, Integer tugCount) {
         Optional<TrainingUsergroupEntity> TUGEntityWrapper = trainingUsergroupRepository.findById(tugId);
         TrainingUsergroupEntity trainingUsergroupEntity = TUGEntityWrapper.get();
         trainingUsergroupEntity.setTugNm(tugNm);
+        trainingUsergroupEntity.setTugCount(tugCount);
         trainingUsergroupRepository.save(trainingUsergroupEntity);
     }
 
