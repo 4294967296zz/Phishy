@@ -66,38 +66,155 @@
                   </div>
                   <h4 class="card-title">훈련 프로젝트 생성</h4>
                 </div>
-                <div class="card-body">
-                  <div class="toolbar">
-                            Here you can write extra bㅁㅇㄹuttons/actions for the toolbar
+                <div class="card-body project">
+                  <div class="toolbar"></div>
+
+                  <div class="row">
+                    <div class="col-md-12"><h5>훈련 기본 정보</h5></div>
+                    <div class="col-md-6">
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">훈련 프로젝트명</label>
+                        <input type="text" class="form-control">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹">
+                        <option disabled selected>훈련 대상자그룹</option>
+                        <option value="2">Is cool</option>
+                        <option value="3">Is great</option>
+                        <option value="4">Is bum</option>
+                        <option value="5">Is wow</option>
+                        <option value="6">Is damn</option>
+                      </select>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group md-form-group is-filled">
+                        <input type="text" class="form-control datetimepicker" value="03/09/2020">
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-group md-form-group is-filled">
+                        <input type="text" class="form-control datetimepicker" value="03/09/2020">
+                      </div>
+                    </div>
                   </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h5 class="title">피싱기능</h5>
+                      <div class="togglebutton">
+                        <label>
+                          피싱사이트 사용
+                          <input type="checkbox" id="trs_phishing" value="yes">
+                          <span class="toggle"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-6 phishing_url opacity0">
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">피싱사이트 URL</label>
+                        <input type="text" class="form-control" id="trs_phishing_url">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h5 class="title">훈련메일 위반기준</h5>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_open" value="yes"> 메일 열람
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_link" value="yes"> 링크 클릭
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_attach_click" value="yes"> 첨부파일 다운로드
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_attach_open" value="yes"> 첨부파일 실행
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline phishing_content opacity0">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_phishing_content" value="yes"> 피싱사이트 정보입력
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">훈련 메일 발송간격</label>
+                        <input type="text" class="form-control" value="3" disabled>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
-                <!-- end content-->
               </div>
-              <!--  end card  -->
+              <!-- end content-->
             </div>
-            <!-- end col-md-12 -->
+            <!--  end card  -->
           </div>
+            <!-- end col-md-12 -->
         </div>
       </div>
-      <footer th:replace="fragments/footer"></footer>
+    </div>
+
+<footer th:replace="fragments/footer"></footer>
 
   <script>
 
     $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
+      console.log(new Date().format("YYYY-MM-DD"));
+      var today = new Date().format("YYYY-MM-DD");
+      $('.datetimepicker').datetimepicker({
+        'setDate': today,
+        format: 'YYYY-MM-DD',
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-chevron-up",
+          down: "fa fa-chevron-down",
+          previous: 'fa fa-chevron-left',
+          next: 'fa fa-chevron-right',
+          today: 'fa fa-screenshot',
+          clear: 'fa fa-trash',
+          close: 'fa fa-remove'
+        }
+      });
 
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
+      $('#trs_phishing').on('click', function() {
+        if($(this).is(':checked')) {
+          $('.phishing_url').addClass('opacity1').removeClass('opacity0');
+          $('.phishing_content').addClass('opacity1').removeClass('opacity0');
+        } else {
+          $('.phishing_url').addClass('opacity0').removeClass('opacity1');
+          $('.phishing_content').addClass('opacity0').removeClass('opacity1');
+        }
       });
     });
   </script>

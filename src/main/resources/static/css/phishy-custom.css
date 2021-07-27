@@ -56,3 +56,10 @@
 .Userdatatable-email { width: 40%; }
 .Userdatatable-check { width: 8%; }
 .form-check.userdatatable { padding-top : 0px; }
+
+/*훈련프로젝트생성 페이지 row*/
+.project .row {margin-bottom: 35px;}
+
+/*훈련프로젝트생성 페이지 피싱관련 opacity*/
+.opacity0 {display: none;}
+.opacity1 {display: inline-block;}
