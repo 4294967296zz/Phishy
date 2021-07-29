@@ -20540,10 +20540,10 @@ Copyright (c) 2015 Daniel Eden
   background: #202940;
 }
 
-.dark-edition .card .card-header.card-header-text .card-title,
-.dark-edition .card .card-header.card-header-icon .card-title {
-  color: #606477;
-}
+/*.dark-edition .card .card-header.card-header-text .card-title,*/
+/*.dark-edition .card .card-header.card-header-icon .card-title {*/
+/*  color: #606477;*/
+/*}*/
 
 .dark-edition .card .card-header.card-header-tabs .nav-tabs-title {
   color: rgba(255, 255, 255, 0.8);

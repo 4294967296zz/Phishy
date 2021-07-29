@@ -58,69 +58,95 @@
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <div class="card">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">assignment</i>
+                <div class="card-header card-header-text card-header-primary">
+                  <div class="card-text">
+                    <h4 class="card-title">01 훈련 기본 설정</h4>
                   </div>
-                  <h4 class="card-title">훈련 프로젝트 생성</h4>
                 </div>
                 <div class="card-body project">
-                  <div class="toolbar"></div>
-
                   <div class="row">
-                    <div class="col-md-12"><h5>훈련 기본 정보</h5></div>
-                    <div class="col-md-6">
+                    <div class="col-sm-12">
                       <div class="form-group md-form-group">
                         <label class="md-label-floating">훈련 프로젝트명</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="trp_nm">
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹">
-                        <option disabled selected>훈련 대상자그룹</option>
-                        <option value="2">Is cool</option>
-                        <option value="3">Is great</option>
-                        <option value="4">Is bum</option>
-                        <option value="5">Is wow</option>
-                        <option value="6">Is damn</option>
-                      </select>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group md-form-group is-filled">
-                        <input type="text" class="form-control datetimepicker" value="03/09/2020">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group md-form-group is-filled">
-                        <input type="text" class="form-control datetimepicker" value="03/09/2020">
+                    <div class="col-sm-12">
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">훈련 프로젝트 내용</label>
+                        <input type="text" class="form-control" id="trp_content">
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <label class="col-sm-2 col-form-label">훈련 시작일</label>
+                    <div class="col-sm-4">
+                      <div class="form-group md-form-group is-filled">
+                        <input type="text" class="form-control datetimepicker" id="trp_start">
+                      </div>
+                    </div>
+                    <label class="col-sm-2 col-form-label">훈련 종료일</label>
+                    <div class="col-sm-4">
+                      <div class="form-group md-form-group is-filled">
+                        <input type="text" class="form-control datetimepicker" id="trp_end">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3">훈련 대상자그룹</label>
+                    <div class="col-sm-9">
+                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹" id="tug_id">
 
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                 <div class="card-header card-header-text card-header-primary">
+                  <div class="card-text">
+                    <h4 class="card-title">02 훈련 기능 설정</h4>
+                  </div>
+                </div>
+                <div class="card-body project">
                   <div class="row">
                     <div class="col-md-12">
-                      <h5 class="title">피싱기능</h5>
+                      <h5 class="card-title">메일 양식</h5>
+                    </div>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="mfi_selected" value="" disabled="">
+                    </div>
+                    <div class="col-md-6">
+                      <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#mfiModal">선택하기</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h5 class="card-title">피싱기능</h5>
                       <div class="togglebutton">
                         <label>
-                          피싱사이트 사용
+                          <span class="card-title">피싱 기능 사용</span>
                           <input type="checkbox" id="trs_phishing" value="yes">
                           <span class="toggle"></span>
                         </label>
                       </div>
                     </div>
-                    <div class="col-md-6 phishing_url opacity0">
-                      <div class="form-group md-form-group">
-                        <label class="md-label-floating">피싱사이트 URL</label>
-                        <input type="text" class="form-control" id="trs_phishing_url">
+                    <div class="col-md-12">
+                      <div class="phishing_url opacity0">
+                        <div class="form-group md-form-group">
+                          <label class="md-label-floating">피싱사이트 URL</label>
+                          <input type="text" class="form-control" id="trs_phishing_url">
+                        </div>
                       </div>
                     </div>
                   </div>
-
                   <div class="row">
                     <div class="col-md-12">
-                      <h5 class="title">훈련메일 위반기준</h5>
+                      <h5 class="card-title">훈련메일 위반기준</h5>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" id="trs_open" value="yes"> 메일 열람
@@ -131,7 +157,7 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_link" value="yes"> 링크 클릭
+                          <input class="form-check-input" type="checkbox" id="trs_click" value="yes"> 링크 클릭
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -163,63 +189,188 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group md-form-group">
-                        <label class="md-label-floating">훈련 메일 발송간격</label>
-                        <input type="text" class="form-control" value="3" disabled>
-                      </div>
-                    </div>
-                  </div>
-
                 </div>
               </div>
-              <!-- end content-->
             </div>
-            <!--  end card  -->
           </div>
+
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-success btn-lg" id="project_reg">생성하기</button>
+            </div>
+          </div>
+
             <!-- end col-md-12 -->
         </div>
       </div>
     </div>
 
+    <div class="modal fade" id="mfiModal" tabindex="-1" role="" style="margin-left: -8%;">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content" style="width: 1000px;">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">훈련 컨텐츠 선택하기</h4>
+                </div>
+              </div>
+              <div class="modal-body col-md-12">
+                <form class="form" method="" action="">
+                  <div class="card-body mfi-card-section">
+                    <div class="col-md-4">
+                      <div class="card mfi-card" style="width: 18rem;">
+                        <img class="card-img-top" src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/img-1-1000x600.jpg" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title mailform_nm"></h5>
+                          <p class="card-text mailform_mail_title"></p>
+                          <p class="card-text mailform_mail_nm"></p>
+                          <p class="card-text mailform_mail_addr"></p>
+                          <a href="javascript:;" class="btn btn-primary button-wrapper">사용하기</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
 <footer th:replace="fragments/footer"></footer>
 
   <script>
 
-    Date.prototype.format = function (f) {
-      if (!this.valueOf()) return " ";
-      var weekKorName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
-      var weekKorShortName = ["일", "월", "화", "수", "목", "금", "토"];
-      var weekEngName = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      var weekEngShortName = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-      var d = this;
-      return f.replace(/(yyyy|yy|MM|dd|KS|KL|ES|EL|HH|hh|mm|ss|a\/p)/gi, function ($1) {
-          switch ($1) {
-              case "yyyy": return d.getFullYear(); // 년 (4자리)
-              case "yy": return (d.getFullYear() % 1000).zf(2); // 년 (2자리)
-              case "MM": return (d.getMonth() + 1).zf(2); // 월 (2자리)
-              case "dd": return d.getDate().zf(2); // 일 (2자리)
-              case "KS": return weekKorShortName[d.getDay()]; // 요일 (짧은 한글)
-              case "KL": return weekKorName[d.getDay()]; // 요일 (긴 한글)
-              case "ES": return weekEngShortName[d.getDay()]; // 요일 (짧은 영어)
-              case "EL": return weekEngName[d.getDay()]; // 요일 (긴 영어)
-              case "HH": return d.getHours().zf(2); // 시간 (24시간 기준, 2자리)
-              case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2); // 시간 (12시간 기준, 2자리)
-              case "mm": return d.getMinutes().zf(2); // 분 (2자리)
-              case "ss": return d.getSeconds().zf(2); // 초 (2자리)
-              case "a/p": return d.getHours() < 12 ? "오전" : "오후"; // 오전/오후 구분
-              default: return $1;
+    var token = $("input[name='_csrf']").val();
+    var header = "X-CSRF-TOKEN";
+
+    function getMailforms() {
+      $.ajax({
+          url : "getMailforms.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+
+            var data = result.data;
+            var mfi_card = $('.mfi-card').parent();
+
+            for(i in data) {
+              var lastItemClone = mfi_card.clone();
+              lastItemClone.find('.mailform_nm').append(data[i]['mfi_nm']);
+              lastItemClone.find('.mailform_mail_addr').append(data[i]['mfi_mail_addr']);
+              lastItemClone.find('.mailform_mail_nm').append(data[i]['mfi_mail_nm']);
+              lastItemClone.find('.mailform_mail_title').append(data[i]['mfi_mail_title']);
+              lastItemClone.find('.button-wrapper').attr('data-mfi_id',data[i]['mfi_id']);
+              $('.mfi-card-section').append(lastItemClone);
+            }
+            $('.mfi-card').first().hide();
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
           }
       });
-    };
+    }
+
+    function getToday(){
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;    //1월이 0으로 되기때문에 +1을 함.
+        var date = now.getDate();
+
+        month = month >=10 ? month : "0" + month;
+        date  = date  >= 10 ? date : "0" + date;
+
+        var today = ""+year+"-"+month+"-"+date;
+        $('.datetimepicker').val(today);
+    }
+
+    function getTUGs() {
+
+      $.ajax({
+          url : "getUsergroupDatatable.do",
+          type : "POST",
+          processData: false,
+          contentType: false,
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+            var options = '<option disabled selected>훈련 대상자그룹</option>';
+            for(i in result.data) {
+              options += '<option value="'+result.data[i].tugId+'">'+result.data[i].tugNm+'('+result.data[i].tugCount+'명)'+'</option>';
+            }
+            $('select#tug_id').html(options).selectpicker('refresh');
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+    function insertProject() {
+      var ajaxdatas = {
+        'trp_nm' : $('#trp_nm').val(),
+        'trp_content' : $('#trp_content').val(),
+        'trp_start' : $('#trp_start').val(),
+        'trp_end' : $('#trp_end').val(),
+        'trp_interval' : $('#trp_interval').val(),
+        'tug_id' : $('#tug_id').val(),
+        'mfi_id' : $('#mfi_selected').data('mfiid'),
+        'trs_open' : $('#trs_open').is(':checked'),
+        'trs_click' : $('#trs_click').is(':checked'),
+        'trs_attach_click' : $('#trs_attach_click').is(':checked'),
+        'trs_attach_open' : $('#trs_attach_open').is(':checked'),
+        // 'trs_attach_nm' : $('#trs_attach_nm').val(),
+        // 'trs_attach_type' : $('#trs_attach_type').val(),
+        'trs_phishing' : $('#trs_phishing').is(':checked'),
+        'trs_phishing_url' : $('#trs_phishing_url').val(),
+        'trs_phishing_content' : $('#trs_phishing_content').is(':checked'),
+      };
+      console.log(ajaxdatas);
+
+      // $.ajax({
+      //     url : "registerProject.do",
+      //     type : "POST",
+      //     processData: false,
+      //     contentType: false,
+      //     data : ajaxdatas,
+      //     beforeSend : function(xhr) {
+      //     xhr.setRequestHeader(header, token);
+      //     },
+      //     success : function(result) {
+      //       console.log(result);
+      //       Swal.fire({
+      //         title : '등록 완료!',
+      //       }).then((result) => {
+      //         if (result.isConfirmed) {
+      //           location.reload();
+      //         }
+      //       });
+      //     },
+      //     error : function(thrownError) {
+      //       console.log(thrownError);
+      //     }
+      // });
+    }
 
     $(document).ready(function() {
-      console.log(new Date().format("YYYY-MM-DD"));
-      var today = new Date().format("YYYY-MM-DD");
+
+      getToday();
+      getMailforms();
+      getTUGs();
+
       $('.datetimepicker').datetimepicker({
-        'setDate': today,
         format: 'YYYY-MM-DD',
         icons: {
           time: "fa fa-clock-o",
@@ -231,7 +382,7 @@
           today: 'fa fa-screenshot',
           clear: 'fa fa-trash',
           close: 'fa fa-remove'
-        }
+        },
       });
 
       $('#trs_phishing').on('click', function() {
@@ -243,6 +394,25 @@
           $('.phishing_content').addClass('opacity0').removeClass('opacity1');
         }
       });
+
+      $('body').on('click', '.button-wrapper', function(e){
+        e.preventDefault();
+        $('#mfiModal .close').click();
+        var mail_nm = $(this).parent().find('.mailform_nm').text();
+        var mfi_id = $(this).data('mfi_id');
+        $('#mfi_selected').val(mail_nm).attr('data-mfiId',mfi_id);
+        $('.btn.btn-primary.btn-round').html("변경하기");
+      });
+
+      $('#project_reg').click(function(e) {
+        e.preventDefault();
+        insertProject();
+      });
+
+      // $('a[data-target="#mfiModal"]').click(function() {
+      //
+      // });
+
     });
   </script>
 
