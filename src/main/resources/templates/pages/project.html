@@ -55,7 +55,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content">
+      <div class="content" id="project">
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-6">
@@ -98,9 +98,24 @@
                     <label class="col-sm-3">훈련 대상자그룹</label>
                     <div class="col-sm-9">
                       <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹" id="tug_id">
-
                       </select>
                     </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-3">훈련 메일 양식</label>
+                    <div class="col-md-6">
+                      <input type="text" class="form-control" id="mfi_selected" value="" disabled="">
+                    </div>
+                    <div class="col-md-3">
+                      <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#mfiModal">선택하기</button>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4">훈련 메일 발송 간격</label>
+                    <div class="col-md-2">
+                      <input type="text" class="form-control" id="trs_interval" value="3">
+                    </div>
+                    <label class="col-sm-6">초</label>
                   </div>
                 </div>
               </div>
@@ -112,30 +127,97 @@
                     <h4 class="card-title">02 훈련 기능 설정</h4>
                   </div>
                 </div>
-                <div class="card-body project">
+                <div class="card-body">
                   <div class="row">
+                    <label class="col-sm-3">훈련 메일 양식</label>
                     <div class="col-md-12">
-                      <h5 class="card-title">메일 양식</h5>
+                      <div class="togglebutton">
+                        <label>
+                          <span class="card-title">첨부파일형</span>
+                          <input type="checkbox" id="attach_type" value="yes">
+                          <span class="toggle"></span>
+                        </label>
+                        <label>
+                          <span class="card-title">버튼클릭형</span>
+                          <input type="checkbox" id="button_type" value="yes">
+                          <span class="toggle"></span>
+                        </label>
+                      </div>
                     </div>
-                    <div class="col-md-6">
-                      <input type="text" class="form-control" id="mfi_selected" value="" disabled="">
+                  </div>
+                  <div class="row file_type">
+                    <label class="col-sm-12">첨부파일 확장자</label>
+                    <div class="col-sm-12">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="csv" checked="checked"> csv
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="doc" checked=""> doc
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="pdf" checked=""> pdf
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="jpg" checked=""> jpg
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>p
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="html" checked=""> html
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
+                      <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="exe" checked=""> exe
+                            <span class="circle">
+                              <span class="check"></span>
+                            </span>
+                          </label>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                      <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#mfiModal">선택하기</button>
+                    <div class="col-sm-7">
+                      <div>
+                        <div class="form-group md-form-group">
+                          <label class="md-label-floating">첨부파일 이름</label>
+                          <input type="text" class="form-control" id="trs_attach_nm">
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12">
-                      <h5 class="card-title">피싱기능</h5>
+                    <label class="col-md-12">피싱 기능</label>
+                    <div class="col-md-6">
                       <div class="togglebutton">
                         <label>
-                          <span class="card-title">피싱 기능 사용</span>
+                          <label class="card-title">피싱 기능 사용</label>
                           <input type="checkbox" id="trs_phishing" value="yes">
                           <span class="toggle"></span>
                         </label>
                       </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                       <div class="phishing_url opacity0">
                         <div class="form-group md-form-group">
                           <label class="md-label-floating">피싱사이트 URL</label>
@@ -144,9 +226,10 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
+                    <label class="col-md-12">훈련메일 위반기준</label>
                     <div class="col-md-12">
-                      <h5 class="card-title">훈련메일 위반기준</h5>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
                           <input class="form-check-input" type="checkbox" id="trs_open" value="yes"> 메일 열람
@@ -331,8 +414,8 @@
         'trs_click' : $('#trs_click').is(':checked'),
         'trs_attach_click' : $('#trs_attach_click').is(':checked'),
         'trs_attach_open' : $('#trs_attach_open').is(':checked'),
-        // 'trs_attach_nm' : $('#trs_attach_nm').val(),
-        // 'trs_attach_type' : $('#trs_attach_type').val(),
+        'trs_attach_nm' : $('#trs_attach_nm').val(),
+        'trs_attach_type' : $('input[name="trs_attach_type"]').val(),
         'trs_phishing' : $('#trs_phishing').is(':checked'),
         'trs_phishing_url' : $('#trs_phishing_url').val(),
         'trs_phishing_content' : $('#trs_phishing_content').is(':checked'),
@@ -392,6 +475,24 @@
         } else {
           $('.phishing_url').addClass('opacity0').removeClass('opacity1');
           $('.phishing_content').addClass('opacity0').removeClass('opacity1');
+        }
+      });
+
+      $('#attach_type').on('click', function() {
+        if($(this).is(':checked')) {
+          $('.file_type').show();
+          $('#button_type').prop('checked',false);
+        } else {
+          $('.file_type').hide();
+        }
+      });
+
+      $('#button_type').on('click', function() {
+        if($(this).is(':checked')) {
+          if ($('#attach_type').is(':checked')) {
+            $('#attach_type').prop('checked', false);
+            $('.file_type').hide();
+          }
         }
       });
 

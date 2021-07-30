@@ -58,8 +58,12 @@
 .form-check.userdatatable { padding-top : 0px; }
 
 /*훈련프로젝트생성 페이지 row*/
-.project .row {margin-bottom: 35px;}
+#project .row {margin-bottom: 35px;}
+#project .card { height: 600px; }
 
 /*훈련프로젝트생성 페이지 피싱관련 opacity*/
-.opacity0 {display: none;}
-.opacity1 {display: inline-block;}
+#project .opacity0 {display: none;}
+#project .opacity1 {display: block;}
+
+/*훈련프고젝트생성 페이지 첨부파일*/
+#project .file_type { display : none; }
