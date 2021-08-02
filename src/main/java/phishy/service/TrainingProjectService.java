@@ -11,6 +11,8 @@ import phishy.dto.TrainingSettingDto;
 
 import javax.transaction.Transactional;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -54,6 +56,50 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpEnd(trpEnd);
         trainingProjectEntity.setTrpContent(datas.get("trp_content"));
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
+    }
+
+    @Transactional
+    public List<TrainingProjectDto> getTRPs() {
+        List<TrainingProjectEntity> trpEntities = trainingProjectRepository.findAll();
+        List<TrainingProjectDto> trpDtoList = new ArrayList<>();
+
+        for(TrainingProjectEntity trpEntity : trpEntities) {
+            TrainingProjectDto trpDto = TrainingProjectDto.builder()
+                    .trpNm(trpEntity.getTrpNm())
+                    .trpContent(trpEntity.getTrpContent())
+                    .trpStart(trpEntity.getTrpStart())
+                    .trpEnd(trpEntity.getTrpEnd())
+                    .tugId(trpEntity.getTugId())
+                    .trpStatus(trpEntity.getTrpStatus())
+                    .trsId(trpEntity.getTrsId())
+                    .build();
+            trpDtoList.add(trpDto);
+        }
+        return trpDtoList;
+    }
+
+    @Transactional
+    public List<TrainingSettingDto> getTRSs() {
+        List<TrainingSettingEntity> trsEntities = trainingSettingRepository.findAll();
+        List<TrainingSettingDto> trsDtoList = new ArrayList<>();
+
+        for(TrainingSettingEntity trsEntity : trsEntities) {
+            TrainingSettingDto trsDto = TrainingSettingDto.builder()
+                    .trsId(trsEntity.getTrsId())
+                    .trsOpen(trsEntity.getTrsOpen())
+                    .trsLink(trsEntity.getTrsLink())
+                    .trsAttachNm(trsEntity.getTrsAttachNm())
+                    .trsAttachClick(trsEntity.getTrsAttachClick())
+                    .trsAttachOpen(trsEntity.getTrsAttachOpen())
+                    .trsAttachType(trsEntity.getTrsAttachType())
+                    .trsAttachSize(trsEntity.getTrsAttachSize())
+                    .trsPhishing(trsEntity.getTrsPhishing())
+                    .trsPhishingUrl(trsEntity.getTrsPhishingUrl())
+                    .trsPhishingContent(trsEntity.getTrsPhishingContent())
+                    .build();
+            trsDtoList.add(trsDto);
+        }
+        return trsDtoList;
     }
 
 }

@@ -57,66 +57,35 @@
       <!-- End Navbar -->
       <div class="content" id="status">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-4 col-md-12">
+          <div class="row project-card-section">
+
+            <div class="col-lg-4 col-md-12 project-card">
               <div class="card">
-                <div class="card-header card-header-info">
-                  <span class="badge badge-primary">훈련대기</span>
+                <div class="card-header card-header-primary">
+                  <span class="badge badge-secondary"></span>
 <!--                      <span class="badge badge-success">훈련완료</span>-->
 <!--                      <span class="badge badge-warning">훈련중</span>-->
-                  <h4 class="card-title">훈련프로젝트 이름</h4>
-                  <p class="card-category">훈련에 대한 설명입니다.</p>
-
+                  <h4 class="card-title trp_nm"></h4>
                 </div>
                 <div class="card-body table-responsive">
-
-                  <div class="row">
-                    <label class="col-sm-4 text-right">훈련 양식</label>
-                    <div class="col-sm-8">
-                      <span>첫번째 훈련양식입니다</span>
-                    </div>
-                  </div>
                   <div class="row">
                     <label class="col-sm-4 text-right">훈련 기간</label>
                     <div class="col-sm-8">
-                      <span>2021-03-01 ~ 2021-04-01</span>
+                      <span class="trp_start"></span> ~
+                      <span class="trp_end"></span>
                     </div>
                   </div>
                   <div class="row">
                     <label class="col-sm-4 text-right">훈련 대상자</label>
                     <div class="col-sm-8">
-                      <span>422명</span>
+                      <span class="tug_count"></span>명
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-12 text-center">
-                      <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#detailModal">상세보기</button>
+                      <button type="button" class="btn btn-primary btn-sm detail-btn" data-toggle="modal" data-target="#detailModal">상세보기</button>
                     </div>
                   </div>
-
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Employees Stats</h4>
-                  <p class="card-category">New employees on 15th September, 2016</p>
-                </div>
-                <div class="card-body table-responsive">
-
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-12">
-              <div class="card">
-                <div class="card-header card-header-success">
-                  <h4 class="card-title">Employees Stats</h4>
-                  <p class="card-category">New employees on 15th September, 2016</p>
-                </div>
-                <div class="card-body table-responsive">
 
                 </div>
               </div>
@@ -151,8 +120,59 @@
     var token = $("input[name='_csrf']").val();
     var header = "X-CSRF-TOKEN";
 
+    function getTUGcounts(tugId) {
+        $.ajax({
+          url: "getTUG.do",
+          type: "POST",
+          dataType: "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'tugId': tugId},
+          success: function (result) {
+            var tug_data = result.tug_data;
+            console.log(result);
+            console.log(tug_data);
+            return tug_data;
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
+    function getTRPs() {
+      $.ajax({
+          url : "getTRPs.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            var project_card = $('.project-card');
+
+            for(i in result.trp_datas) {
+              var lastItemClone = project_card.clone();
+              lastItemClone.find('.badge').append(result.trp_datas[i]['trpStatus']);
+              lastItemClone.find('.trp_nm').append(result.trp_datas[i]['trpNm']);
+              lastItemClone.find('.trp_start').append(result.trp_datas[i]['trpStart']);
+              lastItemClone.find('.trp_end').append(result.trp_datas[i]['trpEnd']);
+              lastItemClone.find('.detail-btn').attr('data-tugId',result.trp_datas[i]['tugIg']);
+              $('.project-card-section').append(lastItemClone);
+            }
+            project_card.first().hide();
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+
     $(document).ready(function() {
 
+      getTRPs();
 
     });
   </script>

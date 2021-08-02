@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import phishy.service.MailformService;
 import phishy.service.TrainingProjectService;
+import phishy.service.TrainingUserService;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class TrainingProjectController {
     private TrainingProjectService trainingProjectService;
     private MailformService mailformService;
+    private TrainingUserService trainingUserService;
 
     @RequestMapping(value = "/registerTRP.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -59,6 +61,16 @@ public class TrainingProjectController {
         trainingProjectService.registerTRP(datas,tug_id,mfi_id,trp_start,trp_end);
 
         return datas;
-
     }
+
+    @RequestMapping(value = "/getTRPs.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTRPdetails() {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("trp_datas", trainingProjectService.getTRPs());
+        mp.put("trs_datas", trainingProjectService.getTRSs());
+        Object result = mp;
+        return result;
+    }
+
+
 }
