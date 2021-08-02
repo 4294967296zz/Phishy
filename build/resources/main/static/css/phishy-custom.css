@@ -67,3 +67,5 @@
 
 /*훈련프고젝트생성 페이지 첨부파일*/
 #project .file_type { display : none; }
+
+#status .badge { float: right;}

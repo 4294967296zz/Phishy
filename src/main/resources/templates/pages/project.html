@@ -58,7 +58,7 @@
       <div class="content" id="project">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-text card-header-primary">
                   <div class="card-text">
@@ -113,16 +113,16 @@
                   <div class="row">
                     <label class="col-sm-4">훈련 메일 발송 간격</label>
                     <div class="col-md-2">
-                      <input type="text" class="form-control" id="trs_interval" value="3">
+                      <input type="text" class="form-control" id="trp_interval" value="3">
                     </div>
                     <label class="col-sm-6">초</label>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-12">
               <div class="card">
-                 <div class="card-header card-header-text card-header-primary">
+                 <div class="card-header card-header-text card-header-warning">
                   <div class="card-text">
                     <h4 class="card-title">02 훈련 기능 설정</h4>
                   </div>
@@ -178,7 +178,7 @@
                             <span class="circle">
                               <span class="check"></span>
                             </span>
-                          </label>p
+                          </label>
                         </div>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
@@ -197,11 +197,21 @@
                           </label>
                         </div>
                     </div>
+                  </div>
+                  <div class="row file_type">
                     <div class="col-sm-7">
                       <div>
                         <div class="form-group md-form-group">
                           <label class="md-label-floating">첨부파일 이름</label>
                           <input type="text" class="form-control" id="trs_attach_nm">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-5">
+                      <div>
+                        <div class="form-group md-form-group">
+                          <label class="md-label-floating">첨부파일 사이즈(KB)</label>
+                          <input type="text" class="form-control" id="trs_attach_size">
                         </div>
                       </div>
                     </div>
@@ -240,7 +250,7 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_click" value="yes"> 링크 클릭
+                          <input class="form-check-input" type="checkbox" id="trs_link" value="yes"> 링크 클릭
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -301,20 +311,24 @@
                   <h4 class="card-title">훈련 컨텐츠 선택하기</h4>
                 </div>
               </div>
-              <div class="modal-body col-md-12">
+              <div class="modal-body">
                 <form class="form" method="" action="">
                   <div class="card-body mfi-card-section">
-                    <div class="col-md-4">
-                      <div class="card mfi-card" style="width: 18rem;">
-                        <img class="card-img-top" src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/img-1-1000x600.jpg" alt="Card image cap">
-                        <div class="card-body">
-                          <h5 class="card-title mailform_nm"></h5>
-                          <p class="card-text mailform_mail_title"></p>
-                          <p class="card-text mailform_mail_nm"></p>
-                          <p class="card-text mailform_mail_addr"></p>
-                          <a href="javascript:;" class="btn btn-primary button-wrapper">사용하기</a>
+                    <div class="row col-md-12">
+
+                      <div class="col-md-4">
+                        <div class="card mfi-card">
+                          <img class="card-img-top" src="https://demos.creative-tim.com/argon-dashboard-pro/assets/img/theme/img-1-1000x600.jpg" alt="Card image cap">
+                          <div class="card-body" style="padding: 10px;">
+                            <h5 class="card-title mailform_nm"></h5>
+                            <p class="card-text mailform_mail_title"></p>
+                            <p class="card-text mailform_mail_nm"></p>
+                            <p class="card-text mailform_mail_addr"></p>
+                            <a href="javascript:;" class="btn btn-primary button-wrapper">사용하기</a>
+                          </div>
                         </div>
                       </div>
+
                     </div>
 
                   </div>
@@ -354,9 +368,9 @@
               lastItemClone.find('.mailform_mail_nm').append(data[i]['mfi_mail_nm']);
               lastItemClone.find('.mailform_mail_title').append(data[i]['mfi_mail_title']);
               lastItemClone.find('.button-wrapper').attr('data-mfi_id',data[i]['mfi_id']);
-              $('.mfi-card-section').append(lastItemClone);
+              $('.mfi-card-section .row').append(lastItemClone);
             }
-            $('.mfi-card').first().hide();
+            $('.mfi-card').first().parent().hide().css('position','absolute !important');
           },
           error : function(thrownError) {
             console.log(thrownError);
@@ -402,49 +416,45 @@
     }
 
     function insertProject() {
-      var ajaxdatas = {
-        'trp_nm' : $('#trp_nm').val(),
-        'trp_content' : $('#trp_content').val(),
-        'trp_start' : $('#trp_start').val(),
-        'trp_end' : $('#trp_end').val(),
-        'trp_interval' : $('#trp_interval').val(),
-        'tug_id' : $('#tug_id').val(),
-        'mfi_id' : $('#mfi_selected').data('mfiid'),
-        'trs_open' : $('#trs_open').is(':checked'),
-        'trs_click' : $('#trs_click').is(':checked'),
-        'trs_attach_click' : $('#trs_attach_click').is(':checked'),
-        'trs_attach_open' : $('#trs_attach_open').is(':checked'),
-        'trs_attach_nm' : $('#trs_attach_nm').val(),
-        'trs_attach_type' : $('input[name="trs_attach_type"]').val(),
-        'trs_phishing' : $('#trs_phishing').is(':checked'),
-        'trs_phishing_url' : $('#trs_phishing_url').val(),
-        'trs_phishing_content' : $('#trs_phishing_content').is(':checked'),
-      };
-      console.log(ajaxdatas);
-
-      // $.ajax({
-      //     url : "registerProject.do",
-      //     type : "POST",
-      //     processData: false,
-      //     contentType: false,
-      //     data : ajaxdatas,
-      //     beforeSend : function(xhr) {
-      //     xhr.setRequestHeader(header, token);
-      //     },
-      //     success : function(result) {
-      //       console.log(result);
-      //       Swal.fire({
-      //         title : '등록 완료!',
-      //       }).then((result) => {
-      //         if (result.isConfirmed) {
-      //           location.reload();
-      //         }
-      //       });
-      //     },
-      //     error : function(thrownError) {
-      //       console.log(thrownError);
-      //     }
-      // });
+      $.ajax({
+          url : "registerTRP.do",
+          type : "POST",
+          data : {
+            'trp_nm'                : $('#trp_nm').val(),
+            'trp_content'           : $('#trp_content').val(),
+            'trp_start'             : $('#trp_start').val(),
+            'trp_end'               : $('#trp_end').val(),
+            'trp_interval'          : $('#trp_interval').val(),
+            'tug_id'                : $('#tug_id').val(),
+            'mfi_id'                : $('#mfi_selected').data('mfiid'),
+            'trs_open'              : $('#trs_open').is(':checked'),
+            'trs_link'              : $('#trs_link').is(':checked'),
+            'trs_attach_click'      : $('#trs_attach_click').is(':checked'),
+            'trs_attach_open'       : $('#trs_attach_open').is(':checked'),
+            'trs_attach_nm'         : $('#trs_attach_nm').val(),
+            'trs_attach_size'       : $('#trs_attach_size').val(),
+            'trs_attach_type'       : $('input[name="trs_attach_type"]').val(),
+            'trs_phishing'          : $('#trs_phishing').is(':checked'),
+            'trs_phishing_url'      : $('#trs_phishing_url').val(),
+            'trs_phishing_content'  : $('#trs_phishing_content').is(':checked'),
+          },
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+            Swal.fire({
+              title : '등록 완료!',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
     }
 
     $(document).ready(function() {
@@ -456,15 +466,15 @@
       $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
         icons: {
-          time: "fa fa-clock-o",
-          date: "fa fa-calendar",
-          up: "fa fa-chevron-up",
-          down: "fa fa-chevron-down",
+          time    : "fa fa-clock-o",
+          date    : "fa fa-calendar",
+          up      : "fa fa-chevron-up",
+          down    : "fa fa-chevron-down",
           previous: 'fa fa-chevron-left',
-          next: 'fa fa-chevron-right',
-          today: 'fa fa-screenshot',
-          clear: 'fa fa-trash',
-          close: 'fa fa-remove'
+          next    : 'fa fa-chevron-right',
+          today   : 'fa fa-screenshot',
+          clear   : 'fa fa-trash',
+          close   : 'fa fa-remove'
         },
       });
 
@@ -480,7 +490,7 @@
 
       $('#attach_type').on('click', function() {
         if($(this).is(':checked')) {
-          $('.file_type').show();
+          $('.file_type').css('display','flex');
           $('#button_type').prop('checked',false);
         } else {
           $('.file_type').hide();
