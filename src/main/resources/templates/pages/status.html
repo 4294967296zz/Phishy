@@ -158,7 +158,8 @@
               lastItemClone.find('.trp_nm').append(result.trp_datas[i]['trpNm']);
               lastItemClone.find('.trp_start').append(result.trp_datas[i]['trpStart']);
               lastItemClone.find('.trp_end').append(result.trp_datas[i]['trpEnd']);
-              lastItemClone.find('.detail-btn').attr('data-tugId',result.trp_datas[i]['tugIg']);
+              lastItemClone.find('button').attr('data-tugId',result.trp_datas[i]['tugIg']);
+              lastItemClone.find('button').data('tugId',result.trp_datas[i]['tugIg']);
               $('.project-card-section').append(lastItemClone);
             }
             project_card.first().hide();
