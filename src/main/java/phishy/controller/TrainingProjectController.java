@@ -79,7 +79,7 @@ public class TrainingProjectController {
         mp.put("trp_data", trainingProjectService.getTRP(trpId));
         mp.put("trs_data", trainingProjectService.getTRS(trsId));
         mp.put("tug_data", trainingUserService.getTUG(tugId));
-        mp.put("tui_data", trainingUserService.getTUI(tugId));
+        mp.put("tui_data", trainingUserService.getTUIdetails(tugId));
         Object result = mp;
         return result;
     }

@@ -9,6 +9,8 @@ import phishy.domain.Repository.TrainingUserinfoRepository;
 import phishy.dto.TrainingUsergroupDto;
 import phishy.dto.TrainingUserinfoDto;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,10 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@PersistenceContext
 public class TrainingUserService {
 
+    private EntityManager em;
     private TrainingUserinfoRepository trainingUserinfoRepository;
     private TrainingUsergroupRepository trainingUsergroupRepository;
     private UserService userService;
@@ -125,5 +129,15 @@ public class TrainingUserService {
     public void deleteTUG(Long tugId) {
         trainingUsergroupRepository.deleteById(tugId);
         trainingUserinfoRepository.deleteAllByTugId(tugId);
+    }
+
+    @Transactional
+    public List<Object[]> getTUIdetails(Long tugId) {
+        String jpql = "SELECT DISTINCT UE FROM TrainingUserinfoEntity TUI, UserEntity UE WHERE "
+                +"TUI.userId = UE.user_id AND TUI.tugId = :tugId";
+        List<Object[]> totalResult = em.createQuery(jpql, Object[].class)
+                .setParameter("tugId",tugId)
+                .getResultList();
+        return totalResult;
     }
 }

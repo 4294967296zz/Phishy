@@ -110,6 +110,12 @@ public class TrainingProjectService {
         TrainingProjectEntity trpEntity = trpEntityWrapper.get();
         TrainingProjectDto trpDto = TrainingProjectDto.builder()
                 .tugId(trpEntity.getTugId())
+                .trpNm(trpEntity.getTrpNm())
+                .trpContent(trpEntity.getTrpContent())
+                .trpStart(trpEntity.getTrpStart())
+                .trpEnd(trpEntity.getTrpEnd())
+                .trpStatus(trpEntity.getTrpStatus())
+                .trpInterval(trpEntity.getTrpInterval())
                 .build();
         return trpDto;
     }
@@ -119,6 +125,22 @@ public class TrainingProjectService {
         Optional<TrainingSettingEntity> trsEntityWrapper = trainingSettingRepository.findById(trsId);
         TrainingSettingEntity trsEntity = trsEntityWrapper.get();
         TrainingSettingDto trsDto = TrainingSettingDto.builder()
+                .trsId(trsEntity.getTrsId())
+                .mfiId(trsEntity.getMfiId())
+                .mfi_file_nm(trsEntity.getMfi_file_nm())
+                .mfi_mail_addr(trsEntity.getMfi_mail_addr())
+                .mfi_mail_nm(trsEntity.getMfi_mail_nm())
+                .mfi_mail_title(trsEntity.getMfi_mail_title())
+                .trsOpen(trsEntity.getTrsOpen())
+                .trsLink(trsEntity.getTrsLink())
+                .trsAttachNm(trsEntity.getTrsAttachNm())
+                .trsAttachClick(trsEntity.getTrsAttachClick())
+                .trsAttachOpen(trsEntity.getTrsAttachOpen())
+                .trsAttachType(trsEntity.getTrsAttachType())
+                .trsAttachSize(trsEntity.getTrsAttachSize())
+                .trsPhishing(trsEntity.getTrsPhishing())
+                .trsPhishingUrl(trsEntity.getTrsPhishingUrl())
+                .trsPhishingContent(trsEntity.getTrsPhishingContent())
                 .build();
         return trsDto;
     }
