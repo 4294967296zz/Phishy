@@ -8,7 +8,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">훈련 프로젝트 현황</a>
+            <a class="navbar-brand" href="javascript:void(0)">훈련 프로젝트 상세</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -57,15 +57,46 @@
       <!-- End Navbar -->
       <div class="content" id="status">
         <div class="container-fluid">
-          <div class="row project-card-section">
+          <div class="row">
 
-            <div class="col-lg-4 col-md-12 project-card">
+            <div class="col-lg-6 col-md-12">
               <div class="card">
-                <div class="card-header card-header-primary">
-                  <span class="badge badge-secondary"></span>
-<!--                      <span class="badge badge-success">훈련완료</span>-->
-<!--                      <span class="badge badge-warning">훈련중</span>-->
-                  <h4 class="card-title trp_nm"></h4>
+                <div class="card-header card-header-warning">
+                  <h4 class="card-title">훈련 기본 정보</h4>
+                </div>
+                <div class="card-body table-responsive">
+                    <div class="row">
+                    <label class="col-sm-4 text-right">훈련 프로젝트명</label>
+                    <div class="col-sm-8">
+                      <span class="trp_nm"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련 기간</label>
+                    <div class="col-sm-8">
+                      <span class="trp_start"></span> ~
+                      <span class="trp_end"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련 내용</label>
+                    <div class="col-sm-8">
+                      <span class="trp_content"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 text-center button-wrapper">
+                      <button type="button" class="btn btn-primary btn-sm detail-btn" data-toggle="modal" data-target="#detailModal">상세보기</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-rose">
+                  <h4 class="card-title">훈련 상태</h4>
                 </div>
                 <div class="card-body table-responsive">
                   <div class="row">
@@ -83,69 +114,43 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12 text-center button-wrapper">
-                      <button type="button" class="btn btn-primary btn-sm detail-btn">상세보기</button>
+                      <button type="button" class="btn btn-primary btn-sm detail-btn" data-toggle="modal" data-target="#detailModal">상세보기</button>
                     </div>
                   </div>
 
                 </div>
               </div>
-
           </div>
-      </div>
+
+      </div> <!-- row ends -->
+
       <footer th:replace="fragments/footer"></footer>
 
   <script>
 
-    function getTRPs() {
+    function getProjectDetails(trpId,trsId,tugId) {
       $.ajax({
-          url : "getTRPs.do",
-          type : "POST",
-          dataType : "json",
-          beforeSend : function(xhr) {
+        url: "getProjectDetails.do",
+        type: "POST",
+        dataType: "json",
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(header, token);
-          },
-          success : function(result) {
-            var project_card = $('.project-card');
-
-            for(i in result.trp_datas) {
-              var lastItemClone = project_card.clone();
-              var trpStatus = result.trp_datas[i]['trpStatus'];
-              if(trpStatus == "완료") {
-                lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-success');
-              }
-              if(trpStatus == "진행중") {
-                lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-warning');
-              }
-              lastItemClone.find('.badge').append("훈련"+result.trp_datas[i]['trpStatus']);
-              lastItemClone.find('.trp_nm').append(result.trp_datas[i]['trpNm']);
-              lastItemClone.find('.trp_content').append(result.trp_datas[i]['trpContent']);
-              lastItemClone.find('.trp_start').append(result.trp_datas[i]['trpStart']);
-              lastItemClone.find('.trp_end').append(result.trp_datas[i]['trpEnd']);
-              lastItemClone.find('.detail-btn').attr('data-tugId',result.trp_datas[i]['tugId']);
-              lastItemClone.find('.detail-btn').attr('data-trsId',result.trp_datas[i]['trsId']);
-              lastItemClone.find('.detail-btn').attr('data-trpId',result.trp_datas[i]['trpId']);
-              $('.project-card-section').append(lastItemClone);
-              console.log(result.trp_datas);
-            }
-            project_card.first().hide();
-          },
-          error : function(thrownError) {
-            console.log(thrownError);
-          }
+        },
+        data: {'tugId': tugId},
+        success: function (result) {
+          var tug_data = result.tug_data;
+          console.log(result);
+          console.log(tug_data);
+          return tug_data;
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
       });
     }
 
     $(document).ready(function() {
 
-      getTRPs();
-
-      $('body').on('click','.detail-btn',function(e) {
-        e.preventDefault();
-        var tugId = $(this).data('tugid');
-        var trpId = $(this).data('trpid');
-        var trsId = $(this).data('trsid');
-        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
-      });
 
     });
   </script>

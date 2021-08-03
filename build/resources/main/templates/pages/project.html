@@ -294,11 +294,6 @@
             </div>
           </div>
 
-            <!-- end col-md-12 -->
-        </div>
-      </div>
-    </div>
-
     <div class="modal fade" id="mfiModal" tabindex="-1" role="" style="margin-left: -8%;">
         <div class="modal-dialog modal-login" role="document">
           <div class="modal-content" style="width: 1000px;">
@@ -343,9 +338,6 @@
 <footer th:replace="fragments/footer"></footer>
 
   <script>
-
-    var token = $("input[name='_csrf']").val();
-    var header = "X-CSRF-TOKEN";
 
     function getMailforms() {
       $.ajax({

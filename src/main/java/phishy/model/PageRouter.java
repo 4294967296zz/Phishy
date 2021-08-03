@@ -41,6 +41,11 @@ public class PageRouter {
         return "pages/status";
     }
 
+    @GetMapping("/status_detail")
+    public String status_detail() {
+        return "pages/status_detail";
+    }
+
     @GetMapping("/sys_setting")
     public String sys_setting() {
         return "pages/sys_setting";

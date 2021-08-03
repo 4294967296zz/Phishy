@@ -67,7 +67,19 @@ public class TrainingProjectController {
     public @ResponseBody Object getTRPdetails() {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("trp_datas", trainingProjectService.getTRPs());
-        mp.put("trs_datas", trainingProjectService.getTRSs());
+        Object result = mp;
+        return result;
+    }
+
+    @RequestMapping(value = "/getProjectDetails.do", method = RequestMethod.POST)
+    public @ResponseBody Object getProjectDetails(@RequestParam("trpId") Long trpId,
+                                                  @RequestParam("trsId") Long trsId,
+                                                  @RequestParam("tugId") Long tugId) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("trp_data", trainingProjectService.getTRP(trpId));
+        mp.put("trs_data", trainingProjectService.getTRS(trsId));
+        mp.put("tug_data", trainingUserService.getTUG(tugId));
+        mp.put("tui_data", trainingUserService.getTUI(tugId));
         Object result = mp;
         return result;
     }

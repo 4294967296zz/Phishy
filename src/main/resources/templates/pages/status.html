@@ -8,7 +8,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">훈련 현황</a>
+            <a class="navbar-brand" href="javascript:void(0)">훈련 프로젝트 현황</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -76,70 +76,25 @@
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-sm-4 text-right">훈련 대상자</label>
+                    <label class="col-sm-4 text-right">훈련 내용</label>
                     <div class="col-sm-8">
-                      <span class="tug_count"></span>명
+                      <span class="trp_content"></span>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-12 text-center">
-                      <button type="button" class="btn btn-primary btn-sm detail-btn" data-toggle="modal" data-target="#detailModal">상세보기</button>
+                    <div class="col-sm-12 text-center button-wrapper">
+                      <button type="button" class="btn btn-primary btn-sm detail-btn">상세보기</button>
                     </div>
                   </div>
 
                 </div>
               </div>
-            </div>
 
           </div>
       </div>
       <footer th:replace="fragments/footer"></footer>
 
-        <div class="modal fade" id="detailModal" tabindex="-1" role="">
-        <div class="modal-dialog modal-login" role="document">
-          <div class="modal-content">
-            <div class="card card-signup">
-              <div class="modal-header">
-                <div class="card-header card-header-primary text-center">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    <i class="material-icons">clear</i>
-                  </button>
-                  <h4 class="card-title">훈련 프로젝트 상세보기</h4>
-                </div>
-              </div>
-              <div class="modal-body">
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
   <script>
-
-    var token = $("input[name='_csrf']").val();
-    var header = "X-CSRF-TOKEN";
-
-    function getTUGcounts(tugId) {
-        $.ajax({
-          url: "getTUG.do",
-          type: "POST",
-          dataType: "json",
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          data: {'tugId': tugId},
-          success: function (result) {
-            var tug_data = result.tug_data;
-            console.log(result);
-            console.log(tug_data);
-            return tug_data;
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
-        });
-    }
 
     function getTRPs() {
       $.ajax({
@@ -154,13 +109,23 @@
 
             for(i in result.trp_datas) {
               var lastItemClone = project_card.clone();
-              lastItemClone.find('.badge').append(result.trp_datas[i]['trpStatus']);
+              var trpStatus = result.trp_datas[i]['trpStatus'];
+              if(trpStatus == "완료") {
+                lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-success');
+              }
+              if(trpStatus == "진행중") {
+                lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-warning');
+              }
+              lastItemClone.find('.badge').append("훈련"+result.trp_datas[i]['trpStatus']);
               lastItemClone.find('.trp_nm').append(result.trp_datas[i]['trpNm']);
+              lastItemClone.find('.trp_content').append(result.trp_datas[i]['trpContent']);
               lastItemClone.find('.trp_start').append(result.trp_datas[i]['trpStart']);
               lastItemClone.find('.trp_end').append(result.trp_datas[i]['trpEnd']);
-              lastItemClone.find('button').attr('data-tugId',result.trp_datas[i]['tugIg']);
-              lastItemClone.find('button').data('tugId',result.trp_datas[i]['tugIg']);
+              lastItemClone.find('.detail-btn').attr('data-tugId',result.trp_datas[i]['tugId']);
+              lastItemClone.find('.detail-btn').attr('data-trsId',result.trp_datas[i]['trsId']);
+              lastItemClone.find('.detail-btn').attr('data-trpId',result.trp_datas[i]['trpId']);
               $('.project-card-section').append(lastItemClone);
+              console.log(result.trp_datas);
             }
             project_card.first().hide();
           },
@@ -170,10 +135,17 @@
       });
     }
 
-
     $(document).ready(function() {
 
       getTRPs();
+
+      $('body').on('click','.detail-btn',function(e) {
+        e.preventDefault();
+        var tugId = $(this).data('tugid');
+        var trpId = $(this).data('trpid');
+        var trsId = $(this).data('trsid');
+        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+      });
 
     });
   </script>

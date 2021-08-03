@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -65,6 +66,7 @@ public class TrainingProjectService {
 
         for(TrainingProjectEntity trpEntity : trpEntities) {
             TrainingProjectDto trpDto = TrainingProjectDto.builder()
+                    .trpId(trpEntity.getTrpId())
                     .trpNm(trpEntity.getTrpNm())
                     .trpContent(trpEntity.getTrpContent())
                     .trpStart(trpEntity.getTrpStart())
@@ -100,6 +102,25 @@ public class TrainingProjectService {
             trsDtoList.add(trsDto);
         }
         return trsDtoList;
+    }
+
+    @Transactional
+    public TrainingProjectDto getTRP(Long trpId) {
+        Optional<TrainingProjectEntity> trpEntityWrapper = trainingProjectRepository.findById(trpId);
+        TrainingProjectEntity trpEntity = trpEntityWrapper.get();
+        TrainingProjectDto trpDto = TrainingProjectDto.builder()
+                .tugId(trpEntity.getTugId())
+                .build();
+        return trpDto;
+    }
+
+    @Transactional
+    public TrainingSettingDto getTRS(Long trsId) {
+        Optional<TrainingSettingEntity> trsEntityWrapper = trainingSettingRepository.findById(trsId);
+        TrainingSettingEntity trsEntity = trsEntityWrapper.get();
+        TrainingSettingDto trsDto = TrainingSettingDto.builder()
+                .build();
+        return trsDto;
     }
 
 }

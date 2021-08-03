@@ -69,3 +69,10 @@
 #project .file_type { display : none; }
 
 #status .badge { float: right;}
+#status .trp_content {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
