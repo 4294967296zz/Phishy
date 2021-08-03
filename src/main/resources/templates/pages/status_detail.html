@@ -61,27 +61,54 @@
 
             <div class="col-lg-6 col-md-12">
               <div class="card">
-                <div class="card-header card-header-warning">
-                  <h4 class="card-title">훈련 기본 정보</h4>
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">build</i>
+                  </div>
+                  <h4 class="card-title">훈련 프로젝트 정보</h4>
                 </div>
                 <div class="card-body table-responsive">
-                    <div class="row">
+                  <div class="row">
                     <label class="col-sm-4 text-right">훈련 프로젝트명</label>
                     <div class="col-sm-8">
-                      <span class="trp_nm"></span>
+                      <span id="trp_nm"></span>
                     </div>
                   </div>
                   <div class="row">
                     <label class="col-sm-4 text-right">훈련 내용</label>
                     <div class="col-sm-8">
-                      <span class="trp_content"></span>
+                      <span id="trp_content"></span>
                     </div>
                   </div>
                   <div class="row">
                     <label class="col-sm-4 text-right">훈련 기간</label>
                     <div class="col-sm-8">
-                      <span class="trp_start"></span> ~
-                      <span class="trp_end"></span>
+                      <span id="trp_start"></span> ~
+                      <span id="trp_end"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련메일 양식 제목</label>
+                    <div class="col-sm-8">
+                      <span id="mfi_mail_title"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련메일 발신주소</label>
+                    <div class="col-sm-8">
+                      <span id="mfi_mail_addr"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련메일 발신자명</label>
+                    <div class="col-sm-8">
+                      <span id="mfi_mail_nm"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련메일 발송 간격</label>
+                    <div class="col-sm-8">
+                      <span id="trp_interval"></span>
                     </div>
                   </div>
                 </div>
@@ -93,46 +120,125 @@
                 <div class="card-icon">
                   <i class="material-icons">pie_chart</i>
                 </div>
-                <h4 class="card-title">훈련 상태</h4>
+                <h4 class="card-title">훈련 설정 정보</h4>
               </div>
               <div class="card-body">
-                <div id="chartPreferences" class="ct-chart"></div>
-              </div>
-              <div class="card-footer">
                 <div class="row">
-                  <div class="col-md-12">
-                    <h6 class="card-category">구분</h6>
-                  </div>
-                  <div class="col-md-12">
-                    <i class="fa fa-circle text-info"></i> 발송
-                    <i class="fa fa-circle text-warning"></i> 발송중
-                    <i class="fa fa-circle text-danger"></i> 미발송
+                  <label class="col-sm-4 text-right">훈련 유형</label>
+                  <div class="col-sm-8">
+                    <span id="trs_type"></span>
                   </div>
                 </div>
+                <div class="row file_type">
+                  <div class="col-sm-7">
+                    <div>
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">첨부파일 이름</label>
+                        <span id="trs_attach_nm"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-5">
+                    <div>
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">첨부파일 사이즈(KB)</label>
+                        <span id="trs_attach_size"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-md-12">피싱 기능</label>
+                  <div class="col-md-6">
+                    <div class="togglebutton">
+                      <label>
+                        <label class="card-title">피싱 기능 사용</label>
+                        <input type="checkbox" id="trs_phishing" disabled>
+                        <span class="toggle"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="phishing_url opacity0">
+                      <div class="form-group md-form-group">
+                        <label class="md-label-floating">피싱사이트 URL</label>
+                        <span id="trs_phishing_url"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-md-12">훈련메일 위반기준</label>
+                    <div class="col-md-12">
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_open" disabled> 메일 열람
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_link" disabled> 링크 클릭
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_attach_click" disabled> 첨부파일 다운로드
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_attach_open" disabled> 첨부파일 실행
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                      <div class="form-check form-check-inline phishing_content opacity0">
+                        <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" id="trs_phishing_content" disabled> 피싱사이트 정보입력
+                          <span class="form-check-sign">
+                            <span class="check"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 col-md-12">
+            <div class="card">
+              <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon">
+                  <i class="material-icons">assignment</i>
+                </div>
+                <h4 class="card-title"><span class="tug_nm"></span> 대상자 리스트</h4>
+              </div>
+              <div class="card-body table-responsive">
+                  <table id="TUIDatatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>직급</th>
+                        <th>소속</th>
+                        <th>부서</th>
+                      </tr>
+                    </thead>
+                    </tbody>
+                  </table>
               </div>
             </div>
         </div>
-        <div class="col-lg-12 col-md-12">
-          <div class="card">
-            <div class="card-header card-header-rose">
-              <h4 class="card-title">훈련 대상자 리스트</h4>
-            </div>
-            <div class="card-body table-responsive">
-                <table id="TUIDatatables" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                  <thead>
-                    <tr>
-                      <th>이름</th>
-                      <th>이메일</th>
-                      <th>직급</th>
-                      <th>소속</th>
-                      <th>부서</th>
-                    </tr>
-                  </thead>
-                  </tbody>
-                </table>
-            </div>
-          </div>
-      </div>
 
       </div> <!-- row ends -->
 
@@ -159,6 +265,24 @@
         },
         success: function (result) {
           console.log(result);
+          var trp_data = result.trp_data;
+          var trs_data = result.trs_data;
+          var tug_data = result.tug_data;
+
+          $('#trp_nm').append(trp_data['trpNm']);
+          $('#trp_content').append(trp_data['trpContent']);
+          $('#trp_start').append(trp_data['trpStart']);
+          $('#trp_end').append(trp_data['trpEnd']);
+          $('#mfi_mail_title').append(trs_data['mfi_mail_title']);
+          $('#mfi_mail_nm').append(trs_data['mfi_mail_nm']);
+          $('#mfi_mail_addr').append(trs_data['mfi_mail_addr']);
+          $('#trp_interval').append(trp_data['trpInterval']);
+          $('#trs_open').prop('checked',(trs_data['trsOpen']==="true")?'true':'false');
+          $('#trs_link').prop('checked',(trs_data['trsLink']==="true")?'true':'false');
+          $('#trs_attach_open').prop('checked',(trs_data['trsAttachOpen']==="true")?'true':'false');
+          $('#trs_attach_click').prop('checked',(trs_data['trsAttachClick']==="true")?'true':'false');
+          $('#trs_phishing_content').prop('checked',(trs_data['trsPhishingContent']==="true")?'true':'false');
+
         },
         error: function (thrownError) {
           console.log(thrownError);
