@@ -120,13 +120,12 @@
                     <div class="row">
                     </div>
 
-
                   </div>
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
               </div>
               <div class="modal-footer justify-content-center">
-                <a href="#" class="btn btn-success btn" id="reg_btn">등록하기</a>
+                <a href="#" class="btn btn-success btn" id="reg_btn">실시하기</a>
               </div>
             </div>
           </div>
@@ -136,190 +135,31 @@
   <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <script>
 
-    function checkFileType(filePath) {
-        var fileFormat = filePath.split(".");
-        if (fileFormat.indexOf("xlsx") > -1) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function check() {
-        var file = $("#excelFile").val();
-        if (file == "" || file == null) {
-          swal.fire({
-            'text'  : '파일을 선택해주세요!',
-          });
-            return false;
-        } else if (!checkFileType(file)) {
-            swal.fire({
-            'text'  : '엑셀파일만 업로드 가능합니다.',
-          });
-            return false;
-        }
-
-        swal.fire({
-          'text'  : '업로드 하시겠습니까?',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: '네!',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            var options = {
-                success : function(data) {
-                    console.log(data);
-                    swal.fire({
-                        'title' : '완료!',
-                        'text'  : '유저 일괄등록을 완료하였습니다. 권한레벨은 기본 1단계 입니다.',
-                        'icon'  : 'success'
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        location.reload();
-                      }
-                    });
-                },
-                type : "POST"
-            };
-            $("#excelUploadForm").ajaxSubmit(options);
-          }
-        });
-
-    }
-
-    function insertUser() {
+   function getProjectDetails(trpId,trsId,tugId) {
       $.ajax({
-          url : "registerUser.do",
-          type : "POST",
-          dataType : "json",
-          beforeSend : function(xhr) {
+        url: "getProjectDetails.do",
+        type: "POST",
+        dataType: "json",
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(header, token);
-          },
-          data : {
-            'user_id' : $('input#user_email').val(),
-            'user_email' : $('input#user_email').val(),
-            'user_nm' : $('input#user_nm').val(),
-            'user_pwd' : $('input#user_email').val(),
-            'user_rank' : $('#user_rank').val(),
-            'corp_cd' : $('input#corp_cd').val(),
-            'corp_nm' : $('input#corp_nm').val(),
-            'dept_cd' : $('input#dept_cd').val(),
-            'dept_nm' : $('input#dept_nm').val(),
-            'level_gp' : $('#level_gp').val(),
-            'level_lv' : $('#level_lv').val(),
-          },
-          success : function(result) {
-            console.log(result);
-            Swal.fire({
-              title : '등록 완료!',
-              text : '초기 비밀번호는 이메일주소 입니다!'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                location.reload();
-              }
-            });
-          },
-          error : function(thrownError) {
-            console.log(thrownError);
-          }
+        },
+        data: {
+          'trpId': trpId,
+          'trsId': trsId,
+          'tugId': tugId
+        },
+        success: function (result) {
+          var trp_data = result.trp_data;
+          var trs_data = result.trs_data;
+          var tug_data = result.tug_data;
+
+          console.log(result);
+
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
       });
-    }
-
-    function updateUser(u_id) {
-      $.ajax({
-          url : "updateUser.do",
-          type : "POST",
-          dataType : "json",
-          beforeSend : function(xhr) {
-          xhr.setRequestHeader(header, token);
-          },
-          data : {
-            'u_id' : u_id,
-            'user_id' : $('input#user_email').val(),
-            'user_email' : $('input#user_email').val(),
-            'user_nm' : $('input#user_nm').val(),
-            'user_pwd' : $('input#user_email').val(),
-            'user_rank' : $('#user_rank').val(),
-            'corp_cd' : $('input#corp_cd').val(),
-            'corp_nm' : $('input#corp_nm').val(),
-            'dept_cd' : $('input#dept_cd').val(),
-            'dept_nm' : $('input#dept_nm').val(),
-            'level_gp' : $('#level_gp').val(),
-            'level_lv' : $('#level_lv').val(),
-          },
-          success : function(result) {
-            console.log(result);
-            Swal.fire({
-              title : '수정 완료!',
-            }).then((result) => {
-              /* Read more about isConfirmed, isDenied below */
-              if (result.isConfirmed) {
-                location.reload();
-              }
-            });
-          },
-          error : function(thrownError) {
-            console.log(thrownError);
-          }
-      });
-    }
-
-    function editUser(u_id) {
-        $.ajax({
-          url: "getUser.do",
-          type: "POST",
-          dataType: "json",
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          data: {'u_id': u_id},
-          success: function (result) {
-            var datas = result.data;
-            $('input#user_email').val(datas.user_email);
-            $('input#user_nm').val(datas.user_nm);
-            $('#user_rank').val(datas.user_rank);
-            $('input#corp_cd').val(datas.corp_cd);
-            $('input#corp_nm').val(datas.corp_nm);
-            $('input#dept_cd').val(datas.dept_cd);
-            $('input#dept_nm').val(datas.dept_nm);
-            $('#level_gp').val(datas.level_gp);
-            $('#level_lv').val(datas.level_lv);
-            $('#reg_btn').attr('data-u_id',datas.u_id);
-
-            $('.input-group.rank button').attr('title',datas.user_rank);
-            $('.input-group.rank .filter-option-inner-inner').html(datas.user_rank);
-
-            $('.input-group.level_gp button').attr('title',datas.level_gp);
-            $('.input-group.level_gp .filter-option-inner-inner').html(datas.level_gp);
-
-            $('.input-group.level_lv button').attr('title',datas.level_lv);
-            $('.input-group.level_lv .filter-option-inner-inner').html(datas.level_lv);
-
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
-        });
-    }
-
-    function deleteUser(u_id) {
-        $.ajax({
-          url : "deleteuser.do",
-          type : "POST",
-          dataType : "json",
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          data: {'u_id': u_id},
-          success: function () {
-            location.reload();
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
-        });
     }
 
     $(document).ready(function() {
@@ -351,7 +191,7 @@
               var trsId = row['trsId'];
               var tugId = row['tugId'];
               var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
-              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>'+data;
+              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>  '+data;
             }
           },
           {data : "trpStart"},
@@ -376,9 +216,12 @@
             data : "trpId",
             searchable : false,
             render : function (data, type, row) {
+              var trpId = row['trpId'];
+              var trsId = row['trsId'];
+              var tugId = row['tugId'];
               var send_btn = '';
               if(row['trpStatus'] === "대기") {
-                send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+data+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
+                send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
               } else if(row['trpStatus'] === "완료") {
                 send_btn = '발송 완료';
               } else if(row['trpStatus'] === "진행중") {
@@ -387,14 +230,6 @@
               return send_btn;
             }
           },
-          // {
-          //   data : "trsId",
-          //   searchable : false,
-          //   render : function (data, type, row) {
-          //     var more_btn = '<button type="button" class="btn btn-rose btn-sm more-btn" data-tug_id="'+row['tugId']+'" data-trp_id="'+row['trpId']+'" data-trs_id="'+data+'">상세보기</button>';
-          //     return more_btn;
-          //   }
-          // },
 
       ],
         columnDefs : [{
@@ -410,9 +245,10 @@
 
       // Edit record
       table.on('click', '.send-btn', function() {
-        $('button[data-target="#sendModal"]').click();
         var trpId = $(this).attr('data-trp_id');
-        console.log(trpId);
+        var trsId = $(this).attr('data-trs_id');
+        var tugId = $(this).attr('data-tug_id');
+        getProjectDetails(trpId, trsId, tugId);
 
       });
 
@@ -423,60 +259,6 @@
         location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
       });
 
-      // Delete a record
-      table.on('click', '.remove', function(e) {
-
-        var u_id = $(this).data('u_id');
-
-        Swal.fire({
-          title: '사용자를 삭제하시겠습니까?',
-          text: "사용한 사용자는 되돌릴 수 없습니다.",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: '네!',
-          cancelButtonText: '취소',
-        }).then((result) => {
-          if (result.isConfirmed) {
-              deleteUser(u_id);
-          }
-        });
-      });
-
-      $('#reg_btn').click(function(e) {
-        e.preventDefault();
-        var u_id = $(this).data('u_id');
-        if(u_id) {
-          updateUser(u_id);
-        } else {
-          insertUser();
-        }
-      });
-
-      $('.close').click(function(e){
-           e.preventDefault();
-           $('input#user_email').val('');
-            $('input#user_nm').val('');
-            $('input#corp_cd').val('');
-            $('input#corp_nm').val('');
-            $('input#dept_cd').val('');
-            $('input#dept_nm').val('');
-            $('#user_rank').val('');
-            $('#level_gp').val('');
-            $('#level_lv').val('');
-            $('#reg_btn').attr('data-u_id','');
-
-            $('.input-group.rank button').attr('title','직급');
-            $('.input-group.rank .filter-option-inner-inner').html('직급');
-
-            $('.input-group.level_gp button').attr('title','권한그룹');
-            $('.input-group.level_gp .filter-option-inner-inner').html('권한그룹');
-
-            $('.input-group.level_lv button').attr('title','권한레벨');
-            $('.input-group.level_lv .filter-option-inner-inner').html('권한레벨');
-
-        });
 
     });
   </script>
