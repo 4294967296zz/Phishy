@@ -8,13 +8,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-<!--            <div class="navbar-minimize">-->
-<!--              <button id="minimizeSidebar" class="btn btn-just-icon btn-white btn-fab btn-round">-->
-<!--                <i class="material-icons text_align-center visible-on-sidebar-regular">more_vert</i>-->
-<!--                <i class="material-icons design_bullet-list-67 visible-on-sidebar-mini">view_list</i>-->
-<!--              <div class="ripple-container"></div></button>-->
-<!--            </div>-->
-            <a class="navbar-brand" href="javascript:void(0)">훈련 대상자 그룹</a>
+            <a class="navbar-brand" href="javascript:void(0)">훈련실행</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -70,27 +64,22 @@
                   <div class="card-icon">
                     <i class="material-icons">assignment</i>
                   </div>
-                  <h4 class="card-title">사용자 리스트</h4>
-                  <div class="dropdown dt-action-btns">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Actions
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
-                    </div>
-                  </div>
+                  <h4 class="card-title">훈련 프로젝트 리스트</h4>
                 </div>
                 <div class="card-body">
                   <div class="toolbar">
-                    <!--        Here you can write extra buttons/actions for the toolbar              -->
                   </div>
                   <div class="material-datatables">
-                    <table id="UsergroupDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                    <table id="TPRDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                         <tr>
-                          <th>훈련 대상자그룹 이름</th>
-                          <th>대상자 인원</th>
-                          <th class="disabled-sorting text-right">Actions</th>
+                          <th style="opacity: 0;"></th>
+                          <th>훈련 프로젝트명</th>
+                          <th>훈련 시작일</th>
+                          <th>훈련 종료일</th>
+                          <th class="disabled-sorting">훈련 유형</th>
+                          <th>훈련 상태</th>
+                          <th class="disabled-sorting">훈련 실행</th>
                         </tr>
                       </thead>
                       </tbody>
@@ -105,71 +94,33 @@
           </div>
           <!-- end row -->
 
-
-
         </div>
       </div>
 
       <footer th:replace="fragments/footer"></footer>
 
-      <div class="modal fade" id="regModal" tabindex="-1" role="" style="margin-left: -8%;">
+      <div class="modal fade" id="sendModal" tabindex="-1" role="">
         <div class="modal-dialog modal-login" role="document">
-          <div class="modal-content" style="width: 1000px;">
+          <div class="modal-content">
             <div class="card card-signup">
               <div class="modal-header">
                 <div class="card-header card-header-primary text-center">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="material-icons">clear</i>
                   </button>
-                  <h4 class="card-title">대상자그룹 추가</h4>
+                  <h4 class="card-title">훈련 실행</h4>
                 </div>
               </div>
               <div class="modal-body">
+
                 <form class="form" method="" action="">
-                  <p class="description text-center"></p>
+                  <p class="description text-center">프로젝트의 훈련메일을 발송합니다!</p>
                   <div class="card-body">
-                    <div class="row">
-                      <div class="col-sm-8">
-                        <div class="form-group md-form-group">
-                          <div class="input-group">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text">
-                                <i class="material-icons">email</i>
-                              </div>
-                            </div>
-                            <input type="text" class="form-control" placeholder="대상자그룹 이름" name="tugNm" id="tugNm">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-12">
 
-                        <table id="UserDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                          <thead>
-                            <tr>
-                              <th>
-                                <div class="form-check userdatatable">
-                                  <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="check_all">
-                                    <span class="form-check-sign">
-                                      <span class="check"></span>
-                                    </span>
-                                  </label>
-                                </div>
-                              </th>
-                              <th>이름</th>
-                              <th>이메일</th>
-                              <th>직급</th>
-                              <th>소속이름</th>
-                              <th>부서이름</th>
-                            </tr>
-                          </thead>
-                          </tbody>
-                        </table>
-
-                      </div>
+                    <div class="row">
                     </div>
+
+
                   </div>
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
@@ -183,9 +134,7 @@
       </div>
 
   <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
-
   <script>
-
 
     function checkFileType(filePath) {
         var fileFormat = filePath.split(".");
@@ -240,22 +189,32 @@
 
     }
 
-    function insertUserGroup(userIds) {
+    function insertUser() {
       $.ajax({
-          url : "registerTUG.do",
+          url : "registerUser.do",
           type : "POST",
           dataType : "json",
           beforeSend : function(xhr) {
           xhr.setRequestHeader(header, token);
           },
           data : {
-            'tugNm' : $('input#tugNm').val(),
-            'userIds' : userIds,
+            'user_id' : $('input#user_email').val(),
+            'user_email' : $('input#user_email').val(),
+            'user_nm' : $('input#user_nm').val(),
+            'user_pwd' : $('input#user_email').val(),
+            'user_rank' : $('#user_rank').val(),
+            'corp_cd' : $('input#corp_cd').val(),
+            'corp_nm' : $('input#corp_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
+            'level_gp' : $('#level_gp').val(),
+            'level_lv' : $('#level_lv').val(),
           },
           success : function(result) {
             console.log(result);
             Swal.fire({
-              title : '그룹 등록 완료!',
+              title : '등록 완료!',
+              text : '초기 비밀번호는 이메일주소 입니다!'
             }).then((result) => {
               if (result.isConfirmed) {
                 location.reload();
@@ -268,23 +227,34 @@
       });
     }
 
-    function updateTUG(tugId, userIds) {
+    function updateUser(u_id) {
       $.ajax({
-          url : "updateTUG.do",
+          url : "updateUser.do",
           type : "POST",
           dataType : "json",
           beforeSend : function(xhr) {
           xhr.setRequestHeader(header, token);
           },
           data : {
-            'tugId' : tugId,
-            'tugNm' : $('input#tugNm').val(),
-            'userIds' : userIds,
+            'u_id' : u_id,
+            'user_id' : $('input#user_email').val(),
+            'user_email' : $('input#user_email').val(),
+            'user_nm' : $('input#user_nm').val(),
+            'user_pwd' : $('input#user_email').val(),
+            'user_rank' : $('#user_rank').val(),
+            'corp_cd' : $('input#corp_cd').val(),
+            'corp_nm' : $('input#corp_nm').val(),
+            'dept_cd' : $('input#dept_cd').val(),
+            'dept_nm' : $('input#dept_nm').val(),
+            'level_gp' : $('#level_gp').val(),
+            'level_lv' : $('#level_lv').val(),
           },
-          complete : function(result) {
+          success : function(result) {
+            console.log(result);
             Swal.fire({
-              title : '그룹 수정 완료!',
+              title : '수정 완료!',
             }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
               if (result.isConfirmed) {
                 location.reload();
               }
@@ -296,28 +266,37 @@
       });
     }
 
-    function editTUG(tugId) {
+    function editUser(u_id) {
         $.ajax({
-          url: "getTUG.do",
+          url: "getUser.do",
           type: "POST",
           dataType: "json",
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
-          data: {'tugId': tugId},
+          data: {'u_id': u_id},
           success: function (result) {
-            console.log(result);
-            var tug_data = result.tug_data;
-            var tui_data = result.tui_data;
-            $('input#tugNm').val(tug_data.tugNm);
-            $('#reg_btn').attr('data-tugId',tugId);
-            $('#UserDatatable td.Userdatatable-email').each(function() {
-              for(i in tui_data) {
-                if($(this).text() == tui_data[i]['userId']) {
-                  $(this).closest('td').siblings().find('.checked').prop('checked',true);
-                }
-              }
-            });
+            var datas = result.data;
+            $('input#user_email').val(datas.user_email);
+            $('input#user_nm').val(datas.user_nm);
+            $('#user_rank').val(datas.user_rank);
+            $('input#corp_cd').val(datas.corp_cd);
+            $('input#corp_nm').val(datas.corp_nm);
+            $('input#dept_cd').val(datas.dept_cd);
+            $('input#dept_nm').val(datas.dept_nm);
+            $('#level_gp').val(datas.level_gp);
+            $('#level_lv').val(datas.level_lv);
+            $('#reg_btn').attr('data-u_id',datas.u_id);
+
+            $('.input-group.rank button').attr('title',datas.user_rank);
+            $('.input-group.rank .filter-option-inner-inner').html(datas.user_rank);
+
+            $('.input-group.level_gp button').attr('title',datas.level_gp);
+            $('.input-group.level_gp .filter-option-inner-inner').html(datas.level_gp);
+
+            $('.input-group.level_lv button').attr('title',datas.level_lv);
+            $('.input-group.level_lv .filter-option-inner-inner').html(datas.level_lv);
+
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -325,16 +304,16 @@
         });
     }
 
-    function deleteTUG(tugId) {
+    function deleteUser(u_id) {
         $.ajax({
-          url : "deleteTUG.do",
+          url : "deleteuser.do",
           type : "POST",
           dataType : "json",
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
-          data: {'tugId': tugId},
-          complete: function () {
+          data: {'u_id': u_id},
+          success: function () {
             location.reload();
           },
           error: function (thrownError) {
@@ -345,7 +324,7 @@
 
     $(document).ready(function() {
 
-      $('#UsergroupDatatable').DataTable({
+      $('#TPRDatatable').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -353,53 +332,105 @@
         ],
         responsive: true,
         language: lang_kor,
-        ordering : false,
         ajax : {
           type : "POST",
-          url : "getUsergroupDatatable.do",
+          url : "getTRPDatatable.do",
           dataType : "JSON",
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
         },
+        order : [0,"desc"],
+        ordering: true,
         columns : [
-          {data : "tugNm"},
-          {data : "tugCount",'className': 'text-right',},
+          {data : "trpId"},
           {
-              data : "tugId",
-              defaultContent:"",
-              'targets': 0,
-              'searchable': false,
-              'className': 'text-right',
-              "render": function (data) {
-                var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-tugId="'+data+'"><i class="material-icons">dvr</i></a>';
-                var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-tugId="'+data+'"><i class="material-icons">close</i></a>';
-                return edit_btn+remove_btn;
-
+            data : "trpNm",
+            render : function(data, type, row) {
+              var trpId = row['trpId'];
+              var trsId = row['trsId'];
+              var tugId = row['tugId'];
+              var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>'+data;
+            }
+          },
+          {data : "trpStart"},
+          {data : "trpEnd"},
+          {data : "trpType"},
+          {
+            data : "trpStatus",
+            searchable : false,
+            render : function(data) {
+              var badge = '';
+              if(data === "대기") {
+                badge = '<span id ="trp_status" class="badge badge-secondary">휸련'+data+'</span>';
+              } else if(data === "진행중") {
+                badge = '<span id ="trp_status" class="badge badge-warning">훈련'+data+'</span>';
+              } else if(data === "완료") {
+                badge = '<span id ="trp_status" class="badge badge-success">훈련'+data+'</span>';
               }
-            },
+              return badge;
+            }
+          },
+          {
+            data : "trpId",
+            searchable : false,
+            render : function (data, type, row) {
+              var send_btn = '';
+              if(row['trpStatus'] === "대기") {
+                send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+data+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
+              } else if(row['trpStatus'] === "완료") {
+                send_btn = '발송 완료';
+              } else if(row['trpStatus'] === "진행중") {
+                send_btn = '훈련 진행중..';
+              }
+              return send_btn;
+            }
+          },
+          // {
+          //   data : "trsId",
+          //   searchable : false,
+          //   render : function (data, type, row) {
+          //     var more_btn = '<button type="button" class="btn btn-rose btn-sm more-btn" data-tug_id="'+row['tugId']+'" data-trp_id="'+row['trpId']+'" data-trs_id="'+data+'">상세보기</button>';
+          //     return more_btn;
+          //   }
+          // },
+
       ],
+        columnDefs : [{
+          targets : 0,
+          visible : false,
+          searchable : false
+        }
+        ]
 
       });
 
-      var table = $('#UsergroupDatatable').DataTable();
+      var table = $('#TPRDatatable').DataTable();
 
       // Edit record
-      table.on('click', '.edit', function() {
-        $('a[data-target="#regModal"]').click();
-        var tugId = $(this).attr('data-tugid');
-        console.log(tugId);
-        editTUG(tugId);
+      table.on('click', '.send-btn', function() {
+        $('button[data-target="#sendModal"]').click();
+        var trpId = $(this).attr('data-trp_id');
+        console.log(trpId);
 
+      });
+
+      table.on('click', '.more-btn', function() {
+        var trpId = $(this).attr('data-trp_id');
+        var trsId = $(this).attr('data-trs_id');
+        var tugId = $(this).attr('data-tug_id');
+        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
       });
 
       // Delete a record
       table.on('click', '.remove', function(e) {
-        var tugId = $(this).data('tugid');
+
+        var u_id = $(this).data('u_id');
 
         Swal.fire({
-          title: '그룹을 삭제하시겠습니까?',
-          text: "삭제한 그룹은 되돌릴 수 없습니다.",
+          title: '사용자를 삭제하시겠습니까?',
+          text: "사용한 사용자는 되돌릴 수 없습니다.",
           icon: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -408,83 +439,43 @@
           cancelButtonText: '취소',
         }).then((result) => {
           if (result.isConfirmed) {
-              deleteTUG(tugId);
+              deleteUser(u_id);
           }
         });
-      });
-
-      $('#UserDatatable').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-        ],
-        responsive: true,
-        language: lang_kor,
-        ajax : {
-          type : "POST",
-          url : "getUserDatatable.do",
-          dataType : "JSON",
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-        },
-        columns : [
-          {
-              data : "u_id",
-              defaultContent:"",
-              targets: 0,
-              searchable: false,
-              className:'Userdatatable-check',
-              render: function (data) {
-                return '<div class="form-check userdatatable"><label class="form-check-label">'+
-                        '<input class="form-check-input checked" type="checkbox" name="user_check" data-u_id="'+data+'" value="'+data+'">'+
-                        '<span class="form-check-sign"><span class="check"></span></span></label></div>';
-                // return '<input type="checkbox" name="user_check" data-u_id="'+data+'" value="'+data+'" class="checked">';
-              }
-            },
-          {data : "user_nm"},
-          {data : "user_email", className:'Userdatatable-email',},
-          {data : "user_rank"},
-          {data : "corp_nm"},
-          {data : "dept_nm"},
-      ],
-
-      });
-
-      var table = $('#UserDatatable').DataTable();
-
-      $('#check_all').on('change',function() {
-          var checked = $(this).is(':checked');
-          if(checked) {
-              $('.checked').prop('checked',true);
-          } else {
-              $('.checked').prop('checked',false);
-          }
       });
 
       $('#reg_btn').click(function(e) {
         e.preventDefault();
-        var tugId = $(this).data('tugid');
-        var userIds = [];
-
-        $('input[name="user_check"]:checked').each(function() {
-          userIds.push($(this).val());
-        });
-        var users = userIds.join(", ");
-
-        if(tugId) {
-          updateTUG(tugId,users);
+        var u_id = $(this).data('u_id');
+        if(u_id) {
+          updateUser(u_id);
         } else {
-          insertUserGroup(users);
+          insertUser();
         }
       });
 
       $('.close').click(function(e){
            e.preventDefault();
-           $('input#tugNm').val('');
-           $('.checked').prop('checked',false);
-           $('#reg_btn').attr('data-tugid','');
+           $('input#user_email').val('');
+            $('input#user_nm').val('');
+            $('input#corp_cd').val('');
+            $('input#corp_nm').val('');
+            $('input#dept_cd').val('');
+            $('input#dept_nm').val('');
+            $('#user_rank').val('');
+            $('#level_gp').val('');
+            $('#level_lv').val('');
+            $('#reg_btn').attr('data-u_id','');
+
+            $('.input-group.rank button').attr('title','직급');
+            $('.input-group.rank .filter-option-inner-inner').html('직급');
+
+            $('.input-group.level_gp button').attr('title','권한그룹');
+            $('.input-group.level_gp .filter-option-inner-inner').html('권한그룹');
+
+            $('.input-group.level_lv button').attr('title','권한레벨');
+            $('.input-group.level_lv .filter-option-inner-inner').html('권한레벨');
+
         });
 
     });

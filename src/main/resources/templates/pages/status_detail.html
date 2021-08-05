@@ -8,7 +8,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">훈련 프로젝트 상세</a>
+            <a class="navbar-brand" href="javascript:void(0)">훈련 프로젝트 정보</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -55,7 +55,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content" id="status">
+      <div class="content" id="status_detail">
         <div class="container-fluid">
           <div class="row">
 
@@ -68,6 +68,12 @@
                   <h4 class="card-title">훈련 프로젝트 정보</h4>
                 </div>
                 <div class="card-body table-responsive">
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련 상태</label>
+                    <div class="col-sm-8">
+                      <span id ="trp_status" class="badge badge-secondary"></span>
+                    </div>
+                  </div>
                   <div class="row">
                     <label class="col-sm-4 text-right">훈련 프로젝트명</label>
                     <div class="col-sm-8">
@@ -88,21 +94,15 @@
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-sm-4 text-right">훈련메일 양식 제목</label>
+                    <label class="col-sm-4 text-right">훈련 대상자 그룹명</label>
                     <div class="col-sm-8">
-                      <span id="mfi_mail_title"></span>
+                      <span id="tug_nm"></span>
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-sm-4 text-right">훈련메일 발신주소</label>
+                    <label class="col-sm-4 text-right">훈련 대상자 수</label>
                     <div class="col-sm-8">
-                      <span id="mfi_mail_addr"></span>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <label class="col-sm-4 text-right">훈련메일 발신자명</label>
-                    <div class="col-sm-8">
-                      <span id="mfi_mail_nm"></span>
+                      <span id="tug_count"></span>
                     </div>
                   </div>
                   <div class="row">
@@ -126,53 +126,68 @@
                 <div class="row">
                   <label class="col-sm-4 text-right">훈련 유형</label>
                   <div class="col-sm-8">
-                    <span id="trs_type"></span>
-                  </div>
-                </div>
-                <div class="row file_type">
-                  <div class="col-sm-7">
-                    <div>
-                      <div class="form-group md-form-group">
-                        <label class="md-label-floating">첨부파일 이름</label>
-                        <span id="trs_attach_nm"></span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-sm-5">
-                    <div>
-                      <div class="form-group md-form-group">
-                        <label class="md-label-floating">첨부파일 사이즈(KB)</label>
-                        <span id="trs_attach_size"></span>
-                      </div>
-                    </div>
+                    <span id="trp_type"></span>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-12">피싱 기능</label>
-                  <div class="col-md-6">
+                  <label class="col-sm-4 text-right">훈련메일 양식 제목</label>
+                  <div class="col-sm-8">
+                    <span id="mfi_mail_title"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-4 text-right">훈련메일 발신주소</label>
+                  <div class="col-sm-8">
+                    <span id="mfi_mail_addr"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-sm-4 text-right">훈련메일 발신자명</label>
+                  <div class="col-sm-8">
+                    <span id="mfi_mail_nm"></span>
+                  </div>
+                </div>
+                <div class="row file_type">
+                  <label class="col-sm-4 text-right">첨부파일 이름</label>
+                  <div class="col-sm-8">
+                    <span id="trs_attach_nm"></span>
+                  </div>
+                </div>
+                <div class="row file_type">
+                  <label class="col-sm-4 text-right">첨부파일 유형</label>
+                  <div class="col-sm-8">
+                    <span id="trs_attach_type"></span>
+                  </div>
+                </div>
+                <div class="row file_type">
+                  <label class="col-sm-4 text-right">첨부파일 크기(KB)</label>
+                  <div class="col-sm-8">
+                    <span id="trs_attach_size"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <label class="col-md-4 text-right">피싱 기능</label>
+                  <div class="col-md-8">
                     <div class="togglebutton">
                       <label>
-                        <label class="card-title">피싱 기능 사용</label>
-                        <input type="checkbox" id="trs_phishing" disabled>
+                        <input type="checkbox" id="trsPhishing" disabled>
                         <span class="toggle"></span>
                       </label>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="phishing_url opacity0">
-                      <div class="form-group md-form-group">
-                        <label class="md-label-floating">피싱사이트 URL</label>
-                        <span id="trs_phishing_url"></span>
-                      </div>
-                    </div>
+                </div>
+                <div class="row opacity0">
+                  <label class="col-sm-4 text-right">피싱사이트 URL</label>
+                  <div class="col-sm-8">
+                    <span id="trs_phishing_url"></span>
                   </div>
                 </div>
                 <div class="row">
-                  <label class="col-md-12">훈련메일 위반기준</label>
-                    <div class="col-md-12">
+                  <label class="col-md-4 text-right">훈련메일 위반기준</label>
+                    <div class="col-md-8">
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_open" disabled> 메일 열람
+                          <input class="form-check-input" type="checkbox" id="trsOpen" disabled> 메일 열람
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -180,7 +195,7 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_link" disabled> 링크 클릭
+                          <input class="form-check-input" type="checkbox" id="trsLink" disabled> 링크 클릭
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -188,7 +203,7 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_attach_click" disabled> 첨부파일 다운로드
+                          <input class="form-check-input" type="checkbox" id="trsAttacClick" disabled> 첨부파일 다운로드
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -196,15 +211,15 @@
                       </div>
                       <div class="form-check form-check-inline">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_attach_open" disabled> 첨부파일 실행
+                          <input class="form-check-input" type="checkbox" id="trsAttachOpen" disabled> 첨부파일 실행
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
                         </label>
                       </div>
-                      <div class="form-check form-check-inline phishing_content opacity0">
+                      <div class="form-check form-check-inline phishing_content">
                         <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" id="trs_phishing_content" disabled> 피싱사이트 정보입력
+                          <input class="form-check-input" type="checkbox" id="trsPhishingContent" disabled> 피싱사이트 정보입력
                           <span class="form-check-sign">
                             <span class="check"></span>
                           </span>
@@ -264,24 +279,57 @@
           'tugId': tugId
         },
         success: function (result) {
-          console.log(result);
           var trp_data = result.trp_data;
           var trs_data = result.trs_data;
           var tug_data = result.tug_data;
+          var trpStatus = trp_data['trpStatus'];
+          var trs_checkes = {
+            'trsOpen'            : trs_data['trsOpen'],
+            'trsLink'            : trs_data['trsLink'],
+            'trsAttachOpen'      : trs_data['trsAttachOpen'],
+            'trsAttachClick'     : trs_data['trsAttachClick'],
+            'trsPhishing'        : trs_data['trsPhishing'],
+            'trsPhishingContent' : trs_data['trsPhishingContent'],
+          };
+
+          for(key in trs_checkes) {
+            if(trs_checkes[key] == "true") {
+              $('#'+key).prop('checked','true');
+            }
+          }
+
+          if($('#trsPhishing').is(':checked')) {
+            $('.row.opacity0').removeClass('opacity0').css('display','flex');
+            $('#trs_phishing_url').append(trs_data['trsPhishingUrl']);
+          }
+
+          if(trpStatus === "대기") {
+            $('#trp_status').append('훈련'+trpStatus);
+          } else if(trpStatus === "진행중") {
+              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-warning');
+          } else if(trpStatus === "완료") {
+              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-success');
+          }
 
           $('#trp_nm').append(trp_data['trpNm']);
+          $('#trp_type').append(trp_data['trpType']);
           $('#trp_content').append(trp_data['trpContent']);
           $('#trp_start').append(trp_data['trpStart']);
           $('#trp_end').append(trp_data['trpEnd']);
           $('#mfi_mail_title').append(trs_data['mfi_mail_title']);
           $('#mfi_mail_nm').append(trs_data['mfi_mail_nm']);
           $('#mfi_mail_addr').append(trs_data['mfi_mail_addr']);
-          $('#trp_interval').append(trp_data['trpInterval']);
-          $('#trs_open').prop('checked',(trs_data['trsOpen']==="true")?'true':'false');
-          $('#trs_link').prop('checked',(trs_data['trsLink']==="true")?'true':'false');
-          $('#trs_attach_open').prop('checked',(trs_data['trsAttachOpen']==="true")?'true':'false');
-          $('#trs_attach_click').prop('checked',(trs_data['trsAttachClick']==="true")?'true':'false');
-          $('#trs_phishing_content').prop('checked',(trs_data['trsPhishingContent']==="true")?'true':'false');
+          $('#trp_interval').append(trp_data['trpInterval']+'초');
+          $('#tug_nm').append(tug_data['tugNm']);
+          $('.tug_nm').append(tug_data['tugNm']);
+          $('#tug_count').append(tug_data['tugCount']+'명');
+
+          if(trp_data['trpType'] == "첨부파일형") {
+            $('.file_type').css('display','flex');
+            $('#trs_attach_nm').append(trs_data['trsAttachNm']);
+            $('#trs_attach_type').append(trs_data['trsAttachType']);
+            $('#trs_attach_size').append(trs_data['trsAttachSize']+'KB');
+          }
 
         },
         error: function (thrownError) {
@@ -301,10 +349,7 @@
           [10, 25, 50, "All"]
         ],
         responsive: true,
-        language: {
-          search: "_INPUT_",
-          searchPlaceholder: "Search records",
-        },
+        language: lang_kor,
         ordering : false,
         ajax : {
           type : "POST",

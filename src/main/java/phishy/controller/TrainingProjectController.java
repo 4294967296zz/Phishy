@@ -27,6 +27,7 @@ public class TrainingProjectController {
             @RequestParam("trp_content") String trp_content,
             @RequestParam("trp_start") Date trp_start,
             @RequestParam("trp_end") Date trp_end,
+            @RequestParam("trp_type") String trp_type,
             @RequestParam("trp_interval") String trp_interval,
             @RequestParam("trs_open") String trs_open,
             @RequestParam("trs_link") String trs_link,
@@ -42,6 +43,7 @@ public class TrainingProjectController {
         Map<String, String> datas = new HashMap<String, String>();
         datas.put("trp_nm", trp_nm);
         datas.put("trp_content", trp_content);
+        datas.put("trp_type", trp_type);
         datas.put("trp_interval",trp_interval);
         datas.put("trs_open",trs_open);
         datas.put("trs_link",trs_link);
@@ -63,10 +65,19 @@ public class TrainingProjectController {
         return datas;
     }
 
+    @RequestMapping(value = "/getTRPDatatable.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTRPDatatable() {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", trainingProjectService.getTRPs());
+        Object result = mp;
+        return result;
+    }
+
     @RequestMapping(value = "/getTRPs.do", method = RequestMethod.POST)
     public @ResponseBody Object getTRPdetails() {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("trp_datas", trainingProjectService.getTRPs());
+        mp.put("trs_datas", trainingProjectService.getTRSs());
         Object result = mp;
         return result;
     }

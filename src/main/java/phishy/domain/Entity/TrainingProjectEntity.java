@@ -38,6 +38,9 @@ public class TrainingProjectEntity {
     @Column(name = "trp_content")
     private String trpContent;
 
+    @Column(name = "trp_type")
+    private String trpType;
+
     @Column(name = "trp_start")
     private Date trpStart;
 
@@ -52,7 +55,7 @@ public class TrainingProjectEntity {
 
     @Builder
     public TrainingProjectEntity(Long trpId,
-                                 Long uId, Long tugId, Long trsId, String trpNm,
+                                 Long uId, Long tugId, Long trsId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
                                  Integer trpInterval, String trpRegDate) {
         this.trpId       = trpId;
@@ -60,6 +63,7 @@ public class TrainingProjectEntity {
         this.tugId       = tugId;
         this.trsId       = trsId;
         this.trpNm       = trpNm;
+        this.trpType       = trpType;
         this.trpStatus   = trpStatus;
         this.trpContent  = trpContent;
         this.trpStart    = trpStart;

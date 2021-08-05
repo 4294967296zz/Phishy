@@ -59,7 +59,7 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-6 col-md-12">
-              <div class="card">
+              <div class="card section-cards">
                 <div class="card-header card-header-text card-header-primary">
                   <div class="card-text">
                     <h4 class="card-title">01 훈련 기본 설정</h4>
@@ -121,7 +121,7 @@
               </div>
             </div>
             <div class="col-lg-6 col-md-12">
-              <div class="card">
+              <div class="card section-cards">
                  <div class="card-header card-header-text card-header-warning">
                   <div class="card-text">
                     <h4 class="card-title">02 훈련 기능 설정</h4>
@@ -134,12 +134,12 @@
                       <div class="togglebutton">
                         <label>
                           <span class="card-title">첨부파일형</span>
-                          <input type="checkbox" id="attach_type" value="yes">
+                          <input type="checkbox" id="attach_type" name="trp_type" value="첨부파일형">
                           <span class="toggle"></span>
                         </label>
                         <label>
                           <span class="card-title">버튼클릭형</span>
-                          <input type="checkbox" id="button_type" value="yes">
+                          <input type="checkbox" id="button_type" name="trp_type" value="버튼클릭형">
                           <span class="toggle"></span>
                         </label>
                       </div>
@@ -150,7 +150,7 @@
                     <div class="col-sm-12">
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="csv" checked="checked"> csv
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="csv"> csv
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -158,7 +158,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="doc" checked=""> doc
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="doc"> doc
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -166,7 +166,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="pdf" checked=""> pdf
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="pdf"> pdf
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -174,7 +174,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="jpg" checked=""> jpg
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="jpg"> jpg
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -182,7 +182,7 @@
                         </div>
                         <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="html" checked=""> html
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="html"> html
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -190,7 +190,7 @@
                         </div>
                       <div class="form-check form-check-inline">
                           <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="trs_attach_type" value="exe" checked=""> exe
+                            <input class="form-check-input" type="radio" name="trs_attach_type" value="exe"> exe
                             <span class="circle">
                               <span class="check"></span>
                             </span>
@@ -416,6 +416,7 @@
             'trp_content'           : $('#trp_content').val(),
             'trp_start'             : $('#trp_start').val(),
             'trp_end'               : $('#trp_end').val(),
+            'trp_type'              : $('input[name="trp_type"]').val(),
             'trp_interval'          : $('#trp_interval').val(),
             'tug_id'                : $('#tug_id').val(),
             'mfi_id'                : $('#mfi_selected').data('mfiid'),

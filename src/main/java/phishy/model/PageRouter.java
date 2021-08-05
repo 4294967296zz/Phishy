@@ -41,6 +41,11 @@ public class PageRouter {
         return "pages/status";
     }
 
+    @GetMapping("/execute")
+    public String execute() {
+        return "pages/execute";
+    }
+
     @GetMapping("/status_detail")
     public String status_detail() {
         return "pages/status_detail";

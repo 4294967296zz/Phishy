@@ -1,6 +1,7 @@
 package phishy.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import phishy.domain.Entity.TrainingProjectEntity;
 import phishy.domain.Entity.TrainingSettingEntity;
@@ -51,6 +52,7 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrsId(trs_id);
         trainingProjectEntity.setTugId(tugId);
         trainingProjectEntity.setTrpNm(datas.get("trp_nm"));
+        trainingProjectEntity.setTrpType(datas.get("trp_type"));
         trainingProjectEntity.setTrpInterval(Integer.parseInt(datas.get("trp_interval")));
         trainingProjectEntity.setTrpStatus("대기");
         trainingProjectEntity.setTrpStart(trpStart);
@@ -61,7 +63,7 @@ public class TrainingProjectService {
 
     @Transactional
     public List<TrainingProjectDto> getTRPs() {
-        List<TrainingProjectEntity> trpEntities = trainingProjectRepository.findAll();
+        List<TrainingProjectEntity> trpEntities = trainingProjectRepository.findAll(Sort.by(Sort.Direction.DESC, "trpId"));
         List<TrainingProjectDto> trpDtoList = new ArrayList<>();
 
         for(TrainingProjectEntity trpEntity : trpEntities) {
@@ -71,6 +73,7 @@ public class TrainingProjectService {
                     .trpContent(trpEntity.getTrpContent())
                     .trpStart(trpEntity.getTrpStart())
                     .trpEnd(trpEntity.getTrpEnd())
+                    .trpType(trpEntity.getTrpType())
                     .tugId(trpEntity.getTugId())
                     .trpStatus(trpEntity.getTrpStatus())
                     .trsId(trpEntity.getTrsId())
@@ -114,6 +117,7 @@ public class TrainingProjectService {
                 .trpContent(trpEntity.getTrpContent())
                 .trpStart(trpEntity.getTrpStart())
                 .trpEnd(trpEntity.getTrpEnd())
+                .trpType(trpEntity.getTrpType())
                 .trpStatus(trpEntity.getTrpStatus())
                 .trpInterval(trpEntity.getTrpInterval())
                 .build();
