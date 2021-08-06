@@ -1,6 +1,7 @@
 package phishy.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import phishy.domain.Entity.TrainingUsergroupEntity;
 import phishy.domain.Entity.TrainingUserinfoEntity;
@@ -140,4 +141,28 @@ public class TrainingUserService {
                 .getResultList();
         return totalResult;
     }
+
+    @Transactional
+    public List<String> getTUIemail(Long tugId) {
+        String jpql = "SELECT TUI.userId FROM TrainingUserinfoEntity TUI WHERE TUI.tugId = :tugId";
+        List<String> totalResult = em.createQuery(jpql, String.class)
+                .setParameter("tugId",tugId)
+                .getResultList();
+        return totalResult;
+    }
+
+    @Transactional
+    public List<TrainingUserinfoDto> getTUIemails(Long tugId) {
+        List<TrainingUserinfoEntity> TUIEntities = trainingUserinfoRepository.findAllByTugId(tugId);
+        List<TrainingUserinfoDto> TUIDtoList = new ArrayList<>();
+
+        for(TrainingUserinfoEntity TrainingUserinfoEntity : TUIEntities) {
+            TrainingUserinfoDto TUGDto = TrainingUserinfoDto.builder()
+                    .userId(TrainingUserinfoEntity.getUserId())
+                    .build();
+            TUIDtoList.add(TUGDto);
+        }
+        return TUIDtoList;
+    }
+
 }

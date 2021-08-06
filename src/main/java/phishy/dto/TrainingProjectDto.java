@@ -62,4 +62,8 @@ public class TrainingProjectDto {
         this.trpInterval = trpInterval;
         this.trpRegDate  = trpRegDate;
     }
+
+    public String getTrpNm() {
+        return trpNm;
+    }
 }

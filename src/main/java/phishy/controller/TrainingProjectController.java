@@ -3,6 +3,7 @@ package phishy.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import phishy.service.ExecuteService;
 import phishy.service.MailformService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
@@ -94,6 +95,5 @@ public class TrainingProjectController {
         Object result = mp;
         return result;
     }
-
 
 }

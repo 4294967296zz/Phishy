@@ -125,7 +125,7 @@
                 </form>
               </div>
               <div class="modal-footer justify-content-center">
-                <a href="#" class="btn btn-success btn" id="reg_btn">실시하기</a>
+                <a href="#" class="btn btn-success btn" id="exe_btn">실시하기</a>
               </div>
             </div>
           </div>
@@ -248,7 +248,8 @@
         var trpId = $(this).attr('data-trp_id');
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
-        getProjectDetails(trpId, trsId, tugId);
+
+        $('#exe_btn').attr('data-trp_id',trpId).attr('data-trs_id',trsId).attr('data-tug_id',tugId);
 
       });
 
@@ -257,6 +258,28 @@
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
         location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+      });
+
+      $('#exe_btn').click(function() {
+        $.ajax({
+          url: "pptest.do",
+          type: "POST",
+          dataType: "json",
+          data : {
+            'trpId' : $(this).data('trp_id'),
+            'trsId' : $(this).data('trs_id'),
+            'tugId' : $(this).data('tug_id'),
+          },
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          success: function (result) {
+            console.log(result);
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
       });
 
 
