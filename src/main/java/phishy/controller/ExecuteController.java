@@ -47,8 +47,8 @@ public class ExecuteController {
 //        executeService.sendMail(rootPath+"/spam.properties");
     }
 
-    @RequestMapping(value = "/pptest.do", method = RequestMethod.POST)
-    public @ResponseBody void pptest(@RequestParam("trpId") Long trpId,
+    @RequestMapping(value = "/sendMails.do", method = RequestMethod.POST)
+    public @ResponseBody void sendMails(@RequestParam("trpId") Long trpId,
                                        @RequestParam("trsId") Long trsId,
                                        @RequestParam("tugId") Long tugId) throws IOException, MessagingException{
         Map<String, String> mp = new HashMap<String, String>();

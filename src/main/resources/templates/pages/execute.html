@@ -103,9 +103,9 @@
       <div class="modal fade" id="sendModal" tabindex="-1" role="">
         <div class="modal-dialog modal-login" role="document">
           <div class="modal-content">
-            <div class="card card-signup">
+            <div class="card card-signup card-pricing">
               <div class="modal-header">
-                <div class="card-header card-header-primary text-center">
+                <div class="card-header card-header-rose text-center">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="material-icons">clear</i>
                   </button>
@@ -115,18 +115,16 @@
               <div class="modal-body">
 
                 <form class="form" method="" action="">
-                  <p class="description text-center">프로젝트의 훈련메일을 발송합니다!</p>
                   <div class="card-body">
-
-                    <div class="row">
+                    <div class="card-icon icon-rose">
+                      <i class="material-icons">email</i>
                     </div>
-
+                    <h3 class="card-title" id="send_trpNm"></h3>
+                    <p class="" id="send_trpDesc"></p>
+                    <a href="javascript:;" class="btn btn-rose btn-round" id="exe_btn">훈련 실행</a>
                   </div>
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
-              </div>
-              <div class="modal-footer justify-content-center">
-                <a href="#" class="btn btn-success btn" id="exe_btn">실시하기</a>
               </div>
             </div>
           </div>
@@ -155,6 +153,8 @@
           var tug_data = result.tug_data;
 
           console.log(result);
+          $('#send_trpNm').html(trp_data.trpNm);
+          $('#send_trpDesc').html(tug_data.tugNm+"("+tug_data.tugCount+"명)을 대상으로 훈련메일을 발송하시겠습니까?");
 
         },
         error: function (thrownError) {
@@ -258,6 +258,8 @@
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
 
+        getProjectDetails(trpId,trsId,tugId);
+
         $('#exe_btn').attr('data-trp_id',trpId).attr('data-trs_id',trsId).attr('data-tug_id',tugId);
 
       });
@@ -271,7 +273,7 @@
 
       $('#exe_btn').click(function() {
         $.ajax({
-          url: "pptest.do",
+          url: "sendMails.do",
           type: "POST",
           dataType: "json",
           data : {

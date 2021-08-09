@@ -157,7 +157,9 @@ public class TrainingProjectService {
         Optional<TrainingProjectEntity> TRPEntityWrapper = trainingProjectRepository.findById(trpId);
         TrainingProjectEntity trainingProjectEntity = TRPEntityWrapper.get();
         trainingProjectEntity.setTrpStatus(msg);
-        trainingProjectEntity.setTrpSent(trainingProjectEntity.getTrpSent() + 1);
+        if(msg == "완료") {
+            trainingProjectEntity.setTrpSent(trainingProjectEntity.getTrpSent() + 1);
+        }
         trainingProjectRepository.save(trainingProjectEntity);
     }
 
