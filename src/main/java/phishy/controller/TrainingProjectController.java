@@ -96,4 +96,5 @@ public class TrainingProjectController {
         return result;
     }
 
+
 }

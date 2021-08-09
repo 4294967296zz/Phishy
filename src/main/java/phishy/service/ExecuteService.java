@@ -39,7 +39,7 @@ public class ExecuteService {
             message.setSubject(data.get("mail_title"));
             Multipart multipart = new MimeMultipart();
             BodyPart htmlBodyPart = new MimeBodyPart();
-            htmlBodyPart.setContent("<h1>dfsdfasdfasdf</h1>", "text/html; charset=utf-8");
+            htmlBodyPart.setContent(data.get("mail_content"), "text/html; charset=utf-8");
             multipart.addBodyPart(htmlBodyPart);
             message.setContent(multipart);
             Transport.send(message);
