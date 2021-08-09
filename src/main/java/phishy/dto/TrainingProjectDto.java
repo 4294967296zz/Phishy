@@ -24,7 +24,7 @@ public class TrainingProjectDto {
     private Date trpStart;
     private Date trpEnd;
     private Integer trpInterval;
-    private String trpRegDate;
+    private Integer trpSent;
 
     public TrainingProjectEntity toEntity() {
         TrainingProjectEntity trainingProjectEntity = TrainingProjectEntity.builder()
@@ -39,7 +39,7 @@ public class TrainingProjectDto {
                 .trpStart(trpStart)
                 .trpEnd(trpEnd)
                 .trpInterval(trpInterval)
-                .trpRegDate(trpRegDate)
+                .trpSent(trpSent)
                 .build();
         return trainingProjectEntity;
     }
@@ -48,7 +48,7 @@ public class TrainingProjectDto {
     public TrainingProjectDto(Long trpId,
                                  Long uId, Long tugId, Long trsId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
-                                 Integer trpInterval, String trpRegDate) {
+                                 Integer trpInterval, Integer trpSent) {
         this.trpId       = trpId;
         this.uId         = uId;
         this.tugId       = tugId;
@@ -60,10 +60,10 @@ public class TrainingProjectDto {
         this.trpStart    = trpStart;
         this.trpEnd      = trpEnd;
         this.trpInterval = trpInterval;
-        this.trpRegDate  = trpRegDate;
+        this.trpSent     = trpSent;
     }
 
     public String getTrpNm() {
-        return trpNm;
+        return this.trpNm = trpNm;
     }
 }

@@ -58,6 +58,7 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpStart(trpStart);
         trainingProjectEntity.setTrpEnd(trpEnd);
         trainingProjectEntity.setTrpContent(datas.get("trp_content"));
+        trainingProjectEntity.setTrpSent(0);
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
     }
 
@@ -76,6 +77,7 @@ public class TrainingProjectService {
                     .trpType(trpEntity.getTrpType())
                     .tugId(trpEntity.getTugId())
                     .trpStatus(trpEntity.getTrpStatus())
+                    .trpSent(trpEntity.getTrpSent())
                     .trsId(trpEntity.getTrsId())
                     .build();
             trpDtoList.add(trpDto);
@@ -119,6 +121,7 @@ public class TrainingProjectService {
                 .trpEnd(trpEntity.getTrpEnd())
                 .trpType(trpEntity.getTrpType())
                 .trpStatus(trpEntity.getTrpStatus())
+                .trpSent(trpEntity.getTrpSent())
                 .trpInterval(trpEntity.getTrpInterval())
                 .build();
         return trpDto;
@@ -147,6 +150,15 @@ public class TrainingProjectService {
                 .trsPhishingContent(trsEntity.getTrsPhishingContent())
                 .build();
         return trsDto;
+    }
+
+    @Transactional
+    public void updateTRP(Long trpId, String msg) {
+        Optional<TrainingProjectEntity> TRPEntityWrapper = trainingProjectRepository.findById(trpId);
+        TrainingProjectEntity trainingProjectEntity = TRPEntityWrapper.get();
+        trainingProjectEntity.setTrpStatus(msg);
+        trainingProjectEntity.setTrpSent(trainingProjectEntity.getTrpSent() + 1);
+        trainingProjectRepository.save(trainingProjectEntity);
     }
 
 }

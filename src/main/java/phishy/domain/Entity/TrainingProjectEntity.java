@@ -11,7 +11,7 @@ import java.sql.Date;
 @Setter
 @Entity
 @Table(name = "training_project")
-public class TrainingProjectEntity {
+public class TrainingProjectEntity extends TimeEntity{
 
     public TrainingProjectEntity() {}
 
@@ -50,26 +50,26 @@ public class TrainingProjectEntity {
     @Column(name = "trp_interval")
     private Integer trpInterval;
 
-    @Column(name = "trp_reg_date")
-    private String trpRegDate;
+    @Column(name = "trp_sent")
+    private Integer trpSent;
 
     @Builder
     public TrainingProjectEntity(Long trpId,
                                  Long uId, Long tugId, Long trsId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
-                                 Integer trpInterval, String trpRegDate) {
+                                 Integer trpInterval, Integer trpSent) {
         this.trpId       = trpId;
         this.uId         = uId;
         this.tugId       = tugId;
         this.trsId       = trsId;
         this.trpNm       = trpNm;
-        this.trpType       = trpType;
+        this.trpType     = trpType;
         this.trpStatus   = trpStatus;
         this.trpContent  = trpContent;
         this.trpStart    = trpStart;
         this.trpEnd      = trpEnd;
         this.trpInterval = trpInterval;
-        this.trpRegDate  = trpRegDate;
+        this.trpSent     = trpSent;
     }
 
 }

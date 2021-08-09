@@ -79,6 +79,7 @@
                           <th>훈련 종료일</th>
                           <th class="disabled-sorting">훈련 유형</th>
                           <th>훈련 상태</th>
+                          <th>발송 횟수</th>
                           <th class="disabled-sorting">훈련 실행</th>
                         </tr>
                       </thead>
@@ -194,11 +195,12 @@
               return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>  '+data;
             }
           },
-          {data : "trpStart"},
-          {data : "trpEnd"},
-          {data : "trpType"},
+          {data : "trpStart", className: "text-center"},
+          {data : "trpEnd", className: "text-center"},
+          {data : "trpType", className: "text-center"},
           {
             data : "trpStatus",
+            className: "text-center",
             searchable : false,
             render : function(data) {
               var badge = '';
@@ -213,6 +215,13 @@
             }
           },
           {
+            data : "trpSent",
+            className: "text-center",
+            render : function (data) {
+                return data+"회";
+              }
+          },
+          {
             data : "trpId",
             searchable : false,
             render : function (data, type, row) {
@@ -223,7 +232,7 @@
               if(row['trpStatus'] === "대기") {
                 send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
               } else if(row['trpStatus'] === "완료") {
-                send_btn = '발송 완료';
+                send_btn = '<button type="button" class="btn btn-success btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">재발송하기</button>';
               } else if(row['trpStatus'] === "진행중") {
                 send_btn = '훈련 진행중..';
               }

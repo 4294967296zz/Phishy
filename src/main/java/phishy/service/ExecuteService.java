@@ -16,8 +16,12 @@ import java.util.*;
 @AllArgsConstructor
 public class ExecuteService {
 
+    private TrainingProjectService trainingProjectService;
+
     @Transactional
-    public void sendMail(Map<String, String> data, List<String> email_list) throws IOException, MessagingException {
+    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId) throws IOException, MessagingException {
+        trainingProjectService.updateTRP(trpId, "진행중");
+        
         Properties properties = new Properties();
         properties.load(new ByteArrayInputStream(Files.readAllBytes(Paths.get(String.valueOf(data.get("property"))))));
         Session session = Session.getDefaultInstance(properties);
@@ -40,8 +44,6 @@ public class ExecuteService {
             message.setContent(multipart);
             Transport.send(message);
         }
-
-//        return Arrays.asList(data.get("trp_data"));
     }
 
 

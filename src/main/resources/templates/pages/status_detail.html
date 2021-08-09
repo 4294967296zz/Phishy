@@ -75,6 +75,12 @@
                     </div>
                   </div>
                   <div class="row">
+                    <label class="col-sm-4 text-right">훈련 발송 회차</label>
+                    <div class="col-sm-8">
+                      <span id ="trp_sent"></span>
+                    </div>
+                  </div>
+                  <div class="row">
                     <label class="col-sm-4 text-right">훈련 프로젝트명</label>
                     <div class="col-sm-8">
                       <span id="trp_nm"></span>
@@ -312,6 +318,7 @@
           }
 
           $('#trp_nm').append(trp_data['trpNm']);
+          $('#trp_sent').append(trp_data['trpSent']+"회");
           $('#trp_type').append(trp_data['trpType']);
           $('#trp_content').append(trp_data['trpContent']);
           $('#trp_start').append(trp_data['trpStart']);

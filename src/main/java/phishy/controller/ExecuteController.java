@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import phishy.domain.Entity.TrainingProjectEntity;
 import phishy.service.ExecuteService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
@@ -59,7 +60,8 @@ public class ExecuteController {
         mp.put("attach_nm", trainingProjectService.getTRS(trsId).getTrsAttachNm());
         mp.put("property", rootPath+"/spam.properties");
 
-        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId));
+        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId);
+        trainingProjectService.updateTRP(trpId, "완료");
     }
 
 }
