@@ -2,6 +2,7 @@ package phishy.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,18 +12,28 @@ import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
 
 import javax.mail.MessagingException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@AllArgsConstructor
+//@AllArgsConstructor
 public class ExecuteController {
 
     private TrainingProjectService trainingProjectService;
     private TrainingUserService trainingUserService;
     private ExecuteService executeService;
+
+    private StringBuffer buffer;
+    private Process process;
+    private BufferedReader bufferedReader;
 
     @RequestMapping(value = "/executeMail.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -72,24 +83,95 @@ public class ExecuteController {
 
     @RequestMapping(value = "/thisisjihjo", method = RequestMethod.GET)
     public @ResponseBody
-    String thisisjiho(@RequestParam("test") String test) {
+    String thisisjiho(@RequestParam("test") String test) throws IOException{
 
-        //파일의 생성
-        //파일은 이시점에 생성되는 것이 아니다
-        File newFile = new File(FileSystemView.getFileSystemView().getHomeDirectory().toString());
-        try {
-          if(newFile.createNewFile()){    //파일이 생성되는 시점
-            return"파일이 생성되었습니다.";
-          }else {
-            return"파일을 생성하지 못했습니다.";
-          }
-        } catch (IOException e) {
-          e.printStackTrace();
-          return"예외 처리 파일을 생성하는 과정에서 오류가 발생했습니다.";
+        String txt = "start /max http://localhost:8080";
+
+        File file = new File(".");
+        String fileName = file.getAbsoluteFile()+"/attachments.bat";
+
+        try{
+            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
+            BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
+
+            // 파일안에 문자열 쓰기
+            fw.write(txt);
+            fw.flush();
+            // 객체 닫기
+            fw.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
 
+        return test;
 
     }
+
+    @RequestMapping(value="/filedownloadingjiho")
+    public void attachmentDownload(HttpServletRequest request,
+                                   HttpServletResponse response) throws Exception {
+
+        File og_file = new File(".");
+        File ogFile = new File(og_file.getAbsoluteFile()+"/attachments.bat");
+        File newFile = new File(og_file.getAbsoluteFile()+"/copys/attachments.bat");
+        try {
+            FileInputStream fis = new FileInputStream(ogFile);
+            FileOutputStream fos = new FileOutputStream(newFile);
+
+            int fileByte = 0;
+            while((fileByte = fis.read()) != -1) {
+                fos.write(fileByte);
+            }
+            fis.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String dFile = "/attachments.bat";
+        String upDir = new File(".").getAbsoluteFile().toString()+"/copys";
+        String path = upDir+File.separator+dFile;
+
+        BufferedWriter writer = new BufferedWriter((new FileWriter(path)));
+        writer.write("start /max http://localhost:8080/execute");
+        writer.close();
+
+        File file = new File(path);
+
+        String userAgent = request.getHeader("User-Agent");
+        boolean ie = userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("rv:11") > -1;
+        String fileName = null;
+
+        if (ie) {
+            fileName = URLEncoder.encode(file.getName(), "utf-8");
+        } else {
+            fileName = new String(file.getName().getBytes("utf-8"),"iso-8859-1");
+        }
+
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment;filename=\"" +fileName+"\";");
+
+        FileInputStream fis=new FileInputStream(file);
+        BufferedInputStream bis=new BufferedInputStream(fis);
+        ServletOutputStream so=response.getOutputStream();
+        BufferedOutputStream bos=new BufferedOutputStream(so);
+
+        byte[] data=new byte[2048];
+        int input=0;
+        while((input=bis.read(data))!=-1){
+            bos.write(data,0,input);
+            bos.flush();
+        }
+
+        if(bos!=null) bos.close();
+        if(bis!=null) bis.close();
+        if(so!=null) so.close();
+        if(fis!=null) fis.close();
+    }
+
 
 
 }
