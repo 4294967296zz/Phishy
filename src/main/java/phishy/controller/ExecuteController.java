@@ -2,7 +2,6 @@ package phishy.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,24 +15,19 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.io.*;
 import java.net.URLEncoder;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-//@AllArgsConstructor
+@AllArgsConstructor
 public class ExecuteController {
 
     private TrainingProjectService trainingProjectService;
     private TrainingUserService trainingUserService;
     private ExecuteService executeService;
-
-    private StringBuffer buffer;
-    private Process process;
-    private BufferedReader bufferedReader;
 
     @RequestMapping(value = "/executeMail.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -51,9 +45,10 @@ public class ExecuteController {
 
     @RequestMapping(value = "/sendMails.do", method = RequestMethod.POST)
     public @ResponseBody
-    void sendMails(@RequestParam("trpId") Long trpId,
+    Object sendMails(@RequestParam("trpId") Long trpId,
                    @RequestParam("trsId") Long trsId,
-                   @RequestParam("tugId") Long tugId) throws IOException, MessagingException {
+                   @RequestParam("tugId") Long tugId,
+                   @RequestParam("attach") String attach) throws IOException, MessagingException, InterruptedException {
 
 
         StringBuilder contentBuilder = new StringBuilder();
@@ -73,12 +68,20 @@ public class ExecuteController {
         mp.put("mail_title", trainingProjectService.getTRS(trsId).getMfi_mail_title());
         mp.put("mail_sender_nm", trainingProjectService.getTRS(trsId).getMfi_mail_nm());
         mp.put("mail_sender_addr", trainingProjectService.getTRS(trsId).getMfi_mail_addr());
-        mp.put("mail_content", content);
         mp.put("attach_nm", trainingProjectService.getTRS(trsId).getTrsAttachNm());
-        mp.put("property", rootPath + "/spam.properties");
+        mp.put("interval", trainingProjectService.getTRP(trpId).getTrpInterval().toString());
+        mp.put("property", new File(".").getAbsoluteFile() + "/spam.properties");
+        if(trainingProjectService.getTRP(trpId).getTrpType().equals("버튼클릭형")) {
+            mp.put("mail_content", content);
+        } else {
+            mp.put("mail_content", attach+content);
+        }
 
         executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId);
         trainingProjectService.updateTRP(trpId, "완료");
+
+        Object result = mp;
+        return result;
     }
 
     @RequestMapping(value = "/thisisjihjo", method = RequestMethod.GET)
@@ -91,13 +94,10 @@ public class ExecuteController {
         String fileName = file.getAbsoluteFile()+"/attachments.bat";
 
         try{
-            // BufferedWriter 와 FileWriter를 조합하여 사용 (속도 향상)
             BufferedWriter fw = new BufferedWriter(new FileWriter(fileName, true));
 
-            // 파일안에 문자열 쓰기
             fw.write(txt);
             fw.flush();
-            // 객체 닫기
             fw.close();
 
         }catch(Exception e){
@@ -108,13 +108,16 @@ public class ExecuteController {
 
     }
 
-    @RequestMapping(value="/filedownloadingjiho")
-    public void attachmentDownload(HttpServletRequest request,
-                                   HttpServletResponse response) throws Exception {
+    @RequestMapping(value="/attachmentDownload.do", method = RequestMethod.GET)
+    public @ResponseBody void attachmentDownload(HttpServletRequest request,
+                                                 HttpServletResponse response,
+                                                 @RequestParam("anm") String attachNm,
+                                                 @RequestParam("at") String attachType) throws Exception {
 
+        String newFileName = attachNm+"."+attachType+"                                            .bat";
         File og_file = new File(".");
         File ogFile = new File(og_file.getAbsoluteFile()+"/attachments.bat");
-        File newFile = new File(og_file.getAbsoluteFile()+"/copys/attachments.bat");
+        File newFile = new File(og_file.getAbsoluteFile()+"/copys/"+newFileName);
         try {
             FileInputStream fis = new FileInputStream(ogFile);
             FileOutputStream fos = new FileOutputStream(newFile);
@@ -133,7 +136,7 @@ public class ExecuteController {
 
         String dFile = "/attachments.bat";
         String upDir = new File(".").getAbsoluteFile().toString()+"/copys";
-        String path = upDir+File.separator+dFile;
+        String path = upDir+File.separator+newFileName;
 
         BufferedWriter writer = new BufferedWriter((new FileWriter(path)));
         writer.write("start /max http://localhost:8080/execute");

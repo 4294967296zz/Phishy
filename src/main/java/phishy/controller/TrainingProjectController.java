@@ -3,7 +3,6 @@ package phishy.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import phishy.service.ExecuteService;
 import phishy.service.MailformService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
@@ -92,6 +91,16 @@ public class TrainingProjectController {
         mp.put("trs_data", trainingProjectService.getTRS(trsId));
         mp.put("tug_data", trainingUserService.getTUG(tugId));
         mp.put("tui_data", trainingUserService.getTUIdetails(tugId));
+        Object result = mp;
+        return result;
+    }
+
+    @RequestMapping(value = "/getAttach.do", method = RequestMethod.POST)
+    public @ResponseBody Object getAttach(@RequestParam("trsId") Long trsId) {
+        Map<String, String> mp = new HashMap<String, String>();
+        mp.put("attachNm", trainingProjectService.getTRS(trsId).getTrsAttachNm());
+        mp.put("attachSize", trainingProjectService.getTRS(trsId).getTrsAttachSize());
+        mp.put("attachType", trainingProjectService.getTRS(trsId).getTrsAttachType());
         Object result = mp;
         return result;
     }

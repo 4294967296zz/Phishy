@@ -25,7 +25,10 @@ public class MailformController {
             @RequestParam("mfi_mail_title") String mfi_mail_title,
             @RequestParam("mfi_file")MultipartFile mfi_file) throws Exception {
 
-        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+
+
+//        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+        String rootPath = new File(".").getAbsoluteFile().toString();
         String basePath = rootPath + "/" + "phishy_contents";
         String filePath = basePath + "/" + mfi_file.getOriginalFilename();
         File dest = new File(filePath);

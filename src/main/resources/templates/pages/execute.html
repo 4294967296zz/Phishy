@@ -163,6 +163,29 @@
       });
     }
 
+  function sendMails(trpId, trsId, tugId, attachmentContents) {
+     $.ajax({
+        url: "sendMails.do",
+        type: "POST",
+        dataType: "json",
+        data : {
+          'trpId'   : trpId,
+          'trsId'   : trsId,
+          'tugId'   : tugId,
+          'attach'  : attachmentContents,
+      },
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        success: function (result) {
+          console.log(result);
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
+      });
+  }
+
     $(document).ready(function() {
 
       $('#TPRDatatable').DataTable({
@@ -271,27 +294,45 @@
         location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
       });
 
-      $('#exe_btn').click(function() {
+      $('#exe_btn').click(function(e) {
+        e.preventDefault();
+        var trpId = $(this).attr('data-trp_id');
+        var trsId = $(this).attr('data-trs_id');
+        var tugId = $(this).attr('data-tug_id');
+        var attachmentContents = '';
+
         $.ajax({
-          url: "sendMails.do",
+          url: "getAttach.do",
           type: "POST",
           dataType: "json",
           data : {
-            'trpId' : $(this).data('trp_id'),
-            'trsId' : $(this).data('trs_id'),
-            'tugId' : $(this).data('tug_id'),
+            'trsId'   : trsId,
           },
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
           success: function (result) {
-            console.log(result);
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
+            var url = "http://localhost:8080/attachmentDownload.do?anm="+result.attachNm+"&at="+result.attachType;
+            attachmentContents = '<div style="border:1px solid #ededee;width:80%;padding-left:10px;padding-top:2px;padding-bottom:2px;vertical-align:middle">'+
+                      '<img alt="" title="" height="20px" src="" style="vertical-align:middle;padding-right:5px">'+
+                      '<span style="font-size:12pt;color:#333333;vertical-align:middle">대용량 첨부파일 : </span>'+
+                      '<span style="color:#0000ff;vertical-align:middle">'+
+                      '<a style="color:#0000ff" href="'+url+'" data-saferedirecturl="'+url+'" target="_blank">'+result.attachNm+'.'+result.attachType+'('+result.attachSize+'KB)</a></span> </div>';
+
+            sendMails(trpId, trsId, tugId, attachmentContents);
+            },
+              error: function (thrownError) {
+                console.log(thrownError);
+              }
         });
+
       });
+
+      $('.close').click(function(e) {
+        e.preventDefault();
+        $('#exe_btn').removeData('trs_id').removeData('trp_id').removeData('tug_id');
+      });
+
 
 
     });

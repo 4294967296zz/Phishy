@@ -11,15 +11,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class ExecuteService {
 
     private TrainingProjectService trainingProjectService;
+    private TrainingResultService trainingResultService;
 
     @Transactional
-    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId) throws IOException, MessagingException {
+    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId) throws IOException, MessagingException, InterruptedException {
         trainingProjectService.updateTRP(trpId, "진행중");
         
         Properties properties = new Properties();
@@ -31,7 +33,6 @@ public class ExecuteService {
         Iterator mailList = email_list.iterator();
 
         while(mailList.hasNext()) {
-
             MimeMessage message = new MimeMessage(session);
             Address[] from = new Address[]{new InternetAddress(senderNm, senderAddr)};
             message.addFrom(from);
@@ -42,6 +43,7 @@ public class ExecuteService {
             htmlBodyPart.setContent(data.get("mail_content"), "text/html; charset=utf-8");
             multipart.addBodyPart(htmlBodyPart);
             message.setContent(multipart);
+            Thread.sleep(Integer.parseInt(data.get("interval"))*1000);
             Transport.send(message);
         }
     }
