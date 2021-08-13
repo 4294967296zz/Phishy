@@ -100,32 +100,35 @@
 
       <footer th:replace="fragments/footer"></footer>
 
-      <div class="modal fade" id="sendModal" tabindex="-1" role="">
+      <div class="modal fade" id="resModal" tabindex="-1" role="">
         <div class="modal-dialog modal-login" role="document">
           <div class="modal-content">
-            <div class="card card-signup card-pricing">
+            <div class="card card-signup">
               <div class="modal-header">
-                <div class="card-header card-header-rose text-center">
+                <div class="card-header card-header-primary text-center">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="material-icons">clear</i>
                   </button>
-                  <h4 class="card-title">훈련 실행</h4>
+                  <h4 class="card-title">사용자 일괄 등록</h4>
                 </div>
               </div>
               <div class="modal-body">
 
-                <form class="form" method="" action="">
-                  <div class="card-body">
-                    <div class="card-icon icon-rose">
-                      <i class="material-icons">email</i>
-                    </div>
-                    <h3 class="card-title" id="send_trpNm"></h3>
-                    <p class="" id="send_trpDesc"></p>
-                    <a href="javascript:;" class="btn btn-rose btn-round" id="exe_btn">훈련 실행</a>
-                  </div>
-                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                </form>
-              </div>
+                <div class="material-datatables">
+                  <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                    <thead>
+                      <tr>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>직급</th>
+                        <th>열람 여부</th>
+                        <th>열람 시간</th>
+                      </tr>
+                    </thead>
+                    </tbody>
+                  </table>
+                </div>
+
             </div>
           </div>
         </div>
@@ -163,28 +166,34 @@
       });
     }
 
-  function sendMails(trpId, trsId, tugId, attachmentContents) {
-     $.ajax({
-        url: "sendMails.do",
-        type: "POST",
-        dataType: "json",
-        data : {
-          'trpId'   : trpId,
-          'trsId'   : trsId,
-          'tugId'   : tugId,
-          'attach'  : attachmentContents,
-      },
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader(header, token);
+    function resultModal(trpId) {
+     $('#ResultDatatable').DataTable({
+        "pagingType": "full_numbers",
+        "lengthMenu": [
+          [10, 25, 50, -1],
+          [10, 25, 50, "All"]
+        ],
+        responsive: true,
+        language: lang_kor,
+        ajax : {
+          type : "POST",
+          url : "getTRRDatatable.do",
+          dataType : "JSON",
+          data : {'trpId' : trpId},
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
         },
-        success: function (result) {
-          console.log(result);
-        },
-        error: function (thrownError) {
-          console.log(thrownError);
-        }
+        columns : [
+          {data : "userNm"},
+          {data : "userId", className:'Userdatatable-email',},
+          {data : "userRank"},
+          {data : "trrOpen"},
+          {data : "trrOpenDate"},
+      ],
+
       });
-  }
+    }
 
     $(document).ready(function() {
 
@@ -215,7 +224,7 @@
               var trsId = row['trsId'];
               var tugId = row['tugId'];
               var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
-              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>  '+data;
+              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>'+data;
             }
           },
           {data : "trpStart", className: "text-center"},
@@ -253,9 +262,10 @@
               var tugId = row['tugId'];
               var send_btn = '';
               if(row['trpStatus'] === "대기") {
-                send_btn = '<a>훈련 실시하러 가기</a>';
+                send_btn = '<button type="button" class="btn btn-warning btn-sm to_execute">훈련 실시하기</button>';
               } else {
-                send_btn = '<button type="button" class="btn btn-success btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">결과보기</button>';
+                // send_btn = '<button type="button" class="btn btn-success btn-sm res-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#resdModal">결과보기</button>';
+                send_btn = '<a href="#" data-toggle="modal" data-target="#resModal" class="btn btn-link text-warning btn-just-icon res-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'"><i class="material-icons">dvr</i></a>';
               }
               return send_btn;
             }
@@ -273,64 +283,20 @@
 
       var table = $('#TPRDatatable').DataTable();
 
-      // Edit record
-      table.on('click', '.send-btn', function() {
-        var trpId = $(this).attr('data-trp_id');
-        var trsId = $(this).attr('data-trs_id');
-        var tugId = $(this).attr('data-tug_id');
-
-        getProjectDetails(trpId,trsId,tugId);
-
-        $('#exe_btn').attr('data-trp_id',trpId).attr('data-trs_id',trsId).attr('data-tug_id',tugId);
-
+      table.on('click', '.res-btn', function() {
+        var trpId = $(this).attr("data-trp_id");
+        resultModal(trpId);
       });
 
-      table.on('click', '.more-btn', function() {
-        var trpId = $(this).attr('data-trp_id');
-        var trsId = $(this).attr('data-trs_id');
-        var tugId = $(this).attr('data-tug_id');
-        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+      table.on('click', '.to_execute', function() {
+        location.href="/execute";
       });
 
-      $('#exe_btn').click(function(e) {
-        e.preventDefault();
-        var trpId = $(this).attr('data-trp_id');
-        var trsId = $(this).attr('data-trs_id');
-        var tugId = $(this).attr('data-tug_id');
-        var attachmentContents = '';
-
-        $.ajax({
-          url: "getAttach.do",
-          type: "POST",
-          dataType: "json",
-          data : {
-            'trsId'   : trsId,
-          },
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          success: function (result) {
-            var url = "http://localhost:8080/attachmentDownload.do?anm="+result.attachNm+"&at="+result.attachType;
-            attachmentContents = '<div style="border:1px solid #ededee;width:80%;padding-left:10px;padding-top:2px;padding-bottom:2px;vertical-align:middle">'+
-                      '<img alt="" title="" height="20px" src="" style="vertical-align:middle;padding-right:5px">'+
-                      '<span style="font-size:12pt;color:#333333;vertical-align:middle">대용량 첨부파일 : </span>'+
-                      '<span style="color:#0000ff;vertical-align:middle">'+
-                      '<a style="color:#0000ff" href="'+url+'" data-saferedirecturl="'+url+'" target="_blank">'+result.attachNm+'.'+result.attachType+'('+result.attachSize+'KB)</a></span> </div>';
-
-            sendMails(trpId, trsId, tugId, attachmentContents);
-            },
-              error: function (thrownError) {
-                console.log(thrownError);
-              }
-        });
-
-      });
 
       $('.close').click(function(e) {
         e.preventDefault();
-        $('#exe_btn').removeData('trs_id').removeData('trp_id').removeData('tug_id');
+        $('.res-btn').removeData('trs_id').removeData('trp_id').removeData('tug_id');
       });
-
 
 
     });

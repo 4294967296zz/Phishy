@@ -9,10 +9,7 @@ import phishy.dto.TrainingResultDto;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -69,9 +66,44 @@ public class TrainingResultService {
                     .trpId(trrEntity.getTrpId())
                     .tugId(trrEntity.getTugId())
                     .trsId(trrEntity.getTrsId())
+                    .userId(trrEntity.getUserId())
+                    .userRank(trrEntity.getUserRank())
+                    .userNm(trrEntity.getUserNm())
+                    .trrOpen(trrEntity.getTrrOpen())
+                    .trrOpenDate(trrEntity.getTrrOpenDate())
+                    .trrLink(trrEntity.getTrrLink())
+                    .trrLinkDate(trrEntity.getTrrLinkDate())
+                    .trrAttachClick(trrEntity.getTrrAttachClick())
+                    .trrAttachClickDate(trrEntity.getTrrAttachClickDate())
                     .build();
             trrDtoList.add(trrDto);
         }
         return trrDtoList;
+    }
+
+    @Transactional
+    public List<TrainingResultDto> getTRR(Long trpId) {
+        List<TrainingResultEntity> TRREntities = trainingResultRepository.findAllByTrpId(trpId);
+        List<TrainingResultDto> TRRDtoList = new ArrayList<>();
+
+        for(TrainingResultEntity TrainingResultEntity : TRREntities) {
+            TrainingResultDto TRRDto = TrainingResultDto.builder()
+                    .trrId(TrainingResultEntity.getTrrId())
+                    .trpId(TrainingResultEntity.getTrpId())
+                    .tugId(TrainingResultEntity.getTugId())
+                    .trsId(TrainingResultEntity.getTrsId())
+                    .userId(TrainingResultEntity.getUserId())
+                    .userRank(TrainingResultEntity.getUserRank())
+                    .userNm(TrainingResultEntity.getUserNm())
+                    .trrOpen(TrainingResultEntity.getTrrOpen())
+                    .trrOpenDate(TrainingResultEntity.getTrrOpenDate())
+                    .trrLink(TrainingResultEntity.getTrrLink())
+                    .trrLinkDate(TrainingResultEntity.getTrrLinkDate())
+                    .trrAttachClick(TrainingResultEntity.getTrrAttachClick())
+                    .trrAttachClickDate(TrainingResultEntity.getTrrAttachClickDate())
+                    .build();
+            TRRDtoList.add(TRRDto);
+        }
+        return TRRDtoList;
     }
 }

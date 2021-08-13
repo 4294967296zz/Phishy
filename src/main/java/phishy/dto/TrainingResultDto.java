@@ -17,8 +17,9 @@ public class TrainingResultDto {
     private Long trpId;
     private Long trsId;
     private Long tugId;
-    private String user_id;
-    private String user_rank;
+    private String userId;
+    private String userRank;
+    private String userNm;
     private String trrOpen;
     private LocalDateTime trrOpenDate;
     private String trrLink;
@@ -39,8 +40,9 @@ public class TrainingResultDto {
                 .trpId(trpId)
                 .trsId(trsId)
                 .tugId(tugId)
-                .user_id(user_id)
-                .user_rank(user_rank)
+                .userId(userId)
+                .userRank(userRank)
+                .userNm(userNm)
                 .trrOpen(trrOpen)
                 .trrOpenDate(trrOpenDate)
                 .trrLink(trrLink)
@@ -59,7 +61,7 @@ public class TrainingResultDto {
     }
 
     @Builder
-    public TrainingResultDto(Long trrId, Long trpId, Long trsId, Long tugId, String user_id, String user_rank,
+    public TrainingResultDto(Long trrId, Long trpId, Long trsId, Long tugId, String userId, String userRank, String userNm,
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
@@ -69,8 +71,9 @@ public class TrainingResultDto {
         this.trpId                  = trpId;
         this.trsId                  = trsId;
         this.tugId                  = tugId;
-        this.user_id                = user_id;
-        this.user_rank              = user_rank;
+        this.userId                 = userId;
+        this.userRank               = userRank;
+        this.userNm                 = userNm;
         this.trrOpen                = trrOpen;
         this.trrOpenDate            = trrOpenDate;
         this.trrLink                = trrLink;

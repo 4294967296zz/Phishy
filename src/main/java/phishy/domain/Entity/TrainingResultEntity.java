@@ -2,6 +2,7 @@ package phishy.domain.Entity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "training_result")
+@NoArgsConstructor
 public class TrainingResultEntity extends TimeEntity{
 
     public void TrainingResultEntity() {}
@@ -30,10 +32,13 @@ public class TrainingResultEntity extends TimeEntity{
     private Long tugId;
 
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 
     @Column(name = "user_rank")
-    private String user_rank;
+    private String userRank;
+
+    @Column(name = "user_name")
+    private String userNm;
 
     // 메일 열람 여부
     @Column(name = "trr_open")
@@ -89,7 +94,7 @@ public class TrainingResultEntity extends TimeEntity{
 
 
     @Builder
-    public TrainingResultEntity(Long trrId, Long trpId, Long trsId, Long tugId, String user_id, String user_rank,
+    public TrainingResultEntity(Long trrId, Long trpId, Long trsId, Long tugId, String userId, String userRank, String userNm,
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
@@ -99,8 +104,9 @@ public class TrainingResultEntity extends TimeEntity{
         this.trpId                  = trpId;
         this.trsId                  = trsId;
         this.tugId                  = tugId;
-        this.user_id                = user_id;
-        this.user_rank              = user_rank;
+        this.userId                 = userId;
+        this.userRank               = userRank;
+        this.userNm                 = userNm;
         this.trrOpen                = trrOpen;
         this.trrOpenDate            = trrOpenDate;
         this.trrLink                = trrLink;
