@@ -100,32 +100,43 @@
 
       <footer th:replace="fragments/footer"></footer>
 
-      <div class="modal fade" id="resModal" tabindex="-1" role="">
+      <div class="modal fade" id="resModal" tabindex="-1" role="" style="margin-left: -10%;">
         <div class="modal-dialog modal-login" role="document">
-          <div class="modal-content">
+          <div class="modal-content" style="width: 100vh;">
             <div class="card card-signup">
               <div class="modal-header">
                 <div class="card-header card-header-primary text-center">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     <i class="material-icons">clear</i>
                   </button>
-                  <h4 class="card-title">사용자 일괄 등록</h4>
+                  <h4 class="card-title">결과 상세</h4>
                 </div>
               </div>
-              <div class="modal-body">
+              <div class="modal-body" style="overflow: scroll;">
 
-                <div class="material-datatables">
-                  <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
+                <div class="material-datatables" style="width : 2800px;">
+                  <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="2500px;" style="width:100% !important;">
                     <thead>
                       <tr>
-                        <th>이름</th>
-                        <th>이메일</th>
-                        <th>직급</th>
-                        <th>열람 여부</th>
-                        <th>열람 시간</th>
+                        <th class="userNm">이름</th>
+                        <th class="userId">이메일</th>
+                        <th class="userRank">직급</th>
+                        <th class="trrOpen">열람 여부</th>
+                        <th class="trrOpenDate">열람 시간</th>
+                        <th class="trrLink">클릭 여부</th>
+                        <th class="trrLinkDate">클릭 시간</th>
+                        <th class="trrAttachClick">첨부파일 다운로드 여부</th>
+                        <th class="trrAttachClickDate">첨부파일 다운로드 시간</th>
+                        <th class="trrAttachOpen">첨부파일 실행 여부</th>
+                        <th class="trrAttachOpenDate">첨부파일 실행 시간</th>
+                        <th class="trrPhishingclick">피싱사이트 접속 여부</th>
+                        <th class="trrPhishingclickDate">피싱사이트 접속 시간</th>
+                        <th class="trrPhishingContent">피싱사이트 정보 입력 내용</th>
+                        <th class="trrReturnIp">접속 IP주소</th>
+                        <th class="trrReturnUserinfo">접속 정보</th>
                       </tr>
                     </thead>
-                    </tbody>
+                    <tbody></tbody>
                   </table>
                 </div>
 
@@ -173,8 +184,9 @@
           [10, 25, 50, -1],
           [10, 25, 50, "All"]
         ],
-        responsive: true,
         language: lang_kor,
+        destroy: true,
+        ordering: false,
         ajax : {
           type : "POST",
           url : "getTRRDatatable.do",
@@ -186,12 +198,22 @@
         },
         columns : [
           {data : "userNm"},
-          {data : "userId", className:'Userdatatable-email',},
+          {data : "userId"},
           {data : "userRank"},
           {data : "trrOpen"},
           {data : "trrOpenDate"},
+          {data : "trrLink"},
+          {data : "trrLinkDate"},
+          {data : "trrAttachClick"},
+          {data : "trrAttachClickDate"},
+          {data : "trrAttachOpen"},
+          {data : "trrAttachOpenDate"},
+          {data : "trrPhishingclick"},
+          {data : "trrPhishingclickDate"},
+          {data : "trrPhishingContent"},
+          {data : "trrReturnIp"},
+          {data : "trrReturnUserinfo"},
       ],
-
       });
     }
 
@@ -285,6 +307,7 @@
 
       table.on('click', '.res-btn', function() {
         var trpId = $(this).attr("data-trp_id");
+        console.log(trpId);
         resultModal(trpId);
       });
 

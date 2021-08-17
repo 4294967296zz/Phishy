@@ -101,6 +101,13 @@ public class TrainingResultService {
                     .trrLinkDate(TrainingResultEntity.getTrrLinkDate())
                     .trrAttachClick(TrainingResultEntity.getTrrAttachClick())
                     .trrAttachClickDate(TrainingResultEntity.getTrrAttachClickDate())
+                    .trrAttachOpen(TrainingResultEntity.getTrrAttachOpen())
+                    .trrAttachOpenDate(TrainingResultEntity.getTrrAttachOpenDate())
+                    .trrPhishingclick(TrainingResultEntity.getTrrPhishingclick())
+                    .trrPhishingclickDate(TrainingResultEntity.getTrrPhishingclickDate())
+                    .trrPhishingContent(TrainingResultEntity.getTrrPhishingContent())
+                    .trrReturnIp(TrainingResultEntity.getTrrReturnIp())
+                    .trrReturnUserinfo(TrainingResultEntity.getTrrReturnUserinfo())
                     .build();
             TRRDtoList.add(TRRDto);
         }

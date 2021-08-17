@@ -80,3 +80,26 @@
 #sendModal .card-pricing h4 {
     margin-top : 0px !important;
 }
+
+.dataTables_scrollHeadInner {
+    width: 100% !important;
+}
+
+table#ResultDatatable { width : 100% !important;}
+#ResultDatatable .userNm {width : 3% !important;}
+#ResultDatatable .userId {width : 9% !important;}
+#ResultDatatable .userRank {width : 3% !important;}
+#ResultDatatable .trrOpen {width : 4% !important;}
+#ResultDatatable .trrOpenDate {width : 6% !important;}
+#ResultDatatable .trrLink {width : 4% !important;}
+#ResultDatatable .trrLinkDate {width : 6% !important;}
+#ResultDatatable .trrAttachClick {width : 7% !important;}
+#ResultDatatable .trrAttachClickDate {width : 7% !important;}
+#ResultDatatable .trrAttachOpen {width :6% !important;}
+#ResultDatatable .trrAttachOpenDate {width :6% !important;}
+#ResultDatatable .trrPhishingclick {width :6% !important;}
+#ResultDatatable .trrPhishingclickDate {width :6% !important;}
+#ResultDatatable .trrPhishingContent {width : 11% !important;}
+#ResultDatatable .trrReturnIp {width : 6% !important;}
+#ResultDatatable .trrReturnUserinfo {width : 6% !important;}
+
