@@ -11,50 +11,52 @@ import phishy.domain.Entity.UserEntity;
 @NoArgsConstructor
 public class UserDto {
 
-    private Long u_id;
-    private String user_id;
-    private String user_nm;
-    private String user_pwd;
-    private String user_email;
-    private String user_rank;
-    private String corp_cd;
-    private String corp_nm;
-    private String dept_cd;
-    private String dept_nm;
-    private String level_gp;
-    private String level_lv;
+    private Long uId;
+    private String userId;
+    private String userNm;
+    private String userPwd;
+    private String userEmail;
+    private String userRank;
+    private String corpCd;
+    private String corpNm;
+    private String deptCd;
+    private String deptNm;
+    private String levelGp;
+    private String levelLv;
 
     public UserEntity toEntity() {
         UserEntity userEntity = UserEntity.builder()
-            .u_id(u_id)
-            .user_id(user_id)
-            .user_nm(user_nm)
-            .user_pwd(user_pwd)
-            .user_email(user_email)
-            .user_rank(user_rank)
-            .corp_cd(corp_cd)
-            .corp_nm(corp_nm)
-            .dept_cd(dept_cd)
-            .dept_nm(dept_nm)
-            .level_gp(level_gp)
-            .level_lv(level_lv)
+                .uId(uId)
+                .userId(userId)
+                .userNm(userNm)
+                .userPwd(userPwd)
+                .userEmail(userEmail)
+                .userRank(userRank)
+                .corpCd(corpCd)
+                .corpNm(corpNm)
+                .deptCd(deptCd)
+                .deptNm(deptNm)
+                .levelGp(levelGp)
+                .levelLv(levelLv)
                 .build();
         return userEntity;
     }
 
     @Builder
-    public UserDto(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String dept_cd, String dept_nm, String level_gp, String level_lv) {
-        this.u_id       = u_id;
-        this.user_id    = user_id;
-        this.user_nm    = user_nm;
-        this.user_pwd   = user_pwd;
-        this.user_email = user_email;
-        this.user_rank  = user_rank;
-        this.corp_cd    = corp_cd;
-        this.corp_nm    = corp_nm;
-        this.dept_cd    = dept_cd;
-        this.dept_nm    = dept_nm;
-        this.level_gp   = level_gp;
-        this.level_lv   = level_lv;
+    public UserDto(Long uId, String userId, String userNm, String userPwd, String userEmail,
+                      String userRank, String corpCd, String corpNm, String deptCd, String deptNm,
+                      String levelGp, String levelLv) {
+        this.uId       = uId;
+        this.userId    = userId;
+        this.userNm    = userNm;
+        this.userPwd   = userPwd;
+        this.userEmail = userEmail;
+        this.userRank  = userRank;
+        this.corpCd    = corpCd;
+        this.corpNm    = corpNm;
+        this.deptCd    = deptCd;
+        this.deptNm    = deptNm;
+        this.levelGp   = levelGp;
+        this.levelLv   = levelLv;
     }
 }

@@ -14,56 +14,59 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long u_id;
+    private Long uId;
 
     public UserEntity() {}
 
     @Column(name = "user_id")
-    private String user_id;
+    private String userId;
 
     @Column(name = "user_nm")
-    private String user_nm;
+    private String userNm;
 
     @Column(name = "user_pwd")
-    private String user_pwd;
+    private String userPwd;
 
     @Column(name = "user_email")
-    private String user_email;
+    private String userEmail;
 
     @Column(name = "user_rank")
-    private String user_rank;
+    private String userRank;
 
     @Column(name = "corp_cd")
-    private String corp_cd;
+    private String corpCd;
 
     @Column(name = "corp_nm")
-    private String corp_nm;
+    private String corpNm;
 
     @Column(name = "dept_cd")
-    private String dept_cd;
+    private String deptCd;
 
     @Column(name = "dept_nm")
-    private String dept_nm;
+    private String deptNm;
 
     @Column(name = "level_gp")
-    private String level_gp;
+    private String levelGp;
 
     @Column(name = "level_lv")
-    private String level_lv;
+    private String levelLv;
 
     @Builder
-    public UserEntity(Long u_id, String user_id, String user_nm, String user_pwd, String user_email, String user_rank, String corp_cd, String corp_nm, String dept_cd, String dept_nm, String level_gp, String level_lv) {
-        this.user_id    = user_id;
-        this.user_nm    = user_nm;
-        this.user_pwd   = user_pwd;
-        this.user_email = user_email;
-        this.user_rank  = user_rank;
-        this.corp_cd    = corp_cd;
-        this.corp_nm    = corp_nm;
-        this.dept_cd    = dept_cd;
-        this.dept_nm    = dept_nm;
-        this.level_gp   = level_gp;
-        this.level_lv   = level_lv;
+    public UserEntity(Long uId, String userId, String userNm, String userPwd, String userEmail,
+                      String userRank, String corpCd, String corpNm, String deptCd, String deptNm,
+                      String levelGp, String levelLv) {
+        this.uId       = uId;
+        this.userId    = userId;
+        this.userNm    = userNm;
+        this.userPwd   = userPwd;
+        this.userEmail = userEmail;
+        this.userRank  = userRank;
+        this.corpCd    = corpCd;
+        this.corpNm    = corpNm;
+        this.deptCd    = deptCd;
+        this.deptNm    = deptNm;
+        this.levelGp   = levelGp;
+        this.levelLv   = levelLv;
     }
 
 }

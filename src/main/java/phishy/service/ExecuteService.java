@@ -1,6 +1,7 @@
 package phishy.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -19,32 +20,61 @@ public class ExecuteService {
 
     private TrainingProjectService trainingProjectService;
     private TrainingResultService trainingResultService;
+    private MailLogService mailLogService;
+    private UserService userService;
 
     @Transactional
-    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId) throws IOException, MessagingException, InterruptedException {
+    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId, Long trsId) throws IOException, MessagingException, InterruptedException {
         trainingProjectService.updateTRP(trpId, "진행중");
         
         Properties properties = new Properties();
         properties.load(new ByteArrayInputStream(Files.readAllBytes(Paths.get(String.valueOf(data.get("property"))))));
         Session session = Session.getDefaultInstance(properties);
         String senderNm = MimeUtility.encodeText(MimeUtility.encodeText(data.get("mail_sender_nm"), "EUC-KR", "B"), "UTF-8", "B");
-        String senderAddr = MimeUtility.encodeText(MimeUtility.encodeText(data.get("mail_sender_nm"), "EUC-KR", "B"), "UTF-8", "B");
+        String senderAddr = MimeUtility.encodeText(MimeUtility.encodeText(data.get("mail_sender_addr"), "EUC-KR", "B"), "UTF-8", "B");
 
         Iterator mailList = email_list.iterator();
+        String rcpt = "";
 
         while(mailList.hasNext()) {
+            // 수신자 이메일주소 string 처리
+            rcpt = String.valueOf(mailList.next());
+            
+            // MIME 세션 생성
             MimeMessage message = new MimeMessage(session);
-            Address[] from = new Address[]{new InternetAddress(senderNm, senderAddr)};
+            
+            // 발신자 이메일주소, 이름 설정
+            Address[] from = new Address[]{new InternetAddress(senderNm, data.get("mail_sender_addr"))};
             message.addFrom(from);
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(String.valueOf(mailList.next())));
+            
+            //수신자 설정
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(rcpt));
+            // 참조 수신자 설정
+//            message.addRecipients(Message.RecipientType.CC, "alex@marvelsystem.co.kr");
+            // 숨은 참조 수신자 설정
+//            message.addRecipients(Message.RecipientType.BCC, getAddresses("nowonbun@gmail.com"));
+            // 제목 설정
             message.setSubject(data.get("mail_title"));
+            // 본문 설정
             Multipart multipart = new MimeMultipart();
             BodyPart htmlBodyPart = new MimeBodyPart();
             htmlBodyPart.setContent(data.get("mail_content"), "text/html; charset=utf-8");
             multipart.addBodyPart(htmlBodyPart);
             message.setContent(multipart);
+            // 인터벌 설정
             Thread.sleep(Integer.parseInt(data.get("interval"))*1000);
+            // 메일 발송
             Transport.send(message);
+            // 훈련 결과 insert
+            trainingResultService.registerTRR(
+                    userService.getUserByEmail(rcpt).getUserNm(),
+                    userService.getUserByEmail(rcpt).getUserRank(),
+                    rcpt, trpId, trsId
+            );
+            // 메일 로그 insert
+            mailLogService.registerMailLog(trpId, trpId);
+            // 수신자 이메일 주소 초기화
+            rcpt = null;
         }
     }
 

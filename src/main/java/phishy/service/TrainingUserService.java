@@ -1,7 +1,6 @@
 package phishy.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import phishy.domain.Entity.TrainingUsergroupEntity;
 import phishy.domain.Entity.TrainingUserinfoEntity;
@@ -113,9 +112,9 @@ public class TrainingUserService {
         for(Long str : userIds) {
             TrainingUserinfoEntity trainingUserinfoEntity = trainingUserinfoDto.toEntity();
             trainingUserinfoEntity.setTugId(tugId);
-            trainingUserinfoEntity.setUserId(userService.getUser(str).getUser_email());
-            trainingUserinfoEntity.setDeptCd(userService.getUser(str).getDept_cd());
-            trainingUserinfoEntity.setDeptNm(userService.getUser(str).getDept_nm());
+            trainingUserinfoEntity.setUserId(userService.getUser(str).getUserEmail());
+            trainingUserinfoEntity.setDeptCd(userService.getUser(str).getDeptCd());
+            trainingUserinfoEntity.setDeptNm(userService.getUser(str).getDeptNm());
             trainingUserinfoRepository.save(trainingUserinfoEntity).getTugId();
         }
     }
@@ -135,7 +134,7 @@ public class TrainingUserService {
     @Transactional
     public List<Object[]> getTUIdetails(Long tugId) {
         String jpql = "SELECT DISTINCT UE FROM TrainingUserinfoEntity TUI, UserEntity UE WHERE "
-                +"TUI.userId = UE.user_id AND TUI.tugId = :tugId";
+                +"TUI.userId = UE.userId AND TUI.tugId = :tugId";
         List<Object[]> totalResult = em.createQuery(jpql, Object[].class)
                 .setParameter("tugId",tugId)
                 .getResultList();

@@ -7,6 +7,7 @@ import phishy.domain.Entity.UserEntity;
 import phishy.domain.Repository.UserRepository;
 import phishy.dto.UserDto;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @Service
 public class UserService {
 
+    private EntityManager em;
     private UserRepository userRepository;
 
     @Transactional
@@ -25,19 +27,19 @@ public class UserService {
         UserDto userDto = new UserDto();
         UserEntity userEntity = userDto.toEntity();
 
-        userEntity.setUser_id(datas.get("user_id"));
-        userEntity.setUser_pwd(passwordEncoder.encode(datas.get("user_pwd")));
-        userEntity.setUser_email(datas.get("user_email"));
-        userEntity.setUser_nm(datas.get("user_nm"));
-        userEntity.setUser_rank(datas.get("user_rank"));
-        userEntity.setCorp_cd(datas.get("corp_cd"));
-        userEntity.setCorp_nm(datas.get("corp_nm"));
-        userEntity.setDept_cd(datas.get("dept_cd"));
-        userEntity.setDept_nm(datas.get("dept_nm"));
-        userEntity.setLevel_gp(datas.get("level_gp"));
-        userEntity.setLevel_lv(datas.get("level_lv"));
+        userEntity.setUserId(datas.get("user_id"));
+        userEntity.setUserPwd(passwordEncoder.encode(datas.get("user_pwd")));
+        userEntity.setUserEmail(datas.get("user_email"));
+        userEntity.setUserNm(datas.get("user_nm"));
+        userEntity.setUserRank(datas.get("user_rank"));
+        userEntity.setCorpCd(datas.get("corp_cd"));
+        userEntity.setCorpNm(datas.get("corp_nm"));
+        userEntity.setDeptCd(datas.get("dept_cd"));
+        userEntity.setDeptNm(datas.get("dept_nm"));
+        userEntity.setLevelGp(datas.get("level_gp"));
+        userEntity.setLevelLv(datas.get("level_lv"));
 
-        userRepository.save(userEntity).getU_id();
+        userRepository.save(userEntity).getUId();
     }
 
     @Transactional
@@ -47,19 +49,19 @@ public class UserService {
 
         for(int idx = 0; idx < datas.size(); idx++) {
             UserEntity userEntity = userDto.toEntity();
-            userEntity.setUser_id(datas.get(idx).get("user_email"));
-            userEntity.setUser_pwd(passwordEncoder.encode(datas.get(idx).get("user_email")));
-            userEntity.setUser_email(datas.get(idx).get("user_email"));
-            userEntity.setUser_rank(datas.get(idx).get("user_rank"));
-            userEntity.setUser_nm(datas.get(idx).get("user_nm"));
-            userEntity.setCorp_cd(datas.get(idx).get("corp_cd"));
-            userEntity.setCorp_nm(datas.get(idx).get("corp_nm"));
-            userEntity.setDept_cd(datas.get(idx).get("dept_cd"));
-            userEntity.setDept_nm(datas.get(idx).get("dept_nm"));
-            userEntity.setLevel_gp(datas.get(idx).get("level_gp"));
-            userEntity.setLevel_lv("1");
+            userEntity.setUserId(datas.get(idx).get("user_email"));
+            userEntity.setUserPwd(passwordEncoder.encode(datas.get(idx).get("user_email")));
+            userEntity.setUserEmail(datas.get(idx).get("user_email"));
+            userEntity.setUserNm(datas.get(idx).get("user_rank"));
+            userEntity.setUserRank(datas.get(idx).get("user_nm"));
+            userEntity.setCorpCd(datas.get(idx).get("corp_cd"));
+            userEntity.setCorpNm(datas.get(idx).get("corp_nm"));
+            userEntity.setDeptCd(datas.get(idx).get("dept_cd"));
+            userEntity.setDeptNm(datas.get(idx).get("dept_nm"));
+            userEntity.setLevelGp(datas.get(idx).get("level_gp"));
+            userEntity.setLevelLv("1");
 
-            userRepository.save(userEntity).getU_id();
+            userRepository.save(userEntity).getUId();
         }
     }
      @Transactional
@@ -69,10 +71,10 @@ public class UserService {
 
         for(UserEntity userEntity : userEntities) {
             UserDto userDTO = UserDto.builder()
-                    .u_id(userEntity.getU_id())
-                    .dept_cd(userEntity.getCorp_nm())
-                    .dept_nm(userEntity.getDept_nm())
-                    .user_email(userEntity.getUser_email())
+                    .uId(userEntity.getUId())
+                    .deptCd(userEntity.getDeptCd())
+                    .deptNm(userEntity.getDeptNm())
+                    .userEmail(userEntity.getUserEmail())
                     .build();
             userDtoList.add(userDTO);
         }
@@ -86,12 +88,12 @@ public class UserService {
 
         for(UserEntity userEntity : userEntities) {
             UserDto userDTO = UserDto.builder()
-                    .u_id(userEntity.getU_id())
-                    .user_nm(userEntity.getUser_nm())
-                    .user_email(userEntity.getUser_email())
-                    .user_rank(userEntity.getUser_rank())
-                    .corp_nm(userEntity.getCorp_nm())
-                    .dept_nm(userEntity.getDept_nm())
+                    .uId(userEntity.getUId())
+                    .userNm(userEntity.getUserNm())
+                    .userEmail(userEntity.getUserEmail())
+                    .userRank(userEntity.getUserRank())
+                    .corpNm(userEntity.getCorpNm())
+                    .deptNm(userEntity.getDeptNm())
                     .build();
 
             userDtoList.add(userDTO);
@@ -104,16 +106,16 @@ public class UserService {
         Optional<UserEntity> userEntityWrapper = userRepository.findById(u_id);
         UserEntity userEntity = userEntityWrapper.get();
 
-        userEntity.setUser_id(datas.get("user_id"));
-        userEntity.setUser_email(datas.get("user_email"));
-        userEntity.setUser_nm(datas.get("user_nm"));
-        userEntity.setUser_rank(datas.get("user_rank"));
-        userEntity.setCorp_cd(datas.get("corp_cd"));
-        userEntity.setCorp_nm(datas.get("corp_nm"));
-        userEntity.setDept_cd(datas.get("dept_cd"));
-        userEntity.setDept_nm(datas.get("dept_nm"));
-        userEntity.setLevel_gp(datas.get("level_gp"));
-        userEntity.setLevel_lv(datas.get("level_lv"));
+        userEntity.setUserId(datas.get("user_id"));
+        userEntity.setUserEmail(datas.get("user_email"));
+        userEntity.setUserNm(datas.get("user_nm"));
+        userEntity.setUserRank(datas.get("user_rank"));
+        userEntity.setCorpCd(datas.get("corp_cd"));
+        userEntity.setCorpNm(datas.get("corp_nm"));
+        userEntity.setDeptCd(datas.get("dept_cd"));
+        userEntity.setDeptNm(datas.get("dept_nm"));
+        userEntity.setLevelGp(datas.get("level_gp"));
+        userEntity.setLevelLv(datas.get("level_lv"));
 
         userRepository.save(userEntity);
 
@@ -125,17 +127,32 @@ public class UserService {
         UserEntity userEntity = userEntityWrapper.get();
 
         UserDto userDTO = UserDto.builder()
-                .u_id(userEntity.getU_id())
-                .user_id(userEntity.getUser_id())
-                .user_email(userEntity.getUser_email())
-                .user_nm(userEntity.getUser_nm())
-                .user_rank(userEntity.getUser_rank())
-                .corp_cd(userEntity.getCorp_cd())
-                .corp_nm(userEntity.getCorp_nm())
-                .dept_nm(userEntity.getDept_nm())
-                .dept_cd(userEntity.getDept_cd())
-                .level_gp(userEntity.getLevel_gp())
-                .level_lv(userEntity.getLevel_lv())
+                .uId(userEntity.getUId())
+                .userId(userEntity.getUserId())
+                .userEmail(userEntity.getUserEmail())
+                .userNm(userEntity.getUserNm())
+                .userRank(userEntity.getUserRank())
+                .corpCd(userEntity.getCorpCd())
+                .corpNm(userEntity.getCorpNm())
+                .deptNm(userEntity.getDeptNm())
+                .deptCd(userEntity.getDeptCd())
+                .levelGp(userEntity.getLevelGp())
+                .levelLv(userEntity.getLevelLv())
+                .build();
+
+        return userDTO;
+    }
+
+    @Transactional
+    public UserDto getUserByEmail(String userEmail) {
+        Optional<UserEntity> userEntityWrapper = userRepository.findAllByUserEmail(userEmail);
+        UserEntity userEntity = userEntityWrapper.get();
+
+        UserDto userDTO = UserDto.builder()
+                .uId(userEntity.getUId())
+                .userEmail(userEntity.getUserEmail())
+                .userNm(userEntity.getUserNm())
+                .userRank(userEntity.getUserRank())
                 .build();
 
         return userDTO;
@@ -145,5 +162,6 @@ public class UserService {
     public void deleteUser(Long u_id) {
         userRepository.deleteById(u_id);
     }
+
 
 }

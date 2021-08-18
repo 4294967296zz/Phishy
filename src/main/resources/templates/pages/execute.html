@@ -149,7 +149,6 @@
         },
         success: function (result) {
           var trp_data = result.trp_data;
-          var trs_data = result.trs_data;
           var tug_data = result.tug_data;
 
           console.log(result);
@@ -177,8 +176,15 @@
         beforeSend: function (xhr) {
           xhr.setRequestHeader(header, token);
         },
-        success: function (result) {
+        complete: function (result) {
           console.log(result);
+          Swal.fire({
+              title : '발송이 완료되었습니다!',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
         },
         error: function (thrownError) {
           console.log(thrownError);
@@ -325,6 +331,7 @@
                 console.log(thrownError);
               }
         });
+
 
       });
 

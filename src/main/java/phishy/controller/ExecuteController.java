@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import phishy.service.ExecuteService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
+import phishy.service.UserService;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletOutputStream;
@@ -28,6 +29,7 @@ public class ExecuteController {
     private TrainingProjectService trainingProjectService;
     private TrainingUserService trainingUserService;
     private ExecuteService executeService;
+    private UserService userService;
 
     @RequestMapping(value = "/executeMail.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -40,6 +42,7 @@ public class ExecuteController {
         datas.put("tug_data", trainingUserService.getTUG(tugId));
         Object result = datas;
         return result;
+
     }
 
 
@@ -77,7 +80,7 @@ public class ExecuteController {
             mp.put("mail_content", attach+content);
         }
 
-        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId);
+        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId, trsId);
         trainingProjectService.updateTRP(trpId, "완료");
 
         Object result = mp;
@@ -174,8 +177,6 @@ public class ExecuteController {
         if(so!=null) so.close();
         if(fis!=null) fis.close();
     }
-
-
 
 }
 
