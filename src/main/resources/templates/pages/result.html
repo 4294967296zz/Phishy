@@ -80,7 +80,7 @@
                           <th class="disabled-sorting">훈련 유형</th>
                           <th>훈련 상태</th>
                           <th>발송 횟수</th>
-                          <th class="disabled-sorting">훈련 실행</th>
+                          <th class="disabled-sorting">결과 상세</th>
                         </tr>
                       </thead>
                       </tbody>
@@ -280,14 +280,12 @@
             searchable : false,
             render : function (data, type, row) {
               var trpId = row['trpId'];
-              var trsId = row['trsId'];
-              var tugId = row['tugId'];
               var send_btn = '';
               if(row['trpStatus'] === "대기") {
                 send_btn = '<button type="button" class="btn btn-warning btn-sm to_execute">훈련 실시하기</button>';
               } else {
-                // send_btn = '<button type="button" class="btn btn-success btn-sm res-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#resdModal">결과보기</button>';
-                send_btn = '<a href="#" data-toggle="modal" data-target="#resModal" class="btn btn-link text-warning btn-just-icon res-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'"><i class="material-icons">dvr</i></a>';
+                var url = "/result_detail?trp="+data+"&sent="+row['trpSent'];
+                send_btn = '<a href="'+url+'" class="btn btn-link text-warning btn-just-icon res-btn" data-trp_id="'+trpId+'"><i class="material-icons">dvr</i></a>';
               }
               return send_btn;
             }
@@ -307,8 +305,7 @@
 
       table.on('click', '.res-btn', function() {
         var trpId = $(this).attr("data-trp_id");
-        console.log(trpId);
-        resultModal(trpId);
+        location.href="/result_detail?trp="+trpId+"&sent="+trpSent;
       });
 
       table.on('click', '.to_execute', function() {

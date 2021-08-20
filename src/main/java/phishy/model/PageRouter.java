@@ -71,6 +71,11 @@ public class PageRouter {
         return "pages/result";
     }
 
+    @GetMapping("/result_detail")
+    public String result_detail() {
+        return "pages/result_detail";
+    }
+
     @GetMapping("/user")
     public String user() {
         return "pages/tables";

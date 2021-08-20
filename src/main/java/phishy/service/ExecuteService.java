@@ -3,6 +3,8 @@ package phishy.service;
 import lombok.AllArgsConstructor;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
+import phishy.domain.Entity.TrainingProjectEntity;
+import phishy.dto.TrainingProjectDto;
 
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -25,13 +27,15 @@ public class ExecuteService {
 
     @Transactional
     public void sendMail(Map<String, String> data, List<String> email_list, Long trpId, Long trsId) throws IOException, MessagingException, InterruptedException {
-        trainingProjectService.updateTRP(trpId, "진행중");
-        
+        // 훈련 실행 즉시 상태 update
+        Integer trpSent = trainingProjectService.updateTRP(trpId, "진행중");
+
         Properties properties = new Properties();
         properties.load(new ByteArrayInputStream(Files.readAllBytes(Paths.get(String.valueOf(data.get("property"))))));
         Session session = Session.getDefaultInstance(properties);
+
+        // 발신자 이름 인코딩
         String senderNm = MimeUtility.encodeText(MimeUtility.encodeText(data.get("mail_sender_nm"), "EUC-KR", "B"), "UTF-8", "B");
-        String senderAddr = MimeUtility.encodeText(MimeUtility.encodeText(data.get("mail_sender_addr"), "EUC-KR", "B"), "UTF-8", "B");
 
         Iterator mailList = email_list.iterator();
         String rcpt = "";
@@ -39,14 +43,11 @@ public class ExecuteService {
         while(mailList.hasNext()) {
             // 수신자 이메일주소 string 처리
             rcpt = String.valueOf(mailList.next());
-            
             // MIME 세션 생성
             MimeMessage message = new MimeMessage(session);
-            
             // 발신자 이메일주소, 이름 설정
             Address[] from = new Address[]{new InternetAddress(senderNm, data.get("mail_sender_addr"))};
             message.addFrom(from);
-            
             //수신자 설정
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(rcpt));
             // 참조 수신자 설정
@@ -69,7 +70,7 @@ public class ExecuteService {
             trainingResultService.registerTRR(
                     userService.getUserByEmail(rcpt).getUserNm(),
                     userService.getUserByEmail(rcpt).getUserRank(),
-                    rcpt, trpId, trsId
+                    rcpt, trpId, trsId, trpSent
             );
             // 메일 로그 insert
             mailLogService.registerMailLog(trpId, trpId);

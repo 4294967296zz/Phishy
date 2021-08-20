@@ -66,30 +66,24 @@
                   <i class="material-icons">assignment</i>
                 </div>
                 <h4 class="card-title"><span class="tug_nm"></span> 회차별 훈련 결과</h4>
+
+                <button type="button" class="btn dropdown-toggle bs-placeholder select-with-transition" data-toggle="dropdown" role="button" title="Choose City" aria-expanded="false">
+                  <div class="filter-option">
+                    <div class="filter-option-inner">
+                      <div class="filter-option-inner-inner" id="table_filter">회차별 조회</div>
+                      <select>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="ripple-container"></div>
+                </button>
+
               </div>
               <div class="card-body table-responsive">
                   <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th class="userNm">이름</th>
-                        <th class="userId">이메일</th>
-                        <th class="userRank">직급</th>
-                        <th class="trrOpen">열람 여부</th>
-                        <th class="trrOpenDate">열람 시간</th>
-                        <th class="trrLink">클릭 여부</th>
-                        <th class="trrLinkDate">클릭 시간</th>
-                        <th class="trrAttachClick">첨부파일 다운로드 여부</th>
-                        <th class="trrAttachClickDate">첨부파일 다운로드 시간</th>
-                        <th class="trrAttachOpen">첨부파일 실행 여부</th>
-                        <th class="trrAttachOpenDate">첨부파일 실행 시간</th>
-                        <th class="trrPhishingclick">피싱사이트 접속 여부</th>
-                        <th class="trrPhishingclickDate">피싱사이트 접속 시간</th>
-                        <th class="trrPhishingContent">피싱사이트 정보 입력 내용</th>
-                        <th class="trrReturnIp">접속 IP주소</th>
-                        <th class="trrReturnUserinfo">접속 정보</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
                   </table>
               </div>
             </div>
@@ -102,86 +96,10 @@
   <script>
 
     var trpId = geturlparam("trp");
-    var trsId = geturlparam("trs");
-    var tugId = geturlparam("tug");
+    var trpSent = geturlparam("sent");
 
-    function getProjectDetails(trpId,trsId,tugId) {
-      $.ajax({
-        url: "getProjectDetails.do",
-        type: "POST",
-        dataType: "json",
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader(header, token);
-        },
-        data: {
-          'trpId': trpId,
-          'trsId': trsId,
-          'tugId': tugId
-        },
-        success: function (result) {
-          var trp_data = result.trp_data;
-          var trs_data = result.trs_data;
-          var tug_data = result.tug_data;
-          var trpStatus = trp_data['trpStatus'];
-          var trs_checkes = {
-            'trsOpen'            : trs_data['trsOpen'],
-            'trsLink'            : trs_data['trsLink'],
-            'trsAttachOpen'      : trs_data['trsAttachOpen'],
-            'trsAttachClick'     : trs_data['trsAttachClick'],
-            'trsPhishing'        : trs_data['trsPhishing'],
-            'trsPhishingContent' : trs_data['trsPhishingContent'],
-          };
-
-          for(key in trs_checkes) {
-            if(trs_checkes[key] == "true") {
-              $('#'+key).prop('checked','true');
-            }
-          }
-
-          if($('#trsPhishing').is(':checked')) {
-            $('.row.opacity0').removeClass('opacity0').css('display','flex');
-            $('#trs_phishing_url').append(trs_data['trsPhishingUrl']);
-          }
-
-          if(trpStatus === "대기") {
-            $('#trp_status').append('훈련'+trpStatus);
-          } else if(trpStatus === "진행중") {
-              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-warning');
-          } else if(trpStatus === "완료") {
-              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-success');
-          }
-
-          $('#trp_nm').append(trp_data['trpNm']);
-          $('#trp_sent').append(trp_data['trpSent']+"회");
-          $('#trp_type').append(trp_data['trpType']);
-          $('#trp_content').append(trp_data['trpContent']);
-          $('#trp_start').append(trp_data['trpStart']);
-          $('#trp_end').append(trp_data['trpEnd']);
-          $('#mfi_mail_title').append(trs_data['mfi_mail_title']);
-          $('#mfi_mail_nm').append(trs_data['mfi_mail_nm']);
-          $('#mfi_mail_addr').append(trs_data['mfi_mail_addr']);
-          $('#trp_interval').append(trp_data['trpInterval']+'초');
-          $('#tug_nm').append(tug_data['tugNm']);
-          $('.tug_nm').append(tug_data['tugNm']);
-          $('#tug_count').append(tug_data['tugCount']+'명');
-
-          if(trp_data['trpType'] == "첨부파일형") {
-            $('.file_type').css('display','flex');
-            $('#trs_attach_nm').append(trs_data['trsAttachNm']);
-            $('#trs_attach_type').append(trs_data['trsAttachType']);
-            $('#trs_attach_size').append(trs_data['trsAttachSize']+'KB');
-          }
-
-        },
-        error: function (thrownError) {
-          console.log(thrownError);
-        }
-      });
-    }
 
     $(document).ready(function() {
-
-      getProjectDetails(trpId, trsId, tugId);
 
       $('#ResultDatatable').DataTable({
         "pagingType": "full_numbers",
@@ -193,6 +111,7 @@
         destroy: true,
         ordering: false,
         scrollX: true,
+        scrollXInner: "2500px",
         ajax : {
           type : "POST",
           url : "getTRRDatatable.do",
@@ -204,74 +123,98 @@
         },
         columns : [
           {
+            title : "회차",
+            data : "trpSent",
+            className : "text-center"
+          },
+          {
+            title : "이름",
             data : "userNm",
-            className:"Resultdatatable-userId"
+            className : "text-center"
           },
           {
+            title : "이메일",
             data : "userId",
-            className:"userId"
           },
           {
+            title : "직급",
             data : "userRank",
-            className:"userRank"
+            className : "text-center"
           },
           {
+            title : "열람",
             data : "trrOpen",
-            className:"trrOpen"
+            className : "text-center"
           },
           {
+            title : "열람 시간",
             data : "trrOpenDate",
-            className:"trrOpenDate"
           },
           {
+            title : "클릭",
             data : "trrLink",
-            className:"trrLink"
+            className : "text-center"
           },
           {
+            title : "클릭 시간",
             data : "trrLinkDate",
-            className:"trrLinkDate"
           },
           {
+            title : "첨부파일 다운로드",
             data : "trrAttachClick",
-            className:"trrAttachClick"
+            className : "text-center"
           },
           {
+            title : "첨부파일 다운로드 시간",
             data : "trrAttachClickDate",
-            className:"trrAttachClickDate"
           },
           {
+            title : "첨부파일 실행",
             data : "trrAttachOpen",
-            className:"trrAttachOpen"
+            className : "text-center"
           },
           {
+            title : "첨부파일 실행 시간",
             data : "trrAttachOpenDate",
-            className:"trrAttachOpenDate"
           },
           {
+            title : "피싱사이트 접속",
             data : "trrPhishingclick",
-            className:"trrPhishingclick"
+            className : "text-center"
           },
           {
+            title : "피싱사이트 접속 시간",
             data : "trrPhishingclickDate",
-            className:"trrPhishingclickDate"
           },
           {
+            title : "피싱사이트 입력 정보",
             data : "trrPhishingContent",
-            className:"trrPhishingContent"
           },
           {
+            title : "접속 IP 주소",
             data : "trrReturnIp",
-            className:"trrReturnIp"
+            className : "text-center"
           },
           {
+            title : "접속 Device",
             data : "trrReturnUserinfo",
-            className:"trrReturnUserinfo"
+            className : "text-center"
           },
       ],
+
       });
 
 
     });
+
+    // var table = $('#ResultDatatable').dataTable();
+    //
+    // $('#table_filter').on('change',function() {
+    //   table.search(this.value).draw();
+    // });
+
+
+
   </script>
 
 </body>

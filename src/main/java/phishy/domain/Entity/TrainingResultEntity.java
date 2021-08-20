@@ -31,6 +31,9 @@ public class TrainingResultEntity extends TimeEntity{
     @Column(name = "tug_id")
     private Long tugId;
 
+    @Column(name = "trp_sent")
+    private Integer trpSent;
+
     @Column(name = "user_id")
     private String userId;
 
@@ -94,7 +97,7 @@ public class TrainingResultEntity extends TimeEntity{
 
 
     @Builder
-    public TrainingResultEntity(Long trrId, Long trpId, Long trsId, Long tugId, String userId, String userRank, String userNm,
+    public TrainingResultEntity(Long trrId, Long trpId, Long trsId, Long tugId, Integer trpSent, String userId, String userRank, String userNm,
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
@@ -104,6 +107,7 @@ public class TrainingResultEntity extends TimeEntity{
         this.trpId                  = trpId;
         this.trsId                  = trsId;
         this.tugId                  = tugId;
+        this.trpSent                = trpSent;
         this.userId                 = userId;
         this.userRank               = userRank;
         this.userNm                 = userNm;

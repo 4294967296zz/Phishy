@@ -3,11 +3,8 @@ package phishy.service;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import phishy.domain.Entity.MailLogEntity;
 import phishy.domain.Entity.TrainingResultEntity;
-import phishy.domain.Repository.MailLogRepository;
 import phishy.domain.Repository.TrainingResultRepository;
-import phishy.dto.MailLogDto;
 import phishy.dto.TrainingResultDto;
 
 import javax.transaction.Transactional;
@@ -17,18 +14,16 @@ import java.util.*;
 @AllArgsConstructor
 public class TrainingResultService {
     private TrainingResultRepository trainingResultRepository;
-    private MailLogRepository mailLogRepository;
 
     @Transactional
-    public Long registerTRR(String userNm, String userRank, String userId, Long trpId, Long trsId) {
+    public Long registerTRR(String userNm, String userRank, String userId, Long trpId, Long trsId, Integer trpSent) {
 
         TrainingResultDto trainingResultDto = new TrainingResultDto();
         TrainingResultEntity trainingResultEntity = trainingResultDto.toEntity();
-        MailLogDto mailLogDto = new MailLogDto();
-        MailLogEntity mailLogEntity = mailLogDto.toEntity();
 
         trainingResultEntity.setTrpId(trpId);
         trainingResultEntity.setTrsId(trsId);
+        trainingResultEntity.setTrpSent(trpSent);
         trainingResultEntity.setUserNm(userNm);
         trainingResultEntity.setUserId(userId);
         trainingResultEntity.setUserRank(userRank);
@@ -51,6 +46,7 @@ public class TrainingResultService {
                     .trrId(trrEntity.getTrrId())
                     .trpId(trrEntity.getTrpId())
                     .tugId(trrEntity.getTugId())
+                    .trpSent(trrEntity.getTrpSent())
                     .trsId(trrEntity.getTrsId())
                     .userId(trrEntity.getUserId())
                     .userRank(trrEntity.getUserRank())
@@ -77,6 +73,7 @@ public class TrainingResultService {
                     .trrId(TrainingResultEntity.getTrrId())
                     .trpId(TrainingResultEntity.getTrpId())
                     .tugId(TrainingResultEntity.getTugId())
+                    .trpSent(TrainingResultEntity.getTrpSent())
                     .trsId(TrainingResultEntity.getTrsId())
                     .userId(TrainingResultEntity.getUserId())
                     .userRank(TrainingResultEntity.getUserRank())

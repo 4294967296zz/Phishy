@@ -103,3 +103,9 @@ table#ResultDatatable { width : 100% !important;}
 #ResultDatatable .trrReturnIp {width : 6% !important;}
 #ResultDatatable .trrReturnUserinfo {width : 6% !important;}
 
+table thead th {
+    word-break: keep-all;
+}
+table tbody td {
+    min-width: 100px;
+}

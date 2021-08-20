@@ -17,6 +17,7 @@ public class TrainingResultDto {
     private Long trpId;
     private Long trsId;
     private Long tugId;
+    private Integer trpSent;
     private String userId;
     private String userRank;
     private String userNm;
@@ -40,6 +41,7 @@ public class TrainingResultDto {
                 .trpId(trpId)
                 .trsId(trsId)
                 .tugId(tugId)
+                .trpSent(trpSent)
                 .userId(userId)
                 .userRank(userRank)
                 .userNm(userNm)
@@ -61,7 +63,7 @@ public class TrainingResultDto {
     }
 
     @Builder
-    public TrainingResultDto(Long trrId, Long trpId, Long trsId, Long tugId, String userId, String userRank, String userNm,
+    public TrainingResultDto(Long trrId, Long trpId, Long trsId, Long tugId, Integer trpSent, String userId, String userRank, String userNm,
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
@@ -71,6 +73,7 @@ public class TrainingResultDto {
         this.trpId                  = trpId;
         this.trsId                  = trsId;
         this.tugId                  = tugId;
+        this.trpSent                = trpSent;
         this.userId                 = userId;
         this.userRank               = userRank;
         this.userNm                 = userNm;

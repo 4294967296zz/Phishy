@@ -153,7 +153,7 @@ public class TrainingProjectService {
     }
 
     @Transactional
-    public void updateTRP(Long trpId, String msg) {
+    public Integer updateTRP(Long trpId, String msg) {
         Optional<TrainingProjectEntity> TRPEntityWrapper = trainingProjectRepository.findById(trpId);
         TrainingProjectEntity trainingProjectEntity = TRPEntityWrapper.get();
         trainingProjectEntity.setTrpStatus(msg);
@@ -161,6 +161,8 @@ public class TrainingProjectService {
             trainingProjectEntity.setTrpSent(trainingProjectEntity.getTrpSent() + 1);
         }
         trainingProjectRepository.save(trainingProjectEntity);
+
+        return trainingProjectEntity.getTrpSent();
     }
 
 }
