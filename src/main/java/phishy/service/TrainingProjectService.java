@@ -24,7 +24,7 @@ public class TrainingProjectService {
     private TrainingSettingRepository trainingSettingRepository;
 
     @Transactional
-    public void registerTRP(Map<String, String> datas, Long tugId, Long mfiId, Date trpStart, Date trpEnd) {
+    public void registerTRP(Map<String, String> datas, Long tugId, Long trgId, Long mfiId, Date trpStart, Date trpEnd) {
 
         TrainingSettingDto trainingSettingDto = new TrainingSettingDto();
         TrainingProjectDto trainingProjectDto = new TrainingProjectDto();
@@ -51,6 +51,7 @@ public class TrainingProjectService {
 
         trainingProjectEntity.setTrsId(trs_id);
         trainingProjectEntity.setTugId(tugId);
+        trainingProjectEntity.setTrgId(trgId);
         trainingProjectEntity.setTrpNm(datas.get("trp_nm"));
         trainingProjectEntity.setTrpType(datas.get("trp_type"));
         trainingProjectEntity.setTrpInterval(Integer.parseInt(datas.get("trp_interval")));
@@ -58,7 +59,7 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpStart(trpStart);
         trainingProjectEntity.setTrpEnd(trpEnd);
         trainingProjectEntity.setTrpContent(datas.get("trp_content"));
-        trainingProjectEntity.setTrpSent(0);
+        trainingProjectEntity.setTrpSent(1);
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
     }
 
@@ -79,6 +80,7 @@ public class TrainingProjectService {
                     .trpStatus(trpEntity.getTrpStatus())
                     .trpSent(trpEntity.getTrpSent())
                     .trsId(trpEntity.getTrsId())
+                    .trgId(trpEntity.getTrgId())
                     .build();
             trpDtoList.add(trpDto);
         }
@@ -115,6 +117,7 @@ public class TrainingProjectService {
         TrainingProjectEntity trpEntity = trpEntityWrapper.get();
         TrainingProjectDto trpDto = TrainingProjectDto.builder()
                 .tugId(trpEntity.getTugId())
+                .trgId(trpEntity.getTrgId())
                 .trpNm(trpEntity.getTrpNm())
                 .trpContent(trpEntity.getTrpContent())
                 .trpStart(trpEntity.getTrpStart())

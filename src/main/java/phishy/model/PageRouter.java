@@ -17,9 +17,7 @@ public class PageRouter {
     }
 
     @GetMapping("/mailform")
-    public String mailform() {
-        return "pages/mailform";
-    }
+    public String mailform() { return "pages/mailform"; }
 
     @GetMapping("/org")
     public String org() {
@@ -30,6 +28,9 @@ public class PageRouter {
     public String project() {
         return "pages/project";
     }
+
+    @GetMapping("/group")
+    public String group() { return "pages/group"; }
 
     @GetMapping("/report")
     public String report() {
@@ -47,9 +48,7 @@ public class PageRouter {
     }
 
     @GetMapping("/status_detail")
-    public String status_detail() {
-        return "pages/status_detail";
-    }
+    public String status_detail() { return "pages/status_detail"; }
 
     @GetMapping("/sys_setting")
     public String sys_setting() {
@@ -80,6 +79,9 @@ public class PageRouter {
     public String user() {
         return "pages/tables";
     }
+
+    @GetMapping("/notice")
+    public String notice() { return "pages/notice"; }
 
 
 

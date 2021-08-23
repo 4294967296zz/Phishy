@@ -596,6 +596,24 @@
       //   alert('You clicked on Like button');
       // });
 
+      $('#download_excel').click(function(e) {
+        $.ajax({
+          url : "deleteuser.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'u_id': u_id},
+          success: function () {
+            location.reload();
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+      });
+
       $('#reg_btn').click(function(e) {
         e.preventDefault();
         var u_id = $(this).data('u_id');

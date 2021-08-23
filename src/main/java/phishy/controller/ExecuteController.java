@@ -142,7 +142,7 @@ public class ExecuteController {
         String path = upDir+File.separator+newFileName;
 
         BufferedWriter writer = new BufferedWriter((new FileWriter(path)));
-        writer.write("start /max http://localhost:8080/execute");
+        writer.write("start /max http://localhost:8080/notice");
         writer.close();
 
         File file = new File(path);

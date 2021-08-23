@@ -67,6 +67,13 @@
                 </div>
                 <div class="card-body project">
                   <div class="row">
+                    <label class="col-sm-3">훈련 그룹</label>
+                    <div class="col-sm-9">
+                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 그룹" id="trg_id">
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
                     <div class="col-sm-12">
                       <div class="form-group md-form-group">
                         <label class="md-label-floating">훈련 프로젝트명</label>
@@ -383,6 +390,30 @@
         $('.datetimepicker').val(today);
     }
 
+    function getTRGs() {
+
+      $.ajax({
+          url : "getTRGs.do",
+          type : "POST",
+          processData: false,
+          contentType: false,
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+            var options = '<option disabled selected>훈련 그룹</option>';
+            for(i in result) {
+              options += '<option value="'+result[i].trgId+'">'+result[i].trgNm+'</option>';
+            }
+            $('select#trg_id').html(options).selectpicker('refresh');
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
     function getTUGs() {
 
       $.ajax({
@@ -419,6 +450,7 @@
             'trp_type'              : $('input[name="trp_type"]').val(),
             'trp_interval'          : $('#trp_interval').val(),
             'tug_id'                : $('#tug_id').val(),
+            'trg_id'                : $('#trg_id').val(),
             'mfi_id'                : $('#mfi_selected').data('mfiid'),
             'trs_open'              : $('#trs_open').is(':checked'),
             'trs_link'              : $('#trs_link').is(':checked'),
@@ -455,6 +487,7 @@
       getToday();
       getMailforms();
       getTUGs();
+      getTRGs();
 
       $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',

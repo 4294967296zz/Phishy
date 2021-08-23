@@ -17,6 +17,7 @@ public class TrainingProjectDto {
     private Long uId;
     private Long tugId;
     private Long trsId;
+    private Long trgId;
     private String trpNm;
     private String trpType;
     private String trpStatus;
@@ -32,6 +33,7 @@ public class TrainingProjectDto {
                 .uId(uId)
                 .tugId(tugId)
                 .trsId(trsId)
+                .trgId(trgId)
                 .trpNm(trpNm)
                 .trpType(trpType)
                 .trpStatus(trpStatus)
@@ -45,14 +47,14 @@ public class TrainingProjectDto {
     }
 
     @Builder
-    public TrainingProjectDto(Long trpId,
-                                 Long uId, Long tugId, Long trsId, String trpNm, String trpType,
+    public TrainingProjectDto(Long trpId, Long uId, Long tugId, Long trsId, Long trgId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
                                  Integer trpInterval, Integer trpSent) {
         this.trpId       = trpId;
         this.uId         = uId;
         this.tugId       = tugId;
         this.trsId       = trsId;
+        this.trgId       = trgId;
         this.trpNm       = trpNm;
         this.trpType     = trpType;
         this.trpStatus   = trpStatus;
@@ -61,9 +63,5 @@ public class TrainingProjectDto {
         this.trpEnd      = trpEnd;
         this.trpInterval = trpInterval;
         this.trpSent     = trpSent;
-    }
-
-    public String getTrpNm() {
-        return this.trpNm = trpNm;
     }
 }

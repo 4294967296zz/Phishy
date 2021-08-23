@@ -56,22 +56,23 @@ public class ExecuteService {
 //            message.addRecipients(Message.RecipientType.BCC, getAddresses("nowonbun@gmail.com"));
             // 제목 설정
             message.setSubject(data.get("mail_title"));
-            // 본문 설정
-            Multipart multipart = new MimeMultipart();
-            BodyPart htmlBodyPart = new MimeBodyPart();
-            htmlBodyPart.setContent(data.get("mail_content"), "text/html; charset=utf-8");
-            multipart.addBodyPart(htmlBodyPart);
-            message.setContent(multipart);
-            // 인터벌 설정
-            Thread.sleep(Integer.parseInt(data.get("interval"))*1000);
-            // 메일 발송
-            Transport.send(message);
             // 훈련 결과 insert
-            trainingResultService.registerTRR(
+            Long trrId = trainingResultService.registerTRR(
                     userService.getUserByEmail(rcpt).getUserNm(),
                     userService.getUserByEmail(rcpt).getUserRank(),
                     rcpt, trpId, trsId, trpSent
             );
+            String openCheck = "<img alt=\"본문\" title=\"본문\" src= \"http://localhost:8080/checkMail.do?trr="+trrId+"/\"style=\"display:none;outline:none;text-decoration:none;background:#ffffff\" class=\"CToWUd\">";
+            // 본문 설정
+            Multipart multipart = new MimeMultipart();
+            BodyPart htmlBodyPart = new MimeBodyPart();
+            htmlBodyPart.setContent(openCheck+data.get("mail_content"), "text/html; charset=utf-8");
+            multipart.addBodyPart(htmlBodyPart);
+            message.setContent(multipart);
+            // 메일 발송
+            Transport.send(message);
+            // 인터벌 설정
+            Thread.sleep(Integer.parseInt(data.get("interval"))*1000);
             // 메일 로그 insert
             mailLogService.registerMailLog(trpId, trpId);
             // 수신자 이메일 주소 초기화
@@ -81,3 +82,5 @@ public class ExecuteService {
 
 
 }
+
+

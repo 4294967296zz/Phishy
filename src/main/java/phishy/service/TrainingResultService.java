@@ -8,6 +8,7 @@ import phishy.domain.Repository.TrainingResultRepository;
 import phishy.dto.TrainingResultDto;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -34,6 +35,20 @@ public class TrainingResultService {
         trainingResultEntity.setTrrPhishingclick("N");
 
        return trainingResultRepository.save(trainingResultEntity).getTrrId();
+    }
+
+    @Transactional
+    public void updateMailOpen(Long trrId, String returnIP, String returnInfo) {
+        Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
+        TrainingResultEntity TRREntity = TRREntityWrapper.get();
+
+        TRREntity.setTrrOpen("Y");
+        TRREntity.setTrrOpenDate(LocalDateTime.now());
+        TRREntity.setTrrReturnIp(returnIP);
+        TRREntity.setTrrReturnUserinfo(returnInfo);
+
+        trainingResultRepository.save(TRREntity);
+
     }
 
     @Transactional

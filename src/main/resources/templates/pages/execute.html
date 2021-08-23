@@ -175,6 +175,7 @@
       },
         beforeSend: function (xhr) {
           xhr.setRequestHeader(header, token);
+          Swal.showLoading();
         },
         complete: function (result) {
           console.log(result);
@@ -195,6 +196,10 @@
     $(document).ready(function() {
 
       $('#TPRDatatable').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+          'copy', 'excel', 'pdf'
+        ],
         "pagingType": "full_numbers",
         "lengthMenu": [
           [10, 25, 50, -1],
@@ -221,7 +226,7 @@
               var trsId = row['trsId'];
               var tugId = row['tugId'];
               var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
-              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>  '+data;
+              return '<a href="'+href+'" target="_blank">'+data+'</a>';
             }
           },
           {data : "trpStart", className: "text-center"},

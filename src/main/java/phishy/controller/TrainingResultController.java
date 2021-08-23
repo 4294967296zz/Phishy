@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import phishy.service.TrainingResultService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,5 +24,14 @@ public class TrainingResultController {
         mp.put("data", trainingResultService.getTRR(trpId));
         Object result = mp;
         return result;
+    }
+
+    @RequestMapping(value = "/checkMail.do", method = RequestMethod.GET)
+    public @ResponseBody void update(
+            @RequestParam("trr") Long trrId,
+            HttpServletRequest request) {
+        String returnIP = request.getHeader("host");
+        String returnInfo = request.getHeader("User-Agent");
+        trainingResultService.updateMailOpen(trrId, returnIP, returnInfo);
     }
 }

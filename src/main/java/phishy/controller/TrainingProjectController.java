@@ -23,6 +23,7 @@ public class TrainingProjectController {
     Object registerTPR(
             @RequestParam("mfi_id") Long mfi_id,
             @RequestParam("tug_id") Long tug_id,
+            @RequestParam("trg_id") Long trg_id,
             @RequestParam("trp_nm") String trp_nm,
             @RequestParam("trp_content") String trp_content,
             @RequestParam("trp_start") Date trp_start,
@@ -60,7 +61,7 @@ public class TrainingProjectController {
         datas.put("mfi_mail_addr", mailformService.getMailform(mfi_id).getMfi_mail_addr());
         datas.put("mfi_mail_title", mailformService.getMailform(mfi_id).getMfi_mail_title());
 
-        trainingProjectService.registerTRP(datas,tug_id,mfi_id,trp_start,trp_end);
+        trainingProjectService.registerTRP(datas,tug_id,trg_id,mfi_id,trp_start,trp_end);
 
         return datas;
     }

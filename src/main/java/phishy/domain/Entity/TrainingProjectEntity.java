@@ -29,6 +29,9 @@ public class TrainingProjectEntity extends TimeEntity{
     @Column(name = "trs_id")
     private Long trsId;
 
+    @Column(name = "trg_id")
+    private Long trgId;
+
     @Column(name = "trp_nm")
     private String trpNm;
 
@@ -54,14 +57,14 @@ public class TrainingProjectEntity extends TimeEntity{
     private Integer trpSent;
 
     @Builder
-    public TrainingProjectEntity(Long trpId,
-                                 Long uId, Long tugId, Long trsId, String trpNm, String trpType,
+    public TrainingProjectEntity(Long trpId, Long uId, Long tugId, Long trsId, Long trgId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
                                  Integer trpInterval, Integer trpSent) {
         this.trpId       = trpId;
         this.uId         = uId;
         this.tugId       = tugId;
         this.trsId       = trsId;
+        this.trgId       = trgId;
         this.trpNm       = trpNm;
         this.trpType     = trpType;
         this.trpStatus   = trpStatus;
