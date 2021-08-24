@@ -69,13 +69,19 @@
                 </div>
                 <div class="card-body table-responsive">
                   <div class="row">
+                    <label class="col-sm-4 text-right">소속 훈련그룹</label>
+                    <div class="col-sm-8">
+                      <span id ="trg_nm"></span>
+                    </div>
+                  </div>
+                  <div class="row">
                     <label class="col-sm-4 text-right">훈련 상태</label>
                     <div class="col-sm-8">
                       <span id ="trp_status" class="badge badge-secondary"></span>
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-sm-4 text-right">훈련 발송 회차</label>
+                    <label class="col-sm-4 text-right">훈련 발송 횟수</label>
                     <div class="col-sm-8">
                       <span id ="trp_sent"></span>
                     </div>
@@ -270,6 +276,7 @@
     var trpId = geturlparam("trp");
     var trsId = geturlparam("trs");
     var tugId = geturlparam("tug");
+    var trgId = geturlparam("trg");
 
     function getProjectDetails(trpId,trsId,tugId) {
       $.ajax({
@@ -282,12 +289,14 @@
         data: {
           'trpId': trpId,
           'trsId': trsId,
-          'tugId': tugId
+          'tugId': tugId,
+          'trgId': trgId,
         },
         success: function (result) {
           var trp_data = result.trp_data;
           var trs_data = result.trs_data;
           var tug_data = result.tug_data;
+          var trg_data = result.trg_data;
           var trpStatus = trp_data['trpStatus'];
           var trs_checkes = {
             'trsOpen'            : trs_data['trsOpen'],
@@ -318,6 +327,7 @@
           }
 
           $('#trp_nm').append(trp_data['trpNm']);
+          $('#trg_nm').append(trg_data['trgNm']);
           $('#trp_sent').append(trp_data['trpSent']+"회");
           $('#trp_type').append(trp_data['trpType']);
           $('#trp_content').append(trp_data['trpContent']);

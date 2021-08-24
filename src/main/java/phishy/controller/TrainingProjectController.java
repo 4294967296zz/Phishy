@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import phishy.service.MailformService;
+import phishy.service.TrainingGroupService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
 
@@ -17,6 +18,7 @@ public class TrainingProjectController {
     private TrainingProjectService trainingProjectService;
     private MailformService mailformService;
     private TrainingUserService trainingUserService;
+    private TrainingGroupService trainingGroupService;
 
     @RequestMapping(value = "/registerTRP.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -62,6 +64,7 @@ public class TrainingProjectController {
         datas.put("mfi_mail_title", mailformService.getMailform(mfi_id).getMfi_mail_title());
 
         trainingProjectService.registerTRP(datas,tug_id,trg_id,mfi_id,trp_start,trp_end);
+        trainingGroupService.updateTRGcount(trg_id);
 
         return datas;
     }
@@ -70,6 +73,14 @@ public class TrainingProjectController {
     public @ResponseBody Object getTRPDatatable() {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("data", trainingProjectService.getTRPs());
+        Object result = mp;
+        return result;
+    }
+
+    @RequestMapping(value = "/getTRPsByTrgId.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTRPsByTrgId(@RequestParam("trgId") Long trgId) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", trainingProjectService.getTRPsByTrgId(trgId));
         Object result = mp;
         return result;
     }
@@ -86,12 +97,14 @@ public class TrainingProjectController {
     @RequestMapping(value = "/getProjectDetails.do", method = RequestMethod.POST)
     public @ResponseBody Object getProjectDetails(@RequestParam("trpId") Long trpId,
                                                   @RequestParam("trsId") Long trsId,
-                                                  @RequestParam("tugId") Long tugId) {
+                                                  @RequestParam("tugId") Long tugId,
+                                                  @RequestParam("trgId") Long trgId) {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("trp_data", trainingProjectService.getTRP(trpId));
         mp.put("trs_data", trainingProjectService.getTRS(trsId));
         mp.put("tug_data", trainingUserService.getTUG(tugId));
         mp.put("tui_data", trainingUserService.getTUIdetails(tugId));
+        mp.put("trg_data", trainingGroupService.getTRG(trgId));
         Object result = mp;
         return result;
     }

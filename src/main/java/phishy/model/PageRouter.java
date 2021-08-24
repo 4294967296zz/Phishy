@@ -32,6 +32,9 @@ public class PageRouter {
     @GetMapping("/group")
     public String group() { return "pages/group"; }
 
+    @GetMapping("/group_detail")
+    public String group_detail() { return "pages/group_detail"; }
+
     @GetMapping("/report")
     public String report() {
         return "pages/report";

@@ -66,7 +66,7 @@
                 <div class="col-lg-4 col-md-12 project-card">
                     <div class="card">
                         <div class="card-header card-header-primary">
-                            <span class="badge badge-secondary"></span>
+                            <span id="trg_status" class="badge badge-secondary"></span>
                             <h4 class="card-title trg_nm"></h4>
                         </div>
                         <div class="card-body table-responsive">
@@ -258,11 +258,11 @@
 
             for(i in result) {
               var lastItemClone = project_card.clone();
-              var trpStatus = result[i]['trpStatus'];
-              if(trpStatus == "완료") {
+              var trgStatus = result[i]['trgStatus'];
+              if(trgStatus == "완료") {
                 lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-success');
               }
-              if(trpStatus == "진행중") {
+              if(trgStatus == "진행중") {
                 lastItemClone.find('.badge').removeClass('.badge-secondary').addClass('badge-warning');
               }
               lastItemClone.find('.badge').append("훈련"+result[i]['trgStatus']);
@@ -270,7 +270,7 @@
               lastItemClone.find('.trg_desc').append(result[i]['trgDesc']);
               lastItemClone.find('.trg_start').append(result[i]['trgStart']);
               lastItemClone.find('.trg_end').append(result[i]['trgEnd']);
-              // lastItemClone.find('.detail-btn').attr('data-tugId',result[i]['trgId']);
+              lastItemClone.find('.detail-btn').attr('data-trgId',result[i]['trgId']);
               $('.project-card-section').append(lastItemClone);
               console.log(result);
             }
@@ -288,10 +288,8 @@
 
       $('body').on('click','.detail-btn',function(e) {
         e.preventDefault();
-        var tugId = $(this).data('tugid');
-        var trpId = $(this).data('trpid');
-        var trsId = $(this).data('trsid');
-        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+        var trgId = $(this).data('trgid');
+        location.href="/group_detail?trg="+trgId;
       });
 
     });

@@ -37,4 +37,9 @@ public class TrainingGroupController {
     public @ResponseBody Object getTRGs() {
         return trainingGroupService.getTRGs();
     }
+
+    @RequestMapping(value = "/getTRG.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTRG(@RequestParam("trgId") Long trgId) {
+        return trainingGroupService.getTRG(trgId);
+    }
 }

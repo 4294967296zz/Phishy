@@ -69,8 +69,7 @@
                   <div class="row">
                     <label class="col-sm-3">훈련 그룹</label>
                     <div class="col-sm-9">
-                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 그룹" id="trg_id">
-                      </select>
+                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 그룹" id="trg_id"></select>
                     </div>
                   </div>
                   <div class="row">
@@ -346,6 +345,8 @@
 
   <script>
 
+    var trgId = geturlparam("trg");
+
     function getMailforms() {
       $.ajax({
           url : "getMailforms.do",
@@ -401,10 +402,9 @@
           xhr.setRequestHeader(header, token);
           },
           success : function(result) {
-            console.log(result);
-            var options = '<option disabled selected>훈련 그룹</option>';
+            var options = '<option disabled>훈련 그룹</option>';
             for(i in result) {
-              options += '<option value="'+result[i].trgId+'">'+result[i].trgNm+'</option>';
+                options += '<option value="'+result[i].trgId+'">'+result[i].trgNm+'</option>';
             }
             $('select#trg_id').html(options).selectpicker('refresh');
           },
@@ -425,8 +425,7 @@
           xhr.setRequestHeader(header, token);
           },
           success : function(result) {
-            console.log(result);
-            var options = '<option disabled selected>훈련 대상자그룹</option>';
+            var options = '<option disabled>훈련 대상자그룹</option>';
             for(i in result.data) {
               options += '<option value="'+result.data[i].tugId+'">'+result.data[i].tugNm+'('+result.data[i].tugCount+'명)'+'</option>';
             }
@@ -475,6 +474,28 @@
                 location.reload();
               }
             });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+    function getTRGnm(trgId) {
+      $.ajax({
+          url : "getTRG.do",
+          type : "POST",
+          data : {
+            'trgId' : trgId
+          },
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result['trgNm']);
+            $('select#trg_id').val(trgId);
+            $('select#trg_id button').attr('title',result['trgNm']);
+            $('select#trg_id .filter-option-inner-inner').html(result['trgNm']);
           },
           error : function(thrownError) {
             console.log(thrownError);

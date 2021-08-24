@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,8 +31,19 @@ public class TrainingGroupService {
         TRGEntity.setTrgStatus("진행중");
         TRGEntity.setTrgStart(trgStart);
         TRGEntity.setTrgEnd(trgEnd);
+        TRGEntity.setTrgCount(0);
 
         trainingGroupRepository.save(TRGEntity).getTrgId();
+    }
+
+    @Transactional
+    public Integer updateTRGcount(Long trgId) {
+        Optional<TrainingGroupEntity> TRGEntityWrapper = trainingGroupRepository.findById(trgId);
+        TrainingGroupEntity trainingGroupEntity = TRGEntityWrapper.get();
+        trainingGroupEntity.setTrgCount(trainingGroupEntity.getTrgCount() + 1);
+        trainingGroupRepository.save(trainingGroupEntity);
+
+        return trainingGroupEntity.getTrgCount();
     }
 
     @Transactional
@@ -40,16 +52,33 @@ public class TrainingGroupService {
         List<TrainingGroupDto> trgDtoList = new ArrayList<>();
 
         for(TrainingGroupEntity trgEntity : trgEntities) {
-            TrainingGroupDto trpDto = TrainingGroupDto.builder()
+            TrainingGroupDto trgDto = TrainingGroupDto.builder()
                     .trgId(trgEntity.getTrgId())
                     .trgNm(trgEntity.getTrgNm())
                     .trgDesc(trgEntity.getTrgDesc())
                     .trgStart(trgEntity.getTrgStart())
                     .trgEnd(trgEntity.getTrgEnd())
                     .trgStatus(trgEntity.getTrgStatus())
+                    .trgCount(trgEntity.getTrgCount())
                     .build();
-            trgDtoList.add(trpDto);
+            trgDtoList.add(trgDto);
         }
         return trgDtoList;
+    }
+
+    @Transactional
+    public TrainingGroupDto getTRG(Long trpId) {
+        Optional<TrainingGroupEntity> trgEntityWrapper = trainingGroupRepository.findById(trpId);
+        TrainingGroupEntity trgEntity = trgEntityWrapper.get();
+        TrainingGroupDto trgDto = TrainingGroupDto.builder()
+                .trgId(trgEntity.getTrgId())
+                .trgNm(trgEntity.getTrgNm())
+                .trgDesc(trgEntity.getTrgDesc())
+                .trgStart(trgEntity.getTrgStart())
+                .trgEnd(trgEntity.getTrgEnd())
+                .trgStatus(trgEntity.getTrgStatus())
+                .trgCount(trgEntity.getTrgCount())
+                .build();
+        return trgDto;
     }
 }

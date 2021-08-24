@@ -19,6 +19,7 @@ public class TrainingGroupDto {
     private Date trgStart;
     private Date trgEnd;
     private String trgStatus;
+    private Integer trgCount;
 
     public TrainingGroupEntity toEntity() {
         TrainingGroupEntity trainingGroupEntity = TrainingGroupEntity.builder()
@@ -28,18 +29,20 @@ public class TrainingGroupDto {
                 .trgStart(trgStart)
                 .trgEnd(trgEnd)
                 .trgStatus(trgStatus)
+                .trgCount(trgCount)
                 .build();
         return trainingGroupEntity;
     }
 
     @Builder
     public TrainingGroupDto(Long trgId,String trgNm,String trgDesc,Date trgStart,
-                               Date trgEnd,String trgStatus) {
+                               Date trgEnd,String trgStatus, Integer trgCount) {
         this.trgId     = trgId;
         this.trgNm     = trgNm;
         this.trgDesc   = trgDesc;
         this.trgStart  = trgStart;
         this.trgEnd    = trgEnd;
         this.trgStatus = trgStatus;
+        this.trgCount = trgCount;
     }
 }

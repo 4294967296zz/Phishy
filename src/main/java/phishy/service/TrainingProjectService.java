@@ -5,6 +5,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import phishy.domain.Entity.TrainingProjectEntity;
 import phishy.domain.Entity.TrainingSettingEntity;
+import phishy.domain.Repository.TrainingGroupRepository;
 import phishy.domain.Repository.TrainingProjectRepository;
 import phishy.domain.Repository.TrainingSettingRepository;
 import phishy.dto.TrainingProjectDto;
@@ -59,13 +60,37 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpStart(trpStart);
         trainingProjectEntity.setTrpEnd(trpEnd);
         trainingProjectEntity.setTrpContent(datas.get("trp_content"));
-        trainingProjectEntity.setTrpSent(1);
+        trainingProjectEntity.setTrpSent(0);
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
     }
 
     @Transactional
     public List<TrainingProjectDto> getTRPs() {
         List<TrainingProjectEntity> trpEntities = trainingProjectRepository.findAll(Sort.by(Sort.Direction.DESC, "trpId"));
+        List<TrainingProjectDto> trpDtoList = new ArrayList<>();
+
+        for(TrainingProjectEntity trpEntity : trpEntities) {
+            TrainingProjectDto trpDto = TrainingProjectDto.builder()
+                    .trpId(trpEntity.getTrpId())
+                    .trpNm(trpEntity.getTrpNm())
+                    .trpContent(trpEntity.getTrpContent())
+                    .trpStart(trpEntity.getTrpStart())
+                    .trpEnd(trpEntity.getTrpEnd())
+                    .trpType(trpEntity.getTrpType())
+                    .tugId(trpEntity.getTugId())
+                    .trpStatus(trpEntity.getTrpStatus())
+                    .trpSent(trpEntity.getTrpSent())
+                    .trsId(trpEntity.getTrsId())
+                    .trgId(trpEntity.getTrgId())
+                    .build();
+            trpDtoList.add(trpDto);
+        }
+        return trpDtoList;
+    }
+
+    @Transactional
+    public List<TrainingProjectDto> getTRPsByTrgId(Long trgId) {
+        List<TrainingProjectEntity> trpEntities = trainingProjectRepository.findAllByTrgId(trgId);
         List<TrainingProjectDto> trpDtoList = new ArrayList<>();
 
         for(TrainingProjectEntity trpEntity : trpEntities) {

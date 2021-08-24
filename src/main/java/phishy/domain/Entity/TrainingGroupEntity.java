@@ -26,24 +26,28 @@ public class TrainingGroupEntity extends TimeEntity{
     @Column(name = "trp_desc")
     private String trgDesc;
 
-    @Column(name = "trp_start")
+    @Column(name = "trg_start")
     private Date trgStart;
 
-    @Column(name = "trp_end")
+    @Column(name = "trg_end")
     private Date trgEnd;
 
-    @Column(name = "trp_status")
+    @Column(name = "trg_status")
     private String trgStatus;
+
+    @Column(name = "trg_count")
+    private Integer trgCount;
 
     @Builder
     public TrainingGroupEntity(Long trgId,String trgNm,String trgDesc,Date trgStart,
-                               Date trgEnd,String trgStatus) {
+                               Date trgEnd,String trgStatus, Integer trgCount) {
         this.trgId     = trgId;
         this.trgNm     = trgNm;
         this.trgDesc   = trgDesc;
         this.trgStart  = trgStart;
         this.trgEnd    = trgEnd;
         this.trgStatus = trgStatus;
+        this.trgCount = trgCount;
     }
 
 }
