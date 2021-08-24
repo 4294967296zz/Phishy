@@ -112,3 +112,5 @@ table#ResultDatatable thead th {
 table#ResultDatatable tbody td {
     min-width: 100px !important;
 }
+
+#group #trg_status { float: right;}
