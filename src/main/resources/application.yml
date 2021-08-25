@@ -4,7 +4,7 @@ spring:
     platform: mysql
     driver-class-name: com.mysql.cj.jdbc.Driver
 #    url: jdbc:mysql://project01:3306/project?characterEncoding=UTF-8&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
-    url: jdbc:mysql://localhost:3306/tech03?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/phishy?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: 1234
   jpa:

@@ -5,8 +5,11 @@ plugins {
     id 'war'
 }
 
-group 'jiho.marvelsystem'
-version '1.0'
+bootWar {
+    archiveBaseName = '-'
+    archiveFileName = 'Phishy.war'
+    archiveVersion = "0.0.0"
+}
 
 configurations {
     compileOnly {

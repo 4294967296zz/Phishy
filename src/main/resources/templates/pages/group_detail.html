@@ -8,7 +8,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">훈련그룹 상세</a>
+            <a class="navbar-brand" href="javascript:void(0)">훈련프로젝트 상세</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
             <span class="sr-only">Toggle navigation</span>
@@ -65,7 +65,7 @@
                   <div class="card-icon">
                     <i class="material-icons">build</i>
                   </div>
-                  <h4 class="card-title">훈련 그룹 정보</h4>
+                  <h4 class="card-title">훈련 프로젝트 정보</h4>
                 </div>
                 <div class="card-body table-responsive">
                   <div class="row">
@@ -73,17 +73,17 @@
                     <div class="col-sm-8">
                       <span id ="trg_status" class="badge badge-secondary"></span>
                     </div>
-                    <label class="col-sm-4 text-right">훈련 회차<br>(프로젝트)수</label>
+                    <label class="col-sm-4 text-right">훈련 소그룹</label>
                     <div class="col-sm-8">
                       <span id ="trg_count"></span>
                     </div>
                   </div>
                   <div class="row">
-                    <label class="col-sm-4 text-right">그룹명</label>
+                    <label class="col-sm-4 text-right">프로젝트명</label>
                     <div class="col-sm-8">
                       <span id="trg_nm"></span>
                     </div>
-                    <label class="col-sm-4 text-right">그룹 설명</label>
+                    <label class="col-sm-4 text-right">프로젝트 설명</label>
                     <div class="col-sm-8">
                       <span id="trg_desc"></span>
                     </div>
@@ -104,7 +104,7 @@
                 <div class="card-icon">
                   <i class="material-icons">assignment</i>
                 </div>
-                <h4 class="card-title">훈련 회차(프로젝트)</h4>
+                <h4 class="card-title">훈련 소그룹</h4>
                 <div class="dropdown dt-action-btns">
                   <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Actions
@@ -131,7 +131,7 @@
 
       $('#reg_project').click(function(e) {
          location.href="/project?trg="+trgId;
-      });b
+      });
 
       $.ajax({
           url : "getTRGs.do",

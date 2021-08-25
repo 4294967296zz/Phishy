@@ -64,7 +64,7 @@
                   <div class="card-icon">
                     <i class="material-icons">assignment</i>
                   </div>
-                  <h4 class="card-title">훈련 프로젝트 리스트</h4>
+                  <h4 class="card-title">훈련 그룹 리스트</h4>
                 </div>
                 <div class="card-body">
                   <div class="toolbar">
@@ -74,7 +74,7 @@
                       <thead>
                         <tr>
                           <th style="opacity: 0;"></th>
-                          <th>훈련 프로젝트명</th>
+                          <th>훈련 그룹명</th>
                           <th>훈련 시작일</th>
                           <th>훈련 종료일</th>
                           <th class="disabled-sorting">훈련 유형</th>
@@ -113,7 +113,7 @@
                 </div>
               </div>
               <div class="modal-body">
-
+                <p class="description text-center" id="trg_nm">신규 사용자를 등록합니다!</p>
                 <form class="form" method="" action="">
                   <div class="card-body">
                     <div class="card-icon icon-rose">
@@ -134,7 +134,7 @@
   <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <script>
 
-   function getProjectDetails(trpId,trsId,tugId) {
+   function getProjectDetails(trpId,trsId,tugId,trgId) {
       $.ajax({
         url: "getProjectDetails.do",
         type: "POST",
@@ -145,14 +145,17 @@
         data: {
           'trpId': trpId,
           'trsId': trsId,
-          'tugId': tugId
+          'tugId': tugId,
+          'trgId': trgId
         },
         success: function (result) {
           var trp_data = result.trp_data;
           var tug_data = result.tug_data;
+          var trg_data = result.trg_data;
 
           console.log(result);
           $('#send_trpNm').html(trp_data.trpNm);
+          $('#trg_nm').html(trg_data.trgNm);
           $('#send_trpDesc').html(tug_data.tugNm+"("+tug_data.tugCount+"명)을 대상으로 훈련메일을 발송하시겠습니까?");
 
         },
@@ -225,7 +228,8 @@
               var trpId = row['trpId'];
               var trsId = row['trsId'];
               var tugId = row['tugId'];
-              var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+              var trgId = row['trgId'];
+              var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trg="+trgId+"&trs="+trsId;
               return '<a href="'+href+'" target="_blank">'+data+'</a>';
             }
           },
@@ -262,11 +266,12 @@
               var trpId = row['trpId'];
               var trsId = row['trsId'];
               var tugId = row['tugId'];
+              var trgId = row['trgId'];
               var send_btn = '';
               if(row['trpStatus'] === "대기") {
-                send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
+                send_btn = '<button type="button" class="btn btn-info btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-trg_id="'+trgId+'" data-toggle="modal" data-target="#sendModal">발송하기</button>';
               } else if(row['trpStatus'] === "완료") {
-                send_btn = '<button type="button" class="btn btn-success btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-toggle="modal" data-target="#sendModal">재발송하기</button>';
+                send_btn = '<button type="button" class="btn btn-success btn-sm send-btn" data-trp_id="'+trpId+'" data-trs_id="'+trsId+'" data-tug_id="'+tugId+'" data-trg_id="'+trgId+'" data-toggle="modal" data-target="#sendModal">재발송하기</button>';
               } else if(row['trpStatus'] === "진행중") {
                 send_btn = '훈련 진행중..';
               }
@@ -291,10 +296,11 @@
         var trpId = $(this).attr('data-trp_id');
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
+        var trgId = $(this).attr('data-trg_id');
 
-        getProjectDetails(trpId,trsId,tugId);
+        getProjectDetails(trpId,trsId,tugId,trgId);
 
-        $('#exe_btn').attr('data-trp_id',trpId).attr('data-trs_id',trsId).attr('data-tug_id',tugId);
+        $('#exe_btn').attr('data-trp_id',trpId).attr('data-trs_id',trsId).attr('data-tug_id',tugId).attr('data-trg_id',trgId);
 
       });
 
@@ -302,7 +308,8 @@
         var trpId = $(this).attr('data-trp_id');
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
-        location.href="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
+        var trgId = $(this).attr('data-trg_id');
+        location.href="/status_detail?trp="+trpId+"&trg="+trgId+"&tug="+tugId+"&trs="+trsId;
       });
 
       $('#exe_btn').click(function(e) {
@@ -310,6 +317,7 @@
         var trpId = $(this).attr('data-trp_id');
         var trsId = $(this).attr('data-trs_id');
         var tugId = $(this).attr('data-tug_id');
+        var trgId = $(this).attr('data-trg_id');
         var attachmentContents = '';
 
         $.ajax({
