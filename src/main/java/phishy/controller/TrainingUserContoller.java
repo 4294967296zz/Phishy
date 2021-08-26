@@ -88,6 +88,11 @@ public class TrainingUserContoller {
         return trainingUserService.getTUI(tugId).size();
     }
 
+    @RequestMapping(value = "/getTUGCounts.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTUGCounts(@RequestParam("tugId") Long tugId) {
+        return trainingUserService.getTUGCounts(tugId).getTugCount();
+    }
+
     @RequestMapping(value = "/getTUIdetails.do", method = RequestMethod.POST)
     public @ResponseBody Object getTUIdetails(@RequestParam("tugId") Long tugId) {
         Map<String, Object> mp = new HashMap<String, Object>();

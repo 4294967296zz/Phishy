@@ -70,21 +70,7 @@
                   <div class="toolbar">
                   </div>
                   <div class="material-datatables">
-                    <table id="TPRDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
-                      <thead>
-                        <tr>
-                          <th style="opacity: 0;"></th>
-                          <th>훈련 프로젝트명</th>
-                          <th>훈련 시작일</th>
-                          <th>훈련 종료일</th>
-                          <th class="disabled-sorting">훈련 유형</th>
-                          <th>훈련 상태</th>
-                          <th>발송 횟수</th>
-                          <th class="disabled-sorting">결과 상세</th>
-                        </tr>
-                      </thead>
-                      </tbody>
-                    </table>
+                    <table id="TPRDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%"></table>
                   </div>
                 </div>
                 <!-- end content-->
@@ -99,51 +85,6 @@
       </div>
 
       <footer th:replace="fragments/footer"></footer>
-
-      <div class="modal fade" id="resModal" tabindex="-1" role="" style="margin-left: -10%;">
-        <div class="modal-dialog modal-login" role="document">
-          <div class="modal-content" style="width: 100vh;">
-            <div class="card card-signup">
-              <div class="modal-header">
-                <div class="card-header card-header-primary text-center">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    <i class="material-icons">clear</i>
-                  </button>
-                  <h4 class="card-title">결과 상세</h4>
-                </div>
-              </div>
-              <div class="modal-body" style="overflow: scroll;">
-
-                <div class="material-datatables" style="width : 2800px;">
-                  <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="2500px;" style="width:100% !important;">
-                    <thead>
-                      <tr>
-                        <th class="userNm">이름</th>
-                        <th class="userId">이메일</th>
-                        <th class="userRank">직급</th>
-                        <th class="trrOpen">열람 여부</th>
-                        <th class="trrOpenDate">열람 시간</th>
-                        <th class="trrLink">클릭 여부</th>
-                        <th class="trrLinkDate">클릭 시간</th>
-                        <th class="trrAttachClick">첨부파일 다운로드 여부</th>
-                        <th class="trrAttachClickDate">첨부파일 다운로드 시간</th>
-                        <th class="trrAttachOpen">첨부파일 실행 여부</th>
-                        <th class="trrAttachOpenDate">첨부파일 실행 시간</th>
-                        <th class="trrPhishingclick">피싱사이트 접속 여부</th>
-                        <th class="trrPhishingclickDate">피싱사이트 접속 시간</th>
-                        <th class="trrPhishingContent">피싱사이트 정보 입력 내용</th>
-                        <th class="trrReturnIp">접속 IP주소</th>
-                        <th class="trrReturnUserinfo">접속 정보</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
 
   <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
   <script>
@@ -177,45 +118,6 @@
       });
     }
 
-    function resultModal(trpId) {
-     $('#ResultDatatable').DataTable({
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-          [10, 25, 50, -1],
-          [10, 25, 50, "All"]
-        ],
-        language: lang_kor,
-        destroy: true,
-        ordering: false,
-        ajax : {
-          type : "POST",
-          url : "getTRRDatatable.do",
-          dataType : "JSON",
-          data : {'trpId' : trpId},
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-        },
-        columns : [
-          {data : "userNm"},
-          {data : "userId"},
-          {data : "userRank"},
-          {data : "trrOpen"},
-          {data : "trrOpenDate"},
-          {data : "trrLink"},
-          {data : "trrLinkDate"},
-          {data : "trrAttachClick"},
-          {data : "trrAttachClickDate"},
-          {data : "trrAttachOpen"},
-          {data : "trrAttachOpenDate"},
-          {data : "trrPhishingclick"},
-          {data : "trrPhishingclickDate"},
-          {data : "trrPhishingContent"},
-          {data : "trrReturnIp"},
-          {data : "trrReturnUserinfo"},
-      ],
-      });
-    }
 
     $(document).ready(function() {
 
@@ -240,21 +142,36 @@
         columns : [
           {data : "trpId"},
           {
+            title : "훈련 그룹명",
             data : "trpNm",
             render : function(data, type, row) {
               var trpId = row['trpId'];
               var trsId = row['trsId'];
               var tugId = row['tugId'];
-              var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trs="+trsId;
-              return '<a href="'+href+'" target="_blank"><i class="material-icons">search</i></a>'+data;
+              var trgId = row['trgId'];
+              var href ="/status_detail?trp="+trpId+"&tug="+tugId+"&trg="+trgId+"&trs="+trsId;
+              return '<a href="'+href+'" target="_blank">'+data+'</a>';
             }
           },
-          {data : "trpStart", className: "text-center"},
-          {data : "trpEnd", className: "text-center"},
-          {data : "trpType", className: "text-center"},
+          {
+            data : "trpStart",
+            className: "text-center",
+            title : "훈련시작일"
+          },
+          {
+            data : "trpEnd",
+            className: "text-center",
+            title : "훈련종료일"
+          },
+          {
+            data : "trpType",
+            className: "text-center",
+            title : "훈련유형"
+          },
           {
             data : "trpStatus",
             className: "text-center",
+            title : "훈련상태",
             searchable : false,
             render : function(data) {
               var badge = '';
@@ -271,6 +188,7 @@
           {
             data : "trpSent",
             className: "text-center",
+            titld : "발송횟수",
             render : function (data) {
                 return data+"회";
               }

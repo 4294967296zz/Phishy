@@ -63,7 +63,7 @@ public class TrainingProjectController {
         datas.put("mfi_mail_addr", mailformService.getMailform(mfi_id).getMfi_mail_addr());
         datas.put("mfi_mail_title", mailformService.getMailform(mfi_id).getMfi_mail_title());
 
-        trainingProjectService.registerTRP(datas,tug_id,trg_id,mfi_id,trp_start,trp_end);
+        trainingProjectService.registerTRP(datas,tug_id,trg_id,mfi_id,trp_start,trp_end,trainingUserService.getTUGCounts(tug_id).getTugCount());
         trainingGroupService.updateTRGcount(trg_id);
 
         return datas;
@@ -117,6 +117,11 @@ public class TrainingProjectController {
         mp.put("attachType", trainingProjectService.getTRS(trsId).getTrsAttachType());
         Object result = mp;
         return result;
+    }
+
+    @RequestMapping(value = "/getTotalTU.do", method = RequestMethod.POST)
+    public @ResponseBody Object getTotalTU(@RequestParam("trgId") Long trgId) {
+        return trainingProjectService.getTotalTU(trgId);
     }
 
 

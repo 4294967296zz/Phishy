@@ -8,9 +8,11 @@ import phishy.domain.Entity.TrainingSettingEntity;
 import phishy.domain.Repository.TrainingGroupRepository;
 import phishy.domain.Repository.TrainingProjectRepository;
 import phishy.domain.Repository.TrainingSettingRepository;
+import phishy.domain.Repository.TrainingUsergroupRepository;
 import phishy.dto.TrainingProjectDto;
 import phishy.dto.TrainingSettingDto;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -23,9 +25,11 @@ import java.util.Optional;
 public class TrainingProjectService {
     private TrainingProjectRepository trainingProjectRepository;
     private TrainingSettingRepository trainingSettingRepository;
+    private EntityManager em;
+
 
     @Transactional
-    public void registerTRP(Map<String, String> datas, Long tugId, Long trgId, Long mfiId, Date trpStart, Date trpEnd) {
+    public void registerTRP(Map<String, String> datas, Long tugId, Long trgId, Long mfiId, Date trpStart, Date trpEnd, Integer tugCount) {
 
         TrainingSettingDto trainingSettingDto = new TrainingSettingDto();
         TrainingProjectDto trainingProjectDto = new TrainingProjectDto();
@@ -61,6 +65,7 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpEnd(trpEnd);
         trainingProjectEntity.setTrpContent(datas.get("trp_content"));
         trainingProjectEntity.setTrpSent(0);
+        trainingProjectEntity.setTugCount(tugCount);
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
     }
 
@@ -80,6 +85,7 @@ public class TrainingProjectService {
                     .tugId(trpEntity.getTugId())
                     .trpStatus(trpEntity.getTrpStatus())
                     .trpSent(trpEntity.getTrpSent())
+                    .tugCount(trpEntity.getTugCount())
                     .trsId(trpEntity.getTrsId())
                     .trgId(trpEntity.getTrgId())
                     .build();
@@ -104,6 +110,7 @@ public class TrainingProjectService {
                     .tugId(trpEntity.getTugId())
                     .trpStatus(trpEntity.getTrpStatus())
                     .trpSent(trpEntity.getTrpSent())
+                    .tugCount(trpEntity.getTugCount())
                     .trsId(trpEntity.getTrsId())
                     .trgId(trpEntity.getTrgId())
                     .build();
@@ -150,6 +157,7 @@ public class TrainingProjectService {
                 .trpType(trpEntity.getTrpType())
                 .trpStatus(trpEntity.getTrpStatus())
                 .trpSent(trpEntity.getTrpSent())
+                .tugCount(trpEntity.getTugCount())
                 .trpInterval(trpEntity.getTrpInterval())
                 .build();
         return trpDto;
@@ -191,6 +199,15 @@ public class TrainingProjectService {
         trainingProjectRepository.save(trainingProjectEntity);
 
         return trainingProjectEntity.getTrpSent();
+    }
+
+    @Transactional
+    public List<Long> getTotalTU(Long trgId) {
+        String jpql = "SELECT SUM(tugCount) FROM TrainingProjectEntity WHERE trgId = :trgId";
+        List<Long> totalResult = em.createQuery(jpql, Long.class)
+                .setParameter("trgId",trgId)
+                .getResultList();
+        return totalResult;
     }
 
 }

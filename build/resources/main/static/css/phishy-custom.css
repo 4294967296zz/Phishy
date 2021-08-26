@@ -83,6 +83,9 @@
 #sendModal .card-pricing h4 {
     margin-top : 0px !important;
 }
+#sendModal #trg_nm {
+    margin-bottom: 0px;
+}
 
 .dataTables_scrollHeadInner {
     width: 100% !important;

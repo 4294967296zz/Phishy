@@ -26,6 +26,7 @@ public class TrainingProjectDto {
     private Date trpEnd;
     private Integer trpInterval;
     private Integer trpSent;
+    private Integer tugCount;
 
     public TrainingProjectEntity toEntity() {
         TrainingProjectEntity trainingProjectEntity = TrainingProjectEntity.builder()
@@ -42,6 +43,7 @@ public class TrainingProjectDto {
                 .trpEnd(trpEnd)
                 .trpInterval(trpInterval)
                 .trpSent(trpSent)
+                .tugCount(tugCount)
                 .build();
         return trainingProjectEntity;
     }
@@ -49,7 +51,7 @@ public class TrainingProjectDto {
     @Builder
     public TrainingProjectDto(Long trpId, Long uId, Long tugId, Long trsId, Long trgId, String trpNm, String trpType,
                                  String trpStatus, String trpContent, Date trpStart, Date trpEnd,
-                                 Integer trpInterval, Integer trpSent) {
+                                 Integer trpInterval, Integer trpSent, Integer tugCount) {
         this.trpId       = trpId;
         this.uId         = uId;
         this.tugId       = tugId;
@@ -63,5 +65,6 @@ public class TrainingProjectDto {
         this.trpEnd      = trpEnd;
         this.trpInterval = trpInterval;
         this.trpSent     = trpSent;
+        this.tugCount    = tugCount;
     }
 }

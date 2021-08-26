@@ -95,6 +95,12 @@
                       <span id="trg_end"></span>
                     </div>
                   </div>
+                  <div class="row">
+                    <label class="col-sm-4 text-right">훈련 대상자</label>
+                    <div class="col-sm-8">
+                      <span id="total_count"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
           </div>
@@ -163,6 +169,22 @@
           }
       });
 
+      $.ajax({
+          url : "getTotalTU.do",
+          type : "POST",
+          dataType : "json",
+          data : {"trgId" : trgId},
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            $('#total_count').html('총 '+result+'명');
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+
       $('#ProjectDatatable').DataTable({
         "pagingType": "full_numbers",
         "lengthMenu": [
@@ -223,9 +245,9 @@
             }
           },
           {
-            title : "발송횟수",
-            data : "trpSent",
-            className : "text-center"
+            title : "대상자수",
+            className : "text-center",
+            data : "tugCount",
           },
       ],
 

@@ -41,6 +41,7 @@ public class TrainingUserService {
         }
         return TUGDtoList;
     }
+
     @Transactional
     public TrainingUsergroupDto getTUG(Long tugId) {
         Optional<TrainingUsergroupEntity> TUGEntityWrapper = trainingUsergroupRepository.findById(tugId);
@@ -48,6 +49,16 @@ public class TrainingUserService {
         TrainingUsergroupDto trainingUsergroupDto = TrainingUsergroupDto.builder()
                 .tugId(trainingUsergroupEntity.getTugId())
                 .tugNm(trainingUsergroupEntity.getTugNm())
+                .tugCount(trainingUsergroupEntity.getTugCount())
+                .build();
+        return trainingUsergroupDto;
+    }
+
+    @Transactional
+    public TrainingUsergroupDto getTUGCounts(Long tugId) {
+        Optional<TrainingUsergroupEntity> TUGEntityWrapper = trainingUsergroupRepository.findById(tugId);
+        TrainingUsergroupEntity trainingUsergroupEntity = TUGEntityWrapper.get();
+        TrainingUsergroupDto trainingUsergroupDto = TrainingUsergroupDto.builder()
                 .tugCount(trainingUsergroupEntity.getTugCount())
                 .build();
         return trainingUsergroupDto;
