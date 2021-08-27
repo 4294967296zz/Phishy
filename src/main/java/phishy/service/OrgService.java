@@ -125,4 +125,12 @@ public class OrgService {
     public void deleteOrg(Long o_id) {
         orgRepository.deleteById(o_id);
     }
+
+    @Transactional //idx 기준으로 조회하여 리스팅 후 유저 삭제
+    public void deleteOrgs(List<Long> o_id) {
+        List<OrgEntity> orgEntities = orgRepository.findAllById(o_id);
+        for(OrgEntity orgEntity : orgEntities) {
+            orgRepository.deleteById(orgEntity.getO_id());
+        }
+    }
 }

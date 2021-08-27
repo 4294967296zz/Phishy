@@ -142,7 +142,6 @@ public class UserController {
     public @ResponseBody Object getUser(@RequestParam("u_id") Long u_id) {
         Map<String, Object> mp = new HashMap<String, Object>();
         mp.put("data", userService.getUser(u_id));
-        Object result = mp;
         return mp;
     }
 
@@ -150,6 +149,12 @@ public class UserController {
     public String deleteuser(@RequestParam("u_id") Long u_id) {
         userService.deleteUser(u_id);
         return "redirect:/user";
+    }
+
+    @RequestMapping(value = "/deleteUsers.do", method = RequestMethod.POST)
+    public String deleteUsers(@RequestParam(value = "uid[]") List<Long> uid) {
+         userService.deleteUsers(uid);
+         return "redirect:/user";
     }
 
 

@@ -52,8 +52,8 @@ public class UserService {
             userEntity.setUserId(datas.get(idx).get("user_email"));
             userEntity.setUserPwd(passwordEncoder.encode(datas.get(idx).get("user_email")));
             userEntity.setUserEmail(datas.get(idx).get("user_email"));
-            userEntity.setUserNm(datas.get(idx).get("user_rank"));
-            userEntity.setUserRank(datas.get(idx).get("user_nm"));
+            userEntity.setUserNm(datas.get(idx).get("user_nm"));
+            userEntity.setUserRank(datas.get(idx).get("user_rank"));
             userEntity.setCorpCd(datas.get(idx).get("corp_cd"));
             userEntity.setCorpNm(datas.get(idx).get("corp_nm"));
             userEntity.setDeptCd(datas.get(idx).get("dept_cd"));
@@ -161,6 +161,14 @@ public class UserService {
     @Transactional
     public void deleteUser(Long u_id) {
         userRepository.deleteById(u_id);
+    }
+
+    @Transactional //idx 기준으로 조회하여 리스팅 후 유저 삭제
+    public void deleteUsers(List<Long> u_id) {
+        List<UserEntity> userEntities = userRepository.findAllById(u_id);
+        for(UserEntity userEntity : userEntities) {
+            userRepository.deleteById(userEntity.getUId());
+        }
     }
 
 

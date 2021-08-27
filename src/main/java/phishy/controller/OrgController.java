@@ -8,6 +8,7 @@ import phishy.service.OrgService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -93,4 +94,11 @@ public class OrgController {
         orgService.deleteOrg(o_id);
         return "redirect:/org";
     }
+
+    @RequestMapping(value = "/deleteOrgs.do", method = RequestMethod.POST)
+    public String deleteOrgs(@RequestParam(value = "oid[]") List<Long> oid) {
+         orgService.deleteOrgs(oid);
+         return "redirect:/user";
+    }
+
 }
