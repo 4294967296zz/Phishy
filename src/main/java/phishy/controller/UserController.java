@@ -85,7 +85,7 @@ public class UserController {
         return list;
     }
 
-    @RequestMapping(value = "/excelUpload.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/UserexcelUpload.do", method = RequestMethod.POST)
     public @ResponseBody
     Object excelUploadAjax(MultipartHttpServletRequest request)  throws Exception{
         MultipartFile excelFile =request.getFile("excelFile");

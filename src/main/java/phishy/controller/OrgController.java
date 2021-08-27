@@ -3,10 +3,17 @@ package phishy.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import phishy.service.OrgService;
+import phishy.util.ExcelRead;
+import phishy.util.ExcelReadOption;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +63,47 @@ public class OrgController {
         return list;
     }
 
+    @RequestMapping(value = "/OrgexcelUpload.do", method = RequestMethod.POST)
+    public @ResponseBody
+    Object excelUploadAjax(MultipartHttpServletRequest request)  throws Exception{
+        MultipartFile excelFile =request.getFile("excelFile");
+        System.out.println("엑셀 파일 업로드 컨트롤러");
+        if(excelFile==null || excelFile.isEmpty()){
+            throw new RuntimeException("엑셀파일을 선택 해 주세요.");
+        }
+
+        File destFile = new File("D:\\"+excelFile.getOriginalFilename());
+        try{
+            excelFile.transferTo(destFile);
+        }catch(IllegalStateException | IOException e){
+            throw new RuntimeException(e.getMessage(),e);
+        }
+
+        ExcelReadOption excelReadOption = new ExcelReadOption();
+        excelReadOption.setFilePath(destFile.getAbsolutePath());
+        excelReadOption.setOutputColumns("A","B","C","D","E");
+        excelReadOption.setStartRow(3);
+
+        List<Map<String, String>> excelContent = ExcelRead.read(excelReadOption);
+        List<Map<String, String>> totallist = new ArrayList<Map<String, String>>();
+        Map<String, String> map = null;
+
+        for(int rpt = 0; rpt < excelContent.size(); rpt++) {
+            map = new HashMap<String, String>();
+            map.put("corp_nm",excelContent.get(rpt).get("A"));
+            map.put("corp_cd",excelContent.get(rpt).get("B"));
+            map.put("dept_nm",excelContent.get(rpt).get("C"));
+            map.put("dept_cd",excelContent.get(rpt).get("D"));
+            map.put("upper_cd",excelContent.get(rpt).get("E"));
+
+            totallist.add(map);
+        }
+        orgService.insertMultiOrg(totallist);
+
+        Object result = totallist;
+        return result;
+    }
+
     @RequestMapping(value = "/getOrgDatatable.do", method = RequestMethod.POST)
     public @ResponseBody Object getDatatable(HttpServletRequest request,
                                              HttpServletResponse response) {
@@ -100,5 +148,6 @@ public class OrgController {
          orgService.deleteOrgs(oid);
          return "redirect:/user";
     }
+
 
 }

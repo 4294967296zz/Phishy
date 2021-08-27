@@ -133,6 +133,7 @@
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
+                      <a class="dropdown-item" href="#" id="multi_delete">일괄삭제</a>
                     </div>
                   </div>
                 </div>
@@ -144,6 +145,16 @@
                     <table id="OrgDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                       <thead>
                         <tr>
+                            <th>
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" id="check_all">
+                                <span class="form-check-sign">
+                                  <span class="check"></span>
+                                </span>
+                              </label>
+                            </div>
+                          </th>
                           <th>소속이름</th>
                           <th>소속코드</th>
                           <th>부서이름</th>
@@ -285,7 +296,7 @@
               </div>
               <div class="modal-body">
 
-                <form class="form" id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action= "/excelUpload.do">
+                <form class="form" id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" action= "/OrgexcelUpload.do">
                   <p class="description text-center">엑셀 파일을 업로드해주세요</p>
                     <div class="row">
                       <div class="col-sm-12">
@@ -518,8 +529,40 @@
             xhr.setRequestHeader(header, token);
           },
           data: {'o_id': o_id},
-          success: function () {
-            location.reload();
+          complete: function () {
+            swal.fire({
+              'title' : '삭제 완료!',
+              'icon'  : 'success'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
+    function deleteOrgs(o_id) {
+        $.ajax({
+          url : "deleteOrgs.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'oid': o_id},
+          complete: function (result) {
+            swal.fire({
+              'title' : '삭제 완료!',
+              'icon'  : 'success'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
           },
           error: function (thrownError) {
             console.log(thrownError);
@@ -531,9 +574,7 @@
 
     $(document).ready(function() {
 
-
         $('#OrgDatatable').DataTable({
-
             "pagingType": "full_numbers",
             "lengthMenu": [
               [10, 25, 50, -1],
@@ -550,6 +591,18 @@
               },
             },
             columns : [
+                {
+                    data : "o_id",
+                    defaultContent:"",
+                    targets: 0,
+                    searchable: false,
+                    className: "disabled-sorting",
+                    render: function (data) {
+                      return '<div class="form-check"><label class="form-check-label">'+
+                              '<input class="form-check-input checked" type="checkbox" name="org_check" data-u_id="'+data+'" value="'+data+'">'+
+                              '<span class="form-check-sign"><span class="check"></span></span></label></div>';
+                    }
+                  },
               {data : "corpNm"},
               {data : "corpCd"},
               {data : "deptNm"},
@@ -581,15 +634,18 @@
             editOrg(o_id);
 
           });
+
+          table.on('change', '#check_all', function() {
+            var checked = $(this).is(':checked');
+            if(checked) {
+                $('.checked').prop('checked',true);
+            } else {
+                $('.checked').prop('checked',false);
+            }
+          });
+
           // Delete a record
           table.on('click', '.remove', function(e) {
-            // $tr = $(this).closest('tr');
-            // if ($($tr).hasClass('child')) {
-            //   $tr = $tr.prev('.parent');
-            // }
-            // table.row($tr).remove().draw();
-            // e.preventDefault();
-
             var o_id = $(this).data('o_id');
 
             Swal.fire({
@@ -606,13 +662,40 @@
                   deleteOrg(o_id);
               }
             });
-
           });
 
-          // //Like record
-          // table.on('click', '.like', function() {
-          //   alert('You clicked on Like button');
-          // });
+        $('#multi_delete').click(function(e) {
+            e.preventDefault();
+              var checkBoxArr = [];
+
+              $('input[name="org_check"]:checked').each(function() {
+                checkBoxArr.push($(this).val());
+              });
+
+              if(checkBoxArr.length < 1) {
+                Swal.fire({
+                  'title' : '',
+                  'text' : '삭제할 조직을 선택해주세요.',
+                  'type' : 'warning',
+                });
+              } else {
+                Swal.fire({
+                  title: '조직을 삭제하시겠습니까?',
+                  text: "삭제한 조직은 되돌릴 수 없습니다.",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: '네!',
+                  cancelButtonText: '취소',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                      deleteOrgs(checkBoxArr);
+                  }
+                });
+              }
+          });
+
 
         $('.close').click(function(e){
            e.preventDefault();
