@@ -17,6 +17,7 @@ public class TrainingSettingDto {
     private String mfi_mail_nm;
     private String mfi_mail_title;
     private String mfi_file_nm;
+    private String mfi_nm;
     private String trsOpen;
     private String trsLink;
     private String trsAttachClick;
@@ -36,6 +37,7 @@ public class TrainingSettingDto {
                 .mfi_mail_nm(mfi_mail_nm)
                 .mfi_mail_title(mfi_mail_title)
                 .mfi_file_nm(mfi_file_nm)
+                .mfi_nm(mfi_nm)
                 .trsOpen(trsOpen)
                 .trsLink(trsLink)
                 .trsAttachClick(trsAttachClick)
@@ -51,7 +53,7 @@ public class TrainingSettingDto {
     }
 
     @Builder
-    public TrainingSettingDto(Long trsId, Long mfiId, String mfi_mail_addr, String mfi_mail_nm,
+    public TrainingSettingDto(Long trsId, Long mfiId, String mfi_mail_addr, String mfi_mail_nm, String mfi_nm,
                                  String mfi_mail_title, String mfi_file_nm, String trsOpen, String trsLink,
                                  String trsAttachClick, String trsAttachOpen, String trsAttachNm, String trsAttachType,
                                  String trsAttachSize, String trsPhishing, String trsPhishingUrl, String trsPhishingContent) {
@@ -60,6 +62,7 @@ public class TrainingSettingDto {
         this.mfi_mail_nm        = mfi_mail_nm;
         this.mfi_mail_title     = mfi_mail_title;
         this.mfi_file_nm        = mfi_file_nm;
+        this.mfi_nm             = mfi_nm;
         this.trsOpen            = trsOpen;
         this.trsLink            = trsLink;
         this.trsAttachClick     = trsAttachClick;

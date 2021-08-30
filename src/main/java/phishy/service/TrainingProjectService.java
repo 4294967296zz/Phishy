@@ -41,6 +41,7 @@ public class TrainingProjectService {
         trainingSettingEntity.setMfi_mail_addr(datas.get("mfi_mail_addr"));
         trainingSettingEntity.setMfi_mail_nm(datas.get("mfi_mail_nm"));
         trainingSettingEntity.setMfi_mail_title(datas.get("mfi_mail_title"));
+        trainingSettingEntity.setMfi_nm(datas.get("mfi_nm"));
         trainingSettingEntity.setTrsOpen(datas.get("trs_open"));
         trainingSettingEntity.setTrsLink(datas.get("trs_link"));
         trainingSettingEntity.setTrsAttachClick(datas.get("trs_attach_click"));
@@ -67,6 +68,45 @@ public class TrainingProjectService {
         trainingProjectEntity.setTrpSent(0);
         trainingProjectEntity.setTugCount(tugCount);
         trainingProjectRepository.save(trainingProjectEntity).getTrpId();
+    }
+
+    @Transactional
+    public void updateTRP(Map<String, String> datas, Long trpId, Long trsId, Long tugId, Long trgId, Long mfiId, Date trpStart, Date trpEnd, Integer tugCount) {
+
+        Optional<TrainingProjectEntity> trainingProjectWrapper = trainingProjectRepository.findById(trpId);
+        TrainingProjectEntity trainingProjectEntity = trainingProjectWrapper.get();
+        Optional<TrainingSettingEntity> trainingSettingEntityWrapper = trainingSettingRepository.findById(trsId);
+        TrainingSettingEntity trainingSettingEntity = trainingSettingEntityWrapper.get();
+
+        trainingSettingEntity.setMfiId(mfiId);
+        trainingSettingEntity.setMfi_file_nm(datas.get("mfi_file_nm"));
+        trainingSettingEntity.setMfi_mail_addr(datas.get("mfi_mail_addr"));
+        trainingSettingEntity.setMfi_mail_nm(datas.get("mfi_mail_nm"));
+        trainingSettingEntity.setMfi_mail_title(datas.get("mfi_mail_title"));
+        trainingSettingEntity.setMfi_nm(datas.get("mfi_nm"));
+        trainingSettingEntity.setTrsOpen(datas.get("trs_open"));
+        trainingSettingEntity.setTrsLink(datas.get("trs_link"));
+        trainingSettingEntity.setTrsAttachClick(datas.get("trs_attach_click"));
+        trainingSettingEntity.setTrsAttachOpen(datas.get("trs_attach_open"));
+        trainingSettingEntity.setTrsAttachNm(datas.get("trs_attach_nm"));
+        trainingSettingEntity.setTrsAttachType(datas.get("trs_attach_type"));
+        trainingSettingEntity.setTrsAttachSize(datas.get("trs_attach_size"));
+        trainingSettingEntity.setTrsPhishing(datas.get("trs_phishing"));
+        trainingSettingEntity.setTrsPhishingUrl(datas.get("trs_phishing_url"));
+        trainingSettingEntity.setTrsPhishingContent(datas.get("trs_phishing_content"));
+        trainingSettingRepository.save(trainingSettingEntity);
+
+        trainingProjectEntity.setTugId(tugId);
+        trainingProjectEntity.setTrgId(trgId);
+        trainingProjectEntity.setTrpNm(datas.get("trp_nm"));
+        trainingProjectEntity.setTrpType(datas.get("trp_type"));
+        trainingProjectEntity.setTrpInterval(Integer.parseInt(datas.get("trp_interval")));
+        trainingProjectEntity.setTrpStatus("대기");
+        trainingProjectEntity.setTrpStart(trpStart);
+        trainingProjectEntity.setTrpEnd(trpEnd);
+        trainingProjectEntity.setTrpContent(datas.get("trp_content"));
+        trainingProjectEntity.setTugCount(tugCount);
+        trainingProjectRepository.save(trainingProjectEntity);
     }
 
     @Transactional
@@ -174,6 +214,7 @@ public class TrainingProjectService {
                 .mfi_mail_addr(trsEntity.getMfi_mail_addr())
                 .mfi_mail_nm(trsEntity.getMfi_mail_nm())
                 .mfi_mail_title(trsEntity.getMfi_mail_title())
+                .mfi_nm(trsEntity.getMfi_nm())
                 .trsOpen(trsEntity.getTrsOpen())
                 .trsLink(trsEntity.getTrsLink())
                 .trsAttachNm(trsEntity.getTrsAttachNm())
@@ -208,6 +249,11 @@ public class TrainingProjectService {
                 .setParameter("trgId",trgId)
                 .getResultList();
         return totalResult;
+    }
+
+    @Transactional
+    public void deleteTRP(Long trpId) {
+        trainingProjectRepository.deleteById(trpId);
     }
 
 }

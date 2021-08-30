@@ -67,21 +67,23 @@
                 </div>
                 <div class="card-body project">
                   <div class="row">
-                    <label class="col-sm-3">훈련 그룹</label>
+                    <label class="col-sm-3">훈련 프로젝트</label>
                     <div class="col-sm-9">
-                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 그룹" id="trg_id"></select>
+                      <div class="input-group trg_id">
+                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 프로젝트" id="trg_id"></select>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="form-group md-form-group">
-                        <label class="md-label-floating">훈련 프로젝트명</label>
+                        <label class="md-label-floating">훈련 그룹명</label>
                         <input type="text" class="form-control" id="trp_nm">
                       </div>
                     </div>
                     <div class="col-sm-12">
                       <div class="form-group md-form-group">
-                        <label class="md-label-floating">훈련 프로젝트 내용</label>
+                        <label class="md-label-floating">훈련 그룹 설명</label>
                         <input type="text" class="form-control" id="trp_content">
                       </div>
                     </div>
@@ -103,8 +105,9 @@
                   <div class="row">
                     <label class="col-sm-3">훈련 대상자그룹</label>
                     <div class="col-sm-9">
-                      <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹" id="tug_id">
-                      </select>
+                      <div class="input-group tug_id">
+                        <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="훈련 대상자그룹" id="tug_id"></select>
+                      </div>
                     </div>
                   </div>
                   <div class="row">
@@ -296,6 +299,7 @@
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
           <div class="row">
             <div class="col-md-12 text-center">
+              <button type="button" class="btn btn-rose btn-lg" id="project_delete" style="display: none;">삭제하기</button>
               <button type="button" class="btn btn-success btn-lg" id="project_reg">생성하기</button>
             </div>
           </div>
@@ -346,6 +350,9 @@
   <script>
 
     var trgId = geturlparam("trg");
+    var trpId = geturlparam("trp");
+    var trsId = geturlparam("trs");
+    var tugId = geturlparam("tug");
 
     function getMailforms() {
       $.ajax({
@@ -402,7 +409,7 @@
           xhr.setRequestHeader(header, token);
           },
           success : function(result) {
-            var options = '<option disabled>훈련 그룹</option>';
+            var options = '<option disabled>훈련 프로젝트</option>';
             for(i in result) {
                 options += '<option value="'+result[i].trgId+'">'+result[i].trgNm+'</option>';
             }
@@ -438,6 +445,14 @@
     }
 
     function insertProject() {
+
+      var trp_type = $('input[name="trp_type"]:checked').val();
+      var trs_attach_type = "";
+      if(trp_type == "버튼클릭형") {
+        trs_attach_type = "";
+      } else {
+        trs_attach_type = $('input[name="trs_attach_type"]:checked').val();
+      }
       $.ajax({
           url : "registerTRP.do",
           type : "POST",
@@ -446,18 +461,18 @@
             'trp_content'           : $('#trp_content').val(),
             'trp_start'             : $('#trp_start').val(),
             'trp_end'               : $('#trp_end').val(),
-            'trp_type'              : $('input[name="trp_type"]').val(),
+            'trp_type'              : trp_type,
             'trp_interval'          : $('#trp_interval').val(),
             'tug_id'                : $('#tug_id').val(),
             'trg_id'                : $('#trg_id').val(),
-            'mfi_id'                : $('#mfi_selected').data('mfiid'),
+            'mfi_id'                : $('#mfi_selected').data('mfi_id'),
             'trs_open'              : $('#trs_open').is(':checked'),
             'trs_link'              : $('#trs_link').is(':checked'),
             'trs_attach_click'      : $('#trs_attach_click').is(':checked'),
             'trs_attach_open'       : $('#trs_attach_open').is(':checked'),
             'trs_attach_nm'         : $('#trs_attach_nm').val(),
             'trs_attach_size'       : $('#trs_attach_size').val(),
-            'trs_attach_type'       : $('input[name="trs_attach_type"]').val(),
+            'trs_attach_type'       : trs_attach_type,
             'trs_phishing'          : $('#trs_phishing').is(':checked'),
             'trs_phishing_url'      : $('#trs_phishing_url').val(),
             'trs_phishing_content'  : $('#trs_phishing_content').is(':checked'),
@@ -469,6 +484,52 @@
             console.log(result);
             Swal.fire({
               title : '등록 완료!',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.href='/group_detail?trg='+$('#trg_id').val();
+              }
+            });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+    }
+
+    function updateProject() {
+      $.ajax({
+          url : "updateTRP.do",
+          type : "POST",
+          data : {
+            'trp_id'                : trpId,
+            'trs_id'                : trsId,
+            'trg_id'                : trgId,
+            'trp_nm'                : $('#trp_nm').val(),
+            'trp_content'           : $('#trp_content').val(),
+            'trp_start'             : $('#trp_start').val(),
+            'trp_end'               : $('#trp_end').val(),
+            'trp_type'              : $('input[name="trp_type"]:checked').val(),
+            'trp_interval'          : $('#trp_interval').val(),
+            'tug_id'                : $('#tug_id').val(),
+            'mfi_id'                : $('#mfi_selected').data('mfi_id'),
+            'trs_open'              : $('#trs_open').is(':checked'),
+            'trs_link'              : $('#trs_link').is(':checked'),
+            'trs_attach_click'      : $('#trs_attach_click').is(':checked'),
+            'trs_attach_open'       : $('#trs_attach_open').is(':checked'),
+            'trs_attach_nm'         : $('#trs_attach_nm').val(),
+            'trs_attach_size'       : $('#trs_attach_size').val(),
+            'trs_attach_type'       : $('input[name="trs_attach_type"]:checked').val(),
+            'trs_phishing'          : $('#trs_phishing').is(':checked'),
+            'trs_phishing_url'      : $('#trs_phishing_url').val(),
+            'trs_phishing_content'  : $('#trs_phishing_content').is(':checked'),
+          },
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+            Swal.fire({
+              title : '수정 완료!',
             }).then((result) => {
               if (result.isConfirmed) {
                 location.reload();
@@ -503,12 +564,149 @@
       });
     }
 
+    function getProjectDetails(trpId,trsId,tugId,trgId) {
+      $.ajax({
+        url: "getProjectDetails.do",
+        type: "POST",
+        dataType: "json",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: {
+          'trpId': trpId,
+          'trsId': trsId,
+          'tugId': tugId,
+          'trgId': trgId,
+        },
+        success: function (result) {
+          console.log(result);
+          var trp_data = result.trp_data;
+          var trs_data = result.trs_data;
+          var tug_data = result.tug_data;
+          var trg_data = result.trg_data;
+          var trpStatus = trp_data['trpStatus'];
+          var trs_checkes = {
+            'trs_open'             : trs_data['trsOpen'],
+            'trs_link'             : trs_data['trsLink'],
+            'trs_attach_open'      : trs_data['trsAttachOpen'],
+            'trs_attach_click'     : trs_data['trsAttachClick'],
+            'trs_phishing'         : trs_data['trsPhishing'],
+            'trs_phishing_content' : trs_data['trsPhishingContent'],
+          };
+
+          for(key in trs_checkes) {
+            if(trs_checkes[key] == "true") {
+              $('#'+key).prop('checked','true');
+            }
+          }
+
+          if($('#trs_phishing').is(':checked')) {
+            $('.row.opacity0').removeClass('opacity0').css('display','flex');
+            $('.phishing_url').addClass('opacity1');
+            $('#trs_phishing_url').val(trs_data['trsPhishingUrl']).parent('.form-group.md-form-group').addClass('is-filled');
+          }
+
+          if(trpStatus === "대기") {
+            $('#trp_status').append('훈련'+trpStatus);
+          } else if(trpStatus === "진행중") {
+              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-warning');
+          } else if(trpStatus === "완료") {
+              $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-success');
+          }
+
+          $('#trp_nm').val(trp_data['trpNm']).parent('.form-group.md-form-group').addClass('is-filled');
+          $('#trp_content').val(trp_data['trpContent']).parent('.form-group.md-form-group').addClass('is-filled');
+          $('#trp_start').val(trp_data['trpStart']);
+          $('#trp_end').val(trp_data['trpEnd']);
+          $('#mfi_selected').val(trs_data['mfi_nm']).attr('data-mfi_id',trs_data['mfiId']);
+
+          $('#tug_id').val(tug_data['tugId']);
+          $('#trg_id').val(tug_data['trgId']).attr('data-trg_id',tug_data['trgId']);
+          $('#trg_id').data('jiho',123);
+
+          $('.input-group.tug_id button').attr('title',tug_data['tugCount']+'명');
+          $('.input-group.tug_id .filter-option-inner-inner').html(tug_data['tugCount']+'명');
+
+          $('.input-group.trg_id button').attr('title',trg_data['trgNm']).disabled();
+          $('.input-group.trg_id .filter-option-inner-inner').html(trg_data['trgNm']);
+
+          $('#trp_interval').val(trp_data['trpInterval']);
+
+          if(trp_data['trpType'] == "첨부파일형") {
+            $('#attach_type').prop('checked',true);
+            $('.file_type').css('display','flex');
+            $('#trs_attach_nm').val(trs_data['trsAttachNm']).parent('.form-group.md-form-group').addClass('is-filled');
+            $('#trs_attach_size').val(trs_data['trsAttachSize']+'KB').parent('.form-group.md-form-group').addClass('is-filled');
+            $('input[name="trs_attach_type"]').each(function() {
+              if(trs_data['trsAttachType'] == $(this).val()) {
+                $(this).prop('checked',true);
+              }
+            });
+          } else {
+            $('#button_type').prop('checked', true);
+          }
+
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
+      });
+    }
+
+    function removeProject(trpId) {
+      $.ajax({
+        url : "deleteTRP.do",
+        type : "POST",
+        dataType : "json",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: {'trpId': trpId},
+        complete: function () {
+          swal.fire({
+            'title' : '삭제 완료!',
+            'icon'  : 'success'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              location.href="/group_detail?trg="+trgId;
+            }
+          });
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
+      });
+    }
+
     $(document).ready(function() {
 
       getToday();
       getMailforms();
       getTUGs();
       getTRGs();
+      if(trpId) {
+        getProjectDetails(trpId,trsId,tugId,trgId);
+        $('#project_reg').html('수정하기');
+        $('#project_delete').show();
+      }
+
+      $('#project_delete').click(function() {
+
+        Swal.fire({
+          title: '소그룹을 삭제하시겠습니까?',
+          text: "이 프로젝트에 속한 그룹을 삭제합니다.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: '네!',
+          cancelButtonText: '취소',
+        }).then((result) => {
+          if (result.isConfirmed) {
+              removeProject(trpId);
+          }
+        });
+      });
 
       $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD',
@@ -558,13 +756,18 @@
         $('#mfiModal .close').click();
         var mail_nm = $(this).parent().find('.mailform_nm').text();
         var mfi_id = $(this).data('mfi_id');
-        $('#mfi_selected').val(mail_nm).attr('data-mfiId',mfi_id);
+        $('#mfi_selected').val(mail_nm).attr('data-mfi_id',mfi_id);
         $('.btn.btn-primary.btn-round').html("변경하기");
       });
 
       $('#project_reg').click(function(e) {
         e.preventDefault();
-        insertProject();
+        if($(this).text() == "수정하기") {
+          updateProject();
+        } else {
+          insertProject();
+        }
+
       });
 
       // $('a[data-target="#mfiModal"]').click(function() {

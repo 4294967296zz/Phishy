@@ -57,6 +57,13 @@
       <!-- End Navbar -->
       <div class="content" id="status_detail">
         <div class="container-fluid">
+
+          <div class="row">
+              <div class="col-md-12">
+                  <a href="#" id="edit_btn" class="btn btn-success btn">수정하기</a>
+              </div>
+          </div>
+
           <div class="row">
 
             <div class="col-lg-6 col-md-12">
@@ -358,6 +365,11 @@
     $(document).ready(function() {
 
       getProjectDetails(trpId, trsId, tugId);
+
+      $('#edit_btn').click(function(e) {
+        e.preventDefault();
+        location.href="/project?trp="+trpId+"&tug="+tugId+"&trg="+trgId+"&trs="+trsId;
+      });
 
       $('#TUIDatatables').DataTable({
         "pagingType": "full_numbers",

@@ -38,6 +38,10 @@ public class TrainingSettingEntity {
     @Column(name = "mfi_file_nm")
     private String mfi_file_nm;
 
+    // 훈련양식 파일 이름
+    @Column(name = "mfi_nm")
+    private String mfi_nm;
+
     // 메일 열람 여부
     @Column(name = "trs_open")
     private String trsOpen;
@@ -79,7 +83,7 @@ public class TrainingSettingEntity {
     private String trsPhishingContent;
 
     @Builder
-    public TrainingSettingEntity(Long trsId, Long mfiId, String mfi_mail_addr, String mfi_mail_nm,
+    public TrainingSettingEntity(Long trsId, Long mfiId, String mfi_mail_addr, String mfi_mail_nm, String mfi_nm,
                                  String mfi_mail_title, String mfi_file_nm, String trsOpen, String trsLink,
                                  String trsAttachClick, String trsAttachOpen, String trsAttachNm, String trsAttachType,
                                  String trsAttachSize, String trsPhishing, String trsPhishingUrl, String trsPhishingContent) {
@@ -88,6 +92,7 @@ public class TrainingSettingEntity {
         this.mfi_mail_nm        = mfi_mail_nm;
         this.mfi_mail_title     = mfi_mail_title;
         this.mfi_file_nm        = mfi_file_nm;
+        this.mfi_nm             = mfi_nm;
         this.trsOpen            = trsOpen;
         this.trsLink            = trsLink;
         this.trsAttachClick     = trsAttachClick;
