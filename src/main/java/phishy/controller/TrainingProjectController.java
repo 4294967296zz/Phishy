@@ -178,7 +178,7 @@ public class TrainingProjectController {
     }
 
     @RequestMapping(value = "/deleteTRP.do", method = RequestMethod.POST)
-    public void deleteTRP(@RequestParam("trpId") Long trpId) {
+    public @ResponseBody void deleteTRP(@RequestParam("trpId") Long trpId) {
         trainingProjectService.deleteTRP(trpId);
     }
 

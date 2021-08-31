@@ -187,8 +187,8 @@
           },
           {
             data : "trpSent",
-            className: "text-center",
-            titld : "발송횟수",
+            className: "text-center disabled-sorting",
+            title : "발송",
             render : function (data) {
                 return data+"회";
               }
@@ -196,6 +196,7 @@
           {
             data : "trpId",
             searchable : false,
+            className : 'disabled-sorting',
             render : function (data, type, row) {
               var trpId = row['trpId'];
               var send_btn = '';

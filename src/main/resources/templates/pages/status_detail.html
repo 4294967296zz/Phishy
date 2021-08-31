@@ -58,14 +58,13 @@
       <div class="content" id="status_detail">
         <div class="container-fluid">
 
-          <div class="row">
+          <div class="row" id="edit_section" style="display: none;">
               <div class="col-md-12">
                   <a href="#" id="edit_btn" class="btn btn-success btn">수정하기</a>
               </div>
           </div>
 
           <div class="row">
-
             <div class="col-lg-6 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning card-header-icon">
@@ -327,8 +326,10 @@
 
           if(trpStatus === "대기") {
             $('#trp_status').append('훈련'+trpStatus);
+            $('#edit_section').show();
           } else if(trpStatus === "진행중") {
               $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-warning');
+              $('#edit_section').show();
           } else if(trpStatus === "완료") {
               $('#trp_status').append('훈련'+trpStatus).removeClass('.badge-secondary').addClass('badge-success');
           }

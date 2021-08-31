@@ -134,6 +134,7 @@
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                       <a class="dropdown-item" href="#" id="multi_delete">일괄삭제</a>
+                      <a class="dropdown-item" href="#" id="form_download">업로드양식 다운로드</a>
                     </div>
                   </div>
                 </div>
@@ -159,7 +160,7 @@
                           <th>소속코드</th>
                           <th>부서이름</th>
                           <th>부서코드</th>
-                          <th>상위부서</th>
+                          <th>상위부서코드</th>
                           <th class="disabled-sorting text-right">Actions</th>
                         </tr>
                       </thead>
@@ -570,6 +571,31 @@
         });
     }
 
+    function formDownload(type) {
+        $.ajax({
+          url : "deleteOrgs.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader(header, token);
+          },
+          data: {'oid': o_id},
+          complete: function (result) {
+            swal.fire({
+              'title' : '삭제 완료!',
+              'icon'  : 'success'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload();
+              }
+            });
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+    }
+
     upperList();
 
     $(document).ready(function() {
@@ -618,34 +644,32 @@
                     var edit_btn = '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-o_id="'+data+'"><i class="material-icons">dvr</i></a>';
                     var remove_btn = '<a href="#" class="btn btn-link text-danger btn-just-icon remove" data-o_id="'+data+'"><i class="material-icons">close</i></a>';
                     return edit_btn+remove_btn;
-
                   }
-                },
+              },
             ],
-          });
+        });
 
-          var table = $('#OrgDatatable').DataTable();
+        var table = $('#OrgDatatable').DataTable();
 
-          // Edit record
-          table.on('click', '.edit', function() {
+        // Edit record
+        table.on('click', '.edit', function() {
             // alert('You press on Row: ' + data[0] + ' ' + data[1] + ' ' + data[2] + '\'s row.');
             $('a[data-target="#regModal"]').click();
             var o_id = $(this).attr('data-o_id');
             editOrg(o_id);
+        });
 
-          });
-
-          table.on('change', '#check_all', function() {
+        table.on('change', '#check_all', function() {
             var checked = $(this).is(':checked');
             if(checked) {
                 $('.checked').prop('checked',true);
             } else {
                 $('.checked').prop('checked',false);
             }
-          });
+        });
 
           // Delete a record
-          table.on('click', '.remove', function(e) {
+        table.on('click', '.remove', function(e) {
             var o_id = $(this).data('o_id');
 
             Swal.fire({
@@ -662,7 +686,7 @@
                   deleteOrg(o_id);
               }
             });
-          });
+        });
 
         $('#multi_delete').click(function(e) {
             e.preventDefault();
@@ -694,7 +718,7 @@
                   }
                 });
               }
-          });
+        });
 
 
         $('.close').click(function(e){
@@ -707,39 +731,46 @@
             $('#upper_cd').val('default').selectpicker('refresh');
         });
 
-          $('#reg_btn').click(function(e) {
-            e.preventDefault();
-            var o_id = $(this).data('o_id');
-            if(o_id) {
-              updateOrg(o_id);
-            } else {
-              insertOrg();
-            }
-          });
+      $('#reg_btn').click(function(e) {
+        e.preventDefault();
+        var o_id = $(this).data('o_id');
+        if(o_id) {
+          updateOrg(o_id);
+        } else {
+          insertOrg();
+        }
+      });
 
-          // 트리메뉴
-          function tree_menu() {
-            $('ul.depth_2 >li > a').click(function(e) {
-              var temp_el = $(this).next('ul');
-              var depth_3 = $('.depth_3');
+      $('#form_download').click(function(e) {
+         e.preventDefault();
+         formDownload("org");
+      });
 
-              depth_3.slideUp(300);
-              depth_3.parent().find('em').removeClass('on');
 
-              if (temp_el.is(':hidden')) {
-                temp_el.slideDown(300);
-                $(this).find('em').addClass('on').html('하위폴더 열림');
-              } else {
-                temp_el.slideUp(300);
-                $(this).find('em').removeClass('on').html('하위폴더 닫힘');
-              }
-              return false;
-            });
+
+      // 트리메뉴
+      function tree_menu() {
+        $('ul.depth_2 >li > a').click(function(e) {
+          var temp_el = $(this).next('ul');
+          var depth_3 = $('.depth_3');
+
+          depth_3.slideUp(300);
+          depth_3.parent().find('em').removeClass('on');
+
+          if (temp_el.is(':hidden')) {
+            temp_el.slideDown(300);
+            $(this).find('em').addClass('on').html('하위폴더 열림');
+          } else {
+            temp_el.slideUp(300);
+            $(this).find('em').removeClass('on').html('하위폴더 닫힘');
           }
+          return false;
+        });
+      }
 
-          if ($('#tree_menu').is(':visible')) {
-              tree_menu();
-          }
+      if ($('#tree_menu').is(':visible')) {
+          tree_menu();
+      }
 
     });
   </script>

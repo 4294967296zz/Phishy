@@ -116,7 +116,7 @@
                       <input type="text" class="form-control" id="mfi_selected" value="" disabled="">
                     </div>
                     <div class="col-md-3">
-                      <button class="btn btn-primary btn-round" data-toggle="modal" data-target="#mfiModal">선택하기</button>
+                      <button class="btn btn-primary btn-round mfi-btn" data-toggle="modal" data-target="#mfiModal">선택하기</button>
                     </div>
                   </div>
                   <div class="row">
@@ -619,16 +619,12 @@
           $('#trp_start').val(trp_data['trpStart']);
           $('#trp_end').val(trp_data['trpEnd']);
           $('#mfi_selected').val(trs_data['mfi_nm']).attr('data-mfi_id',trs_data['mfiId']);
+          $('button.mfi-btn').hide();
 
           $('#tug_id').val(tug_data['tugId']);
-          $('#trg_id').val(tug_data['trgId']).attr('data-trg_id',tug_data['trgId']);
-          $('#trg_id').data('jiho',123);
 
-          $('.input-group.tug_id button').attr('title',tug_data['tugCount']+'명');
-          $('.input-group.tug_id .filter-option-inner-inner').html(tug_data['tugCount']+'명');
-
-          $('.input-group.trg_id button').attr('title',trg_data['trgNm']).disabled();
-          $('.input-group.trg_id .filter-option-inner-inner').html(trg_data['trgNm']);
+          $('.input-group.tug_id button').attr('title',tug_data['tugNm']+'('+tug_data['tugCount']+'명)');
+          $('.input-group.tug_id .filter-option-inner-inner').html(tug_data['tugNm']+'('+tug_data['tugCount']+'명)');
 
           $('#trp_interval').val(trp_data['trpInterval']);
 
@@ -684,10 +680,35 @@
       getMailforms();
       getTUGs();
       getTRGs();
+
       if(trpId) {
         getProjectDetails(trpId,trsId,tugId,trgId);
         $('#project_reg').html('수정하기');
         $('#project_delete').show();
+      }
+      if(trgId) {
+
+        $.ajax({
+          url : "getTRG.do",
+          type : "POST",
+          data : {
+            'trgId' : trgId
+          },
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          success : function(result) {
+            console.log(result);
+            $('#trg_id').selectpicker('refresh');
+            $('#trg_id').val(result['trgId']);
+            $('.input-group.trg_id button').attr('title',result['trgNm']).prop('disabled',true);
+            $('.input-group.trg_id .filter-option-inner-inner').html(result['trgNm']);
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+
       }
 
       $('#project_delete').click(function() {
