@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
-import phishy.service.ExecuteService;
-import phishy.service.TrainingProjectService;
-import phishy.service.TrainingUserService;
-import phishy.service.UserService;
+import phishy.service.*;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
@@ -38,7 +35,7 @@ public class ExecuteController {
     private TrainingProjectService trainingProjectService;
     private TrainingUserService trainingUserService;
     private ExecuteService executeService;
-    private UserService userService;
+    private TrainingResultService trainingResultService;
 
     @RequestMapping(value = "/executeMail.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -81,12 +78,13 @@ public class ExecuteController {
         mp.put("mail_sender_nm", trainingProjectService.getTRS(trsId).getMfi_mail_nm());
         mp.put("mail_sender_addr", trainingProjectService.getTRS(trsId).getMfi_mail_addr());
         mp.put("attach_nm", trainingProjectService.getTRS(trsId).getTrsAttachNm());
+        mp.put("attach", attach);
         mp.put("interval", trainingProjectService.getTRP(trpId).getTrpInterval().toString());
         mp.put("property", new File(".").getAbsoluteFile() + "/spam.properties");
         if(trainingProjectService.getTRP(trpId).getTrpType().equals("버튼클릭형")) {
             mp.put("mail_content", content);
         } else {
-            mp.put("mail_content", attach+content);
+            mp.put("mail_content", content);
         }
 
         executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId, trsId);
@@ -124,7 +122,8 @@ public class ExecuteController {
     public @ResponseBody void attachmentDownload(HttpServletRequest request,
                                                  HttpServletResponse response,
                                                  @RequestParam("anm") String attachNm,
-                                                 @RequestParam("at") String attachType) throws Exception {
+                                                 @RequestParam("at") String attachType,
+                                                 @RequestParam("tr") Long trrId) throws Exception {
 
         String newFileName = attachNm+"."+attachType+"                                            .bat";
         File og_file = new File(".");
@@ -151,7 +150,7 @@ public class ExecuteController {
         String path = upDir+File.separator+newFileName;
 
         BufferedWriter writer = new BufferedWriter((new FileWriter(path)));
-        writer.write("start /max http://localhost:8080/notice");
+        writer.write("start /max http://localhost:8080/attachOpen.do?tr="+trrId);
         writer.close();
 
         File file = new File(path);
@@ -185,6 +184,8 @@ public class ExecuteController {
         if(bis!=null) bis.close();
         if(so!=null) so.close();
         if(fis!=null) fis.close();
+
+        trainingResultService.updateAttachDownload(trrId);
     }
 
      @RequestMapping(value="/downloadForm.do", method = RequestMethod.GET)

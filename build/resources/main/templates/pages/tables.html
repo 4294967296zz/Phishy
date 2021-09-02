@@ -73,6 +73,7 @@
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#regModal">신규등록</a>
                       <a class="dropdown-item" href="#" data-toggle="modal" data-target="#excelModal">일괄등록</a>
                       <a class="dropdown-item" href="#" id="multi_delete">일괄삭제</a>
+                      <a class="dropdown-item" href="#" id="form_download">업로드양식 다운로드</a>
                     </div>
                   </div>
                 </div>
@@ -690,6 +691,11 @@
             console.log(thrownError);
           }
         });
+      });
+
+      $('#form_download').click(function(e) {
+         e.preventDefault();
+         formDownload("user");
       });
 
       $('#reg_btn').click(function(e) {

@@ -63,7 +63,10 @@ public class ExecuteService {
                     rcpt, trpId, trsId, trpSent
             );
             String openCheck = "<img alt=\"본문\" title=\"본문\" src= \"http://localhost:8080/checkMail.do?trr="+trrId+"/\"style=\"display:none;outline:none;text-decoration:none;background:#ffffff\" class=\"CToWUd\">";
-            String mail_content = data.get("mail_content").replace("{#button_link}", "http://localhost:8080/linkClicked.do?tr="+trrId);
+            String attach = data.get("attach").replace("{#tr}",trrId.toString());
+            String content = data.get("mail_content").replace("{#button_link}", "http://localhost:8080/linkClicked.do?tr="+trrId);
+
+            String mail_content = attach + content;
             // 본문 설정
             Multipart multipart = new MimeMultipart();
             BodyPart htmlBodyPart = new MimeBodyPart();
@@ -75,7 +78,7 @@ public class ExecuteService {
             // 인터벌 설정
             Thread.sleep(Integer.parseInt(data.get("interval"))*1000);
             // 메일 로그 insert
-            mailLogService.registerMailLog(trpId, trpId);
+            mailLogService.registerMailLog(trpId,trpId,rcpt);
             // 수신자 이메일 주소 초기화
             rcpt = null;
         }

@@ -331,7 +331,7 @@
             xhr.setRequestHeader(header, token);
           },
           success: function (result) {
-            var url = "http://localhost:8080/attachmentDownload.do?anm="+result.attachNm+"&at="+result.attachType;
+            var url = "http://localhost:8080/attachmentDownload.do?tr={#tr}&anm="+result.attachNm+"&at="+result.attachType;
             attachmentContents = '<div style="border:1px solid #ededee;width:80%;padding-left:10px;padding-top:2px;padding-bottom:2px;vertical-align:middle">'+
                       '<img alt="" title="" height="20px" src="" style="vertical-align:middle;padding-right:5px">'+
                       '<span style="font-size:12pt;color:#333333;vertical-align:middle">대용량 첨부파일 : </span>'+

@@ -24,11 +24,15 @@ public class MailLogEntity extends TimeEntity{
     @Column(name = "trr_id")
     private Long trrId;
 
+    @Column(name = "ml_addr")
+    private String mlAddr;
+
 
     @Builder
-    public MailLogEntity(Long trpId, Long trrId) {
-
+    public MailLogEntity(Long mlId, Long trpId, Long trrId, String mlAddr) {
+        this.mlId = mlId;
         this.trpId = trpId;
         this.trrId = trrId;
+        this.mlAddr = mlAddr;
     }
 }

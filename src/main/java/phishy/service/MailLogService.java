@@ -16,11 +16,12 @@ public class MailLogService {
     private MailLogRepository mailLogRepository;
 
     @Transactional
-    public Long registerMailLog(Long trpId, Long trrId) {
+    public Long registerMailLog(Long trpId, Long trrId, String mlAddr) {
         MailLogDto mailLogDto = new MailLogDto();
         MailLogEntity mailLogEntity = mailLogDto.toEntity();
         mailLogEntity.setTrpId(trpId);
         mailLogEntity.setTrrId(trrId);
+        mailLogEntity.setMlAddr(mlAddr);
         return mailLogRepository.save(mailLogEntity).getMlId();
     }
 
@@ -31,8 +32,10 @@ public class MailLogService {
 
         for(MailLogEntity MailLogEntity : MLEntities) {
             MailLogDto MLDto = MailLogDto.builder()
+                    .mlId(MailLogEntity.getMlId())
                     .trpId(MailLogEntity.getTrpId())
                     .trrId(MailLogEntity.getTrrId())
+                    .mlAddr(MailLogEntity.getMlAddr())
                     .build();
             MLDtoList.add(MLDto);
         }

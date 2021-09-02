@@ -38,7 +38,7 @@ public class TrainingResultController {
     }
 
     @RequestMapping(value = "/checkMail.do", method = RequestMethod.GET)
-    public @ResponseBody void update(
+    public @ResponseBody void checkMail(
             @RequestParam("trr") Long trrId,
             HttpServletRequest request) {
         String returnIP = request.getHeader("host");
@@ -47,10 +47,26 @@ public class TrainingResultController {
     }
 
     @RequestMapping(value="/linkClicked.do", method = RequestMethod.GET)
-    public RedirectView noticed(@RequestParam("tr") Long trrId) {
+    public RedirectView linkClicked(@RequestParam("tr") Long trrId) {
         trainingResultService.updateLinkClicked(trrId);
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:8080/notice");
         return redirectView;
-     }
+    }
+
+    @RequestMapping(value="/attachDownload.do", method = RequestMethod.GET)
+    public RedirectView attachDownload(@RequestParam("tr") Long trrId) {
+        trainingResultService.updateAttachDownload(trrId);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/notice");
+        return redirectView;
+    }
+
+    @RequestMapping(value="/attachOpen.do", method = RequestMethod.GET)
+    public RedirectView attachOpen(@RequestParam("tr") Long trrId) {
+        trainingResultService.updateAttachOpen(trrId);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/notice");
+        return redirectView;
+    }
 }

@@ -60,6 +60,24 @@ public class TrainingResultService {
     }
 
     @Transactional
+    public void updateAttachDownload(Long trrId) {
+        Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
+        TrainingResultEntity TRREntity = TRREntityWrapper.get();
+        TRREntity.setTrrAttachClick("Y");
+        TRREntity.setTrrAttachClickDate(LocalDateTime.now());
+        trainingResultRepository.save(TRREntity);
+    }
+
+    @Transactional
+    public void updateAttachOpen(Long trrId) {
+        Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
+        TrainingResultEntity TRREntity = TRREntityWrapper.get();
+        TRREntity.setTrrAttachOpen("Y");
+        TRREntity.setTrrAttachOpenDate(LocalDateTime.now());
+        trainingResultRepository.save(TRREntity);
+    }
+
+    @Transactional
     public List<TrainingResultDto> getTRRs() {
         List<TrainingResultEntity> trrEntities = trainingResultRepository.findAll(Sort.by(Sort.Direction.DESC, "trrId"));
         List<TrainingResultDto> trrDtoList = new ArrayList<>();
