@@ -3,82 +3,178 @@
 
 <head th:replace="fragments/header"></head>
 
-    <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:void(0)">훈련실행</a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">dashboard</i>f
-                  <p class="d-lg-none d-md-block">
-                    Stats
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
-                  <p class="d-lg-none d-md-block">
-                    Some Actions
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
-                  <a class="dropdown-item" href="javascript:void(0)">Another One</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="javascript:void(0)">
-                  <i class="material-icons">person</i>
-                  <p class="d-lg-none d-md-block">
-                    Account
-                  </p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <!-- End Navbar -->
-      <div class="content">
+    <div class="main-panel" style="width: 100%;">
+      <div class="content" id="notice">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary card-header-icon">
-                </div>
+            <div class="col-md-10 ml-auto mr-auto">
+            <div class="card card-signup">
+              <br>
+              <h2 class="card-title text-center">피싱쉴드 이메일 모의훈련 안내</h2>
+              <p class="description text-center"><strong>사내 임직원 대상 악성 이메일 모의훈련을 위해 발송된 메일입니다.</strong></p>
                 <div class="card-body">
-                    <h1>대충 훈련이라는 내용!!!!</h1>
-                    <h2>대충 훈련에 위반자로 걸렸다는 내용!!!!</h2>
-                    <h2>대충 교육을 받아야되며 보안에 신경쓰라는 내용!!!!</h2>
+                  <div class="row">
+                    <div class="col-md-5 ml-auto">
+                      <div class="info info-horizontal">
+                        <div class="icon icon-rose">
+                          <i class="material-icons">report_problem</i>
+                        </div>
+                        <div class="description">
+                          <h4 class="info-title">훈련 위반!</h4>
+                          <p class="description">
+                            본 훈련용 메일은 사용자 PC에 영향을 주지 않으나, 실제 상황일 경우 악성코드에 감염되거나 입력된 개인정보가 유출될 수 있으니 주의하시기 바랍니다.
+                            <br>(클릭하신 링크나 다운로드/실행한 첨부파일은 실제 악성파일이 아닙니다.)
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-5 mr-auto">
+                      <div class="info info-horizontal">
+                        <div class="icon icon-info">
+                          <i class="material-icons">assignment</i>
+                        </div>
+                        <div class="description">
+                          <h4 class="info-title">사고신고서 작성</h4>
+                          <p class="description">
+                            이메일 모의훈련의 위반대상으로 판정되어 사고신고서를 제출해야합니다. 아래 버튼을 통해 작성 후 제출해주세요!
+                          </p>
+                        </div>
+                      </div>
+                      <div class="text-center" style="margin-bottom: 50px;">
+                          <a href="#" class="btn btn-primary btn-round mt-4" data-toggle="modal" data-target="#regModal">작성하기</a>
+                        </div>
+                    </div>
+                  </div>
                 </div>
-                <!-- end content-->
               </div>
-              <!--  end card  -->
             </div>
             <!-- end col-md-12 -->
           </div>
           <!-- end row -->
-
         </div>
       </div>
 
       <footer th:replace="fragments/footer"></footer>
+
+      <div class="modal fade" id="regModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">해킹메일 사고신고서</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+
+                <form class="form" method="" action="">
+                  <p class="description text-center">사고신고서 등록</p>
+                  <div class="card-body">
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="row">
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">이름</label>
+                                <input type="text" class="form-control" id="rp_username">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">소속부서</label>
+                                <input type="text" class="form-control" id="rp_deptnm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">IP주소</label>
+                                <input type="text" class="form-control" id="rp_ip">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">메일제목</label>
+                                <input type="text" class="form-control" id="rp_mail_title">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">발신자명</label>
+                                <input type="text" class="form-control" id="rp_mail_frm">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                 <label class="md-label-floating">발신메일주소</label>
+                                <input type="email" class="form-control" id="rp_mail_addr">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group is-filled">
+                              <div class="input-group">
+                                <label class="md-label-floating">수신일자</label>
+                                <input type="text" class="form-control datetimepicker" id="rp_rcpt_date">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group is-filled">
+                              <div class="input-group">
+                                <label class="md-label-floating">열람일자</label>
+                                <input type="text" class="form-control datetimepicker" id="rp_open_date">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group">
+                              <div class="input-group">
+                                <label class="md-label-floating">초동조치</label>
+                                <textarea id="rp_contents"></textarea>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </form>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <a href="#" class="btn btn-success btn" id="reg_btn">등록하기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
   <script src="https://cdn.jsdelivr.net/gh/jquery-form/form@4.3.0/dist/jquery.form.min.js" integrity="sha384-qlmct0AOBiA2VPZkMY3+2WqkHtIQ9lSdAsAn5RUJD/3vA5MKDgSGcdmIv4ycVxyn" crossorigin="anonymous"></script>
@@ -86,7 +182,78 @@
 
     $('.sidebar').hide();
 
+    function getToday(){
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;    //1월이 0으로 되기때문에 +1을 함.
+        var date = now.getDate();
+
+        month = month >=10 ? month : "0" + month;
+        date  = date  >= 10 ? date : "0" + date;
+
+        var today = ""+year+"-"+month+"-"+date;
+        $('.datetimepicker').val(today);
+    }
+
+    var trrId = geturlparam('tr');
+
     $(document).ready(function() {
+
+      getToday();
+
+
+      $('.datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm',
+        icons: {
+          time    : "fa fa-clock-o",
+          date    : "fa fa-calendar",
+          up      : "fa fa-chevron-up",
+          down    : "fa fa-chevron-down",
+          previous: 'fa fa-chevron-left',
+          next    : 'fa fa-chevron-right',
+          today   : 'fa fa-screenshot',
+          clear   : 'fa fa-trash',
+          close   : 'fa fa-remove'
+        },
+      });
+
+      $('#reg_btn').click(function(e) {
+        e.preventDefault();
+
+        $.ajax({
+          url : "registerReport.do",
+          type : "POST",
+          dataType : "json",
+          beforeSend : function(xhr) {
+          xhr.setRequestHeader(header, token);
+          },
+          data : {
+            'trrId'         : trrId,
+            'rp_username'   : $('#rp_username').val(),
+            'rp_deptnm'     : $('#rp_deptnm').val(),
+            'rp_ip'         : $('#rp_ip').val(),
+            'rp_mail_title' : $('#rp_mail_title').val(),
+            'rp_mail_from'  : $('#rp_mail_from').val(),
+            'rp_mail_addr'  : $('#rp_mail_addr').val(),
+            'rp_rcpt_date'  : $('#rp_rcpt_date').val(),
+            'rp_open_date'  : $('#rp_open_date').val(),
+          },
+          success : function(result) {
+            console.log(result);
+            // Swal.fire({
+            //   title : '등록 완료!',
+            // }).then((result) => {
+            //   if (result.isConfirmed) {
+            //     location.reload();
+            //   }
+            // });
+          },
+          error : function(thrownError) {
+            console.log(thrownError);
+          }
+      });
+
+      });
 
 
     });
