@@ -117,3 +117,10 @@ table#ResultDatatable tbody td {
 }
 
 #group #trg_status { float: right;}
+
+#result_detail form#trpSentForm {
+    margin-left: 120px;
+    float: right;
+    position: absolute;
+    margin-top: -15px;
+}

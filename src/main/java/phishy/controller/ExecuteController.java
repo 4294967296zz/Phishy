@@ -1,16 +1,21 @@
 package phishy.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 import phishy.service.ExecuteService;
 import phishy.service.TrainingProjectService;
 import phishy.service.TrainingUserService;
 import phishy.service.UserService;
 
+import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +24,10 @@ import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.*;
 import java.net.URLEncoder;
+import java.net.http.HttpHeaders;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -177,6 +186,42 @@ public class ExecuteController {
         if(so!=null) so.close();
         if(fis!=null) fis.close();
     }
+
+     @RequestMapping(value="/downloadForm.do", method = RequestMethod.GET)
+     public void test(HttpServletRequest request, HttpServletResponse response, @RequestParam("dFile") String dFile) throws Exception {
+
+        String upDir = new File(".").getAbsoluteFile().toString()+"/forms";
+        String path = upDir+File.separator+dFile;
+
+        File file = new File(path);
+
+        String userAgent = request.getHeader("User-Agent");
+        boolean ie = userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("rv:11") > -1;
+        String fileName = null;
+        if (ie) {
+            fileName = URLEncoder.encode(file.getName(), "utf-8");
+        } else {
+            fileName = new String(file.getName().getBytes("utf-8"),"iso-8859-1");
+        }
+        response.setContentType("application/octet-stream");
+        response.setHeader("Content-Disposition","attachment;filename=\"" +fileName+"\";");
+
+        FileInputStream fis=new FileInputStream(file);
+        BufferedInputStream bis=new BufferedInputStream(fis);
+        ServletOutputStream so=response.getOutputStream();
+        BufferedOutputStream bos=new BufferedOutputStream(so);
+
+        byte[] data=new byte[2048];
+        int input=0;
+        while((input=bis.read(data))!=-1){
+             bos.write(data,0,input);
+             bos.flush();
+        }
+          if(bos!=null) bos.close();
+          if(bis!=null) bis.close();
+          if(so!=null) so.close();
+          if(fis!=null) fis.close();
+     }
 
 }
 

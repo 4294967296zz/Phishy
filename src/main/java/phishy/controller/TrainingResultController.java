@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.view.RedirectView;
 import phishy.service.TrainingResultService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,4 +45,12 @@ public class TrainingResultController {
         String returnInfo = request.getHeader("User-Agent");
         trainingResultService.updateMailOpen(trrId, returnIP, returnInfo);
     }
+
+    @RequestMapping(value="/linkClicked.do", method = RequestMethod.GET)
+    public RedirectView noticed(@RequestParam("tr") Long trrId) {
+        trainingResultService.updateLinkClicked(trrId);
+        RedirectView redirectView = new RedirectView();
+        redirectView.setUrl("http://localhost:8080/notice");
+        return redirectView;
+     }
 }

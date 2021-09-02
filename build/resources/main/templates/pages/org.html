@@ -571,31 +571,6 @@
         });
     }
 
-    function formDownload(type) {
-        $.ajax({
-          url : "deleteOrgs.do",
-          type : "POST",
-          dataType : "json",
-          beforeSend: function (xhr) {
-            xhr.setRequestHeader(header, token);
-          },
-          data: {'oid': o_id},
-          complete: function (result) {
-            swal.fire({
-              'title' : '삭제 완료!',
-              'icon'  : 'success'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                location.reload();
-              }
-            });
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
-        });
-    }
-
     upperList();
 
     $(document).ready(function() {

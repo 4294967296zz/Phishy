@@ -63,10 +63,11 @@ public class ExecuteService {
                     rcpt, trpId, trsId, trpSent
             );
             String openCheck = "<img alt=\"본문\" title=\"본문\" src= \"http://localhost:8080/checkMail.do?trr="+trrId+"/\"style=\"display:none;outline:none;text-decoration:none;background:#ffffff\" class=\"CToWUd\">";
+            String mail_content = data.get("mail_content").replace("{#button_link}", "http://localhost:8080/linkClicked.do?tr="+trrId);
             // 본문 설정
             Multipart multipart = new MimeMultipart();
             BodyPart htmlBodyPart = new MimeBodyPart();
-            htmlBodyPart.setContent(openCheck+data.get("mail_content"), "text/html; charset=utf-8");
+            htmlBodyPart.setContent(openCheck+mail_content, "text/html; charset=utf-8");
             multipart.addBodyPart(htmlBodyPart);
             message.setContent(multipart);
             // 메일 발송

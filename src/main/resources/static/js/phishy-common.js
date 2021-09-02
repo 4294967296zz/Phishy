@@ -79,3 +79,13 @@ function dateCompare(cDate) {
     }
 }
 
+function formDownload(type) {
+    var dFile = "";
+    if(type == "org") {
+        dFile = "/조직일괄등록양식.xlsx";
+    } else if(type == "user") {
+        dFile = "/사용자일괄등록양식.xlsx";
+    }
+    location.href="http://localhost:8080/downloadForm.do?dFile="+dFile;
+}
+

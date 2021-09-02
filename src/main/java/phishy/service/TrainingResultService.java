@@ -43,14 +43,20 @@ public class TrainingResultService {
     public void updateMailOpen(Long trrId, String returnIP, String returnInfo) {
         Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
         TrainingResultEntity TRREntity = TRREntityWrapper.get();
-
         TRREntity.setTrrOpen("Y");
         TRREntity.setTrrOpenDate(LocalDateTime.now());
         TRREntity.setTrrReturnIp(returnIP);
         TRREntity.setTrrReturnUserinfo(returnInfo);
-
         trainingResultRepository.save(TRREntity);
+    }
 
+    @Transactional
+    public void updateLinkClicked(Long trrId) {
+        Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
+        TrainingResultEntity TRREntity = TRREntityWrapper.get();
+        TRREntity.setTrrLink("Y");
+        TRREntity.setTrrLinkDate(LocalDateTime.now());
+        trainingResultRepository.save(TRREntity);
     }
 
     @Transactional
