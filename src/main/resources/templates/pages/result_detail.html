@@ -55,19 +55,23 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="content" id="status_detail">
+      <div class="content" id="result_detail">
         <div class="container-fluid">
           <div class="row">
-
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-rose card-header-icon">
                 <div class="card-icon">
                   <i class="material-icons">assignment</i>
                 </div>
-                <h4 class="card-title"><span class="tug_nm"></span> 회차별 훈련 결과</h4>
+                <h4 class="card-title"><span class="tug_nm"></span>훈련 결과</h4>
               </div>
               <div class="card-body table-responsive">
+                  <form id="trpSentForm">
+                    <select class="selectpicker" data-size="7" data-style="btn btn-primary" title="발송회차" id="trpSent">
+
+                    </select>
+                  </form>
                   <table id="ResultDatatable" class="table table-striped table-no-bordered table-hover" cellspacing="0" width="100%" style="width:100%">
                   </table>
               </div>
@@ -76,15 +80,145 @@
 
       </div> <!-- row ends -->
 
-      <footer th:replace="fragments/footer"></footer>
+      <footer th:replace="fragments/footer"></footer>ㅑ
 
   <script>
 
     var trpId = geturlparam("trp");
     var trpSent = geturlparam("sent");
 
-
     $(document).ready(function() {
+
+      $.ajax({
+        url : "getTRPsent.do",
+        type : "POST",
+        dataType : "json",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: {'trpId': trpId},
+        success: function (result) {
+          console.log(result);
+          var option = '<option disabled selected></option>';
+          for(i=0; i<result; i++) {
+            var index = i + 1;
+            option += '<option value="'+index+'">'+index+'회차</option>';
+          }
+          $('select#trpSent').html(option).selectpicker('refresh');
+          console.log(option);
+
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
+      });
+
+      $('select#trpSent').on('change', function(e) {
+        e.preventDefault();
+        var trpSent = $(this).val();
+        console.log(trpSent);
+
+        $('#ResultDatatable').DataTable({
+          "pagingType": "full_numbers",
+          "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+          ],
+          language: lang_kor,
+          destroy: true,
+          ordering: false,
+          scrollX: true,
+          scrollXInner: "2500px",
+          ajax : {
+            type : "POST",
+            url : "getTRRbySent.do",
+            dataType : "JSON",
+            data : {
+              'trpId' : trpId,
+              'sent' : trpSent
+            },
+            beforeSend: function (xhr) {
+              xhr.setRequestHeader(header, token);
+            },
+          },
+          columns : [
+            {
+              title : "이름",
+              data : "userNm",
+              className : "text-center"
+            },
+            {
+              title : "이메일",
+              data : "userId",
+            },
+            {
+              title : "직급",
+              data : "userRank",
+              className : "text-center"
+            },
+            {
+              title : "열람",
+              data : "trrOpen",
+              className : "text-center"
+            },
+            {
+              title : "열람 시간",
+              data : "trrOpenDate",
+            },
+            {
+              title : "클릭",
+              data : "trrLink",
+              className : "text-center"
+            },
+            {
+              title : "클릭 시간",
+              data : "trrLinkDate",
+            },
+            {
+              title : "첨부파일 다운로드",
+              data : "trrAttachClick",
+              className : "text-center"
+            },
+            {
+              title : "첨부파일 다운로드 시간",
+              data : "trrAttachClickDate",
+            },
+            {
+              title : "첨부파일 실행",
+              data : "trrAttachOpen",
+              className : "text-center"
+            },
+            {
+              title : "첨부파일 실행 시간",
+              data : "trrAttachOpenDate",
+            },
+            {
+              title : "피싱사이트 접속",
+              data : "trrPhishingclick",
+              className : "text-center"
+            },
+            {
+              title : "피싱사이트 접속 시간",
+              data : "trrPhishingclickDate",
+            },
+            {
+              title : "피싱사이트 입력 정보",
+              data : "trrPhishingContent",
+            },
+            {
+              title : "접속 IP 주소",
+              data : "trrReturnIp",
+              className : "text-center"
+            },
+            {
+              title : "접속 Device",
+              data : "trrReturnUserinfo",
+              className : "text-center"
+            },
+        ],
+
+        });
+      });
 
       $('#ResultDatatable').DataTable({
         "pagingType": "full_numbers",
@@ -99,9 +233,12 @@
         scrollXInner: "2500px",
         ajax : {
           type : "POST",
-          url : "getTRRDatatable.do",
+          url : "getTRRbySent.do",
           dataType : "JSON",
-          data : {'trpId' : trpId},
+          data : {
+            'trpId' : trpId,
+            'sent' : trpSent
+          },
           beforeSend: function (xhr) {
             xhr.setRequestHeader(header, token);
           },
@@ -192,7 +329,6 @@
     // $('#table_filter').on('change',function() {
     //   table.search(this.value).draw();
     // });
-
 
 
   </script>

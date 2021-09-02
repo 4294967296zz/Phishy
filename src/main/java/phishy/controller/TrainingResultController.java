@@ -26,6 +26,16 @@ public class TrainingResultController {
         return result;
     }
 
+    @RequestMapping(value = "/getTRRbySent.do", method = RequestMethod.POST)
+    public @ResponseBody
+    Object getTRRbySent(@RequestParam("trpId") Long trpId,
+                           @RequestParam("sent") Integer sent) {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("data", trainingResultService.getTRRbySent(trpId, sent));
+        Object result = mp;
+        return result;
+    }
+
     @RequestMapping(value = "/checkMail.do", method = RequestMethod.GET)
     public @ResponseBody void update(
             @RequestParam("trr") Long trrId,

@@ -182,5 +182,9 @@ public class TrainingProjectController {
         trainingProjectService.deleteTRP(trpId);
     }
 
+    @RequestMapping(value = "/getTRPsent.do", method = RequestMethod.POST)
+    public @ResponseBody Integer getTRPsent(@RequestParam("trpId") Long trpId) {
+        return trainingProjectService.getTRPSent(trpId);
+    }
 
 }

@@ -243,6 +243,13 @@ public class TrainingProjectService {
     }
 
     @Transactional
+    public Integer getTRPSent(Long trpId) {
+        Optional<TrainingProjectEntity> TRPEntityWrapper = trainingProjectRepository.findById(trpId);
+        TrainingProjectEntity trainingProjectEntity = TRPEntityWrapper.get();
+        return trainingProjectEntity.getTrpSent();
+    }
+
+    @Transactional
     public List<Long> getTotalTU(Long trgId) {
         String jpql = "SELECT SUM(tugCount) FROM TrainingProjectEntity WHERE trgId = :trgId";
         List<Long> totalResult = em.createQuery(jpql, Long.class)

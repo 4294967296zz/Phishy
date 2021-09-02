@@ -7,6 +7,7 @@ import phishy.domain.Entity.TrainingResultEntity;
 import phishy.domain.Repository.TrainingResultRepository;
 import phishy.dto.TrainingResultDto;
 
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,6 +15,7 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class TrainingResultService {
+    private EntityManager em;
     private TrainingResultRepository trainingResultRepository;
 
     @Transactional
@@ -24,7 +26,7 @@ public class TrainingResultService {
 
         trainingResultEntity.setTrpId(trpId);
         trainingResultEntity.setTrsId(trsId);
-        trainingResultEntity.setTrpSent(trpSent);
+        trainingResultEntity.setTrpSent(trpSent+1);
         trainingResultEntity.setUserNm(userNm);
         trainingResultEntity.setUserId(userId);
         trainingResultEntity.setUserRank(userRank);
@@ -110,5 +112,16 @@ public class TrainingResultService {
             TRRDtoList.add(TRRDto);
         }
         return TRRDtoList;
+    }
+
+    @Transactional
+    public List<Object[]> getTRRbySent(Long trpId, Integer sent) {
+        String jpql = "SELECT DISTINCT TRR FROM TrainingResultEntity TRR WHERE "
+                +"TRR.trpId = :trpId AND TRR.trpSent = :sent";
+        List<Object[]> totalResult = em.createQuery(jpql, Object[].class)
+                .setParameter("trpId",trpId)
+                .setParameter("sent",sent)
+                .getResultList();
+        return totalResult;
     }
 }
