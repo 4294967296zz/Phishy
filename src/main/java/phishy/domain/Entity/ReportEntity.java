@@ -3,9 +3,10 @@ package phishy.domain.Entity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -42,18 +43,20 @@ public class ReportEntity extends TimeEntity{
     private String rpMailAddr;
 
     @Column(name = "rp_rcpt_date")
-    private Date rpRcptDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private LocalDateTime rpRcptDate;
 
     @Column(name = "rp_open_date")
-    private Date rpOpenDate;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private LocalDateTime rpOpenDate;
 
     @Column(name = "rp_contents")
     private String rpContents;
 
     @Builder
     public ReportEntity(Long rpId,Long trrId,String rpUsername,String rpDeptnm,String rpIp,
-                        String rpMailTitle,String rpMailFrom,String rpMailAddr,Date rpRcptDate,
-                        Date rpOpenDate,String rpContents) {
+                        String rpMailTitle,String rpMailFrom,String rpMailAddr,LocalDateTime rpRcptDate,
+                        LocalDateTime rpOpenDate,String rpContents) {
         this.rpId = rpId;
         this.trrId = trrId;
         this.rpUsername = rpUsername;

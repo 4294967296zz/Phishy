@@ -132,3 +132,15 @@ table#ResultDatatable tbody td {
 #notice .form-group.md-form-group {
     width: 85%;
 }
+
+#notice .description {
+    word-break: keep-all;
+}
+
+#notice .info p {
+    color: #999999 !important;
+}
+
+#notice .info .info-title {
+    color: white !important;
+}

@@ -95,13 +95,17 @@ public class TrainingResultEntity extends TimeEntity{
     @Column(name = "trr_return_userinfo")
     private String trrReturnUserinfo;
 
+    // 사고신고서 제출 여부
+    @Column(name = "trr_report")
+    private String trrReport;
+
 
     @Builder
     public TrainingResultEntity(Long trrId, Long trpId, Long trsId, Long tugId, Integer trpSent, String userId, String userRank, String userNm,
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
-                                String trrPhishingContent, String trrReturnIp, String trrReturnUserinfo) {
+                                String trrPhishingContent, String trrReturnIp, String trrReturnUserinfo, String trrReport) {
 
         this.trrId                  = trrId;
         this.trpId                  = trpId;
@@ -124,6 +128,7 @@ public class TrainingResultEntity extends TimeEntity{
         this.trrPhishingContent     = trrPhishingContent;
         this.trrReturnIp            = trrReturnIp;
         this.trrReturnUserinfo      = trrReturnUserinfo;
+        this.trrReport              = trrReport;
     }
 }
 

@@ -69,83 +69,73 @@
                 </div>
               </div>
               <div class="modal-body">
-
-                <form class="form" method="" action="">
+                <form id="report_form" class="form" method="post" action="/registerReport.do" autocomplete="off" novalidate="novalidate">
                   <p class="description text-center">사고신고서 등록</p>
                   <div class="card-body">
-
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="row">
 
                           <div class="col-md-12">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
-                                 <label class="md-label-floating">이름</label>
-                                <input type="text" class="form-control" id="rp_username">
-                              </div>
+                              <label class="md-label-floating">이름</label>
+                              <input type="text" class="form-control" name="rp_username" id="rp_username" required="true" aria-required="true">
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
-                                 <label class="md-label-floating">소속부서</label>
-                                <input type="text" class="form-control" id="rp_deptnm">
-                              </div>
+                              <label class="md-label-floating">소속부서</label>
+                              <input type="text" class="form-control" name="rp_deptnm" id="rp_deptnm" required="true" aria-required="true">
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
-                                 <label class="md-label-floating">IP주소</label>
-                                <input type="text" class="form-control" id="rp_ip">
-                              </div>
+                              <label class="md-label-floating">IP주소</label>
+                              <input type="text" class="form-control" name="rp_ip" id="rp_ip" required="true" aria-required="true">
                             </div>
                           </div>
 
                           <div class="col-md-12">
                             <div class="form-group md-form-group">
-                              <div class="input-group">
-                                 <label class="md-label-floating">메일제목</label>
-                                <input type="text" class="form-control" id="rp_mail_title">
-                              </div>
+                              <label class="md-label-floating">메일제목</label>
+                              <input type="text" class="form-control" name="rp_mail_title" id="rp_mail_title" required="true" aria-required="true">
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-5">
                             <div class="form-group md-form-group">
                               <div class="input-group">
                                  <label class="md-label-floating">발신자명</label>
-                                <input type="text" class="form-control" id="rp_mail_frm">
+                                <input type="text" class="form-control" name="rp_mail_from" id="rp_mail_from" required="true" aria-required="true">
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-md-6">
+                          <div class="col-md-7">
                             <div class="form-group md-form-group">
                               <div class="input-group">
                                  <label class="md-label-floating">발신메일주소</label>
-                                <input type="email" class="form-control" id="rp_mail_addr">
+                                <input type="email" class="form-control" name="rp_mail_addr" id="rp_mail_addr" required="true" aria-required="true">
                               </div>
                             </div>
                           </div>
-
+                        </div>
+                        <div class="row">
                           <div class="col-md-6">
-                            <div class="form-group md-form-group is-filled">
+                            <div class="form-group md-form-group">
+                            <label class="">수신일자</label>
                               <div class="input-group">
-                                <label class="md-label-floating">수신일자</label>
-                                <input type="text" class="form-control datetimepicker" id="rp_rcpt_date">
+                                <input type="text" class="form-control datetimepicker" id="rp_rcpt_date" name="rp_rcpt_date">
                               </div>
                             </div>
                           </div>
-
                           <div class="col-md-6">
-                            <div class="form-group md-form-group is-filled">
+                            <div class="form-group md-form-group">
+                              <label class="">열람일자</label>
                               <div class="input-group">
-                                <label class="md-label-floating">열람일자</label>
-                                <input type="text" class="form-control datetimepicker" id="rp_open_date">
+                                <input type="text" class="form-control datetimepicker" id="rp_open_date" name="rp_open_date">
                               </div>
                             </div>
                           </div>
@@ -154,24 +144,22 @@
                             <div class="form-group md-form-group">
                               <div class="input-group">
                                 <label class="md-label-floating">초동조치</label>
-                                <textarea id="rp_contents"></textarea>
+                                <input type="text" class="form-control" id="rp_contents" name="rp_contents">
                               </div>
                             </div>
                           </div>
-
                         </div>
                       </div>
                     </div>
-
-
                   </div>
-                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                  <div class="card-footer ml-auto mr-auto" style="float: right;">
+                    <button type="submit" class="btn btn-rose">제출하기<div class="ripple-container"></div></button>
+                  </div>
+                  <input type="hidden" th:value="${#httpServletRequest.getParameter('tr')}" name="trrId">
                 </form>
               </div>
-              <div class="modal-footer justify-content-center">
-                <a href="#" class="btn btn-success btn" id="reg_btn">등록하기</a>
-              </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -181,6 +169,7 @@
   <script>
 
     $('.sidebar').hide();
+    $('.footer').hide();
 
     function getToday(){
         var now = new Date();
@@ -196,11 +185,33 @@
     }
 
     var trrId = geturlparam('tr');
+    var done = geturlparam('done');
 
     $(document).ready(function() {
 
-      getToday();
+      if(done) {
+        let timerInterval
+        Swal.fire({
+          icon: 'success',
+          title: '사고신고 완료!',
+          text: '사고신고서가 정상적으로 제출되었습니다. 이 창은 자동으로 닫힙니다.',
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: () => {
+            const b = Swal.getHtmlContainer().querySelector('b')
+            timerInterval = setInterval(() => {
+              b.textContent = Swal.getTimerLeft()
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+            window.close();
+          }
+        })
+      }
 
+      getToday();
+      setFormValidation('#report_form');
 
       $('.datetimepicker').datetimepicker({
         format: 'YYYY-MM-DD HH:mm',

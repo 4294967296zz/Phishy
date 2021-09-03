@@ -215,6 +215,16 @@
               data : "trrReturnUserinfo",
               className : "text-center"
             },
+            {
+              title : "사고신고",
+              data : "trrReport",
+              className : "text-center",
+              render : function(data,type,row) {
+                if(data == "Y") {
+                  return '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-u_id="'+data+'"><i class="material-icons">dvr</i></a>';
+                }
+              }
+            },
         ],
 
         });
@@ -315,6 +325,11 @@
           {
             title : "접속 Device",
             data : "trrReturnUserinfo",
+            className : "text-center"
+          },
+          {
+            title : "사고신고",
+            data : "trrReport",
             className : "text-center"
           },
       ],

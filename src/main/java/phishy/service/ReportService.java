@@ -1,13 +1,14 @@
 package phishy.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 import phishy.domain.Entity.ReportEntity;
 import phishy.domain.Repository.ReportRepository;
 import phishy.dto.ReportDto;
 
 import javax.transaction.Transactional;
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
@@ -16,7 +17,7 @@ public class ReportService {
     private ReportRepository reportRepository;
 
     @Transactional
-    public Long registerReport(Long trrId, Map<String, String> datas, Date rp_rcpt_date, Date rp_open_date) {
+    public Long registerReport(Long trrId, Map<String, String> datas, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime rp_rcpt_date, @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime rp_open_date) {
         ReportDto reportDto = new ReportDto();
         ReportEntity reportEntity = reportDto.toEntity();
         reportEntity.setTrrId(trrId);

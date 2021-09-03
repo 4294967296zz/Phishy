@@ -7,6 +7,7 @@ import lombok.Setter;
 import phishy.domain.Entity.ReportEntity;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,8 +22,8 @@ public class ReportDto {
     private String rpMailTitle;
     private String rpMailFrom;
     private String rpMailAddr;
-    private Date rpRcptDate;
-    private Date rpOpenDate;
+    private LocalDateTime rpRcptDate;
+    private LocalDateTime rpOpenDate;
     private String rpContents;
 
     public ReportEntity toEntity() {
@@ -44,8 +45,8 @@ public class ReportDto {
 
     @Builder
     public ReportDto(Long rpId,Long trrId,String rpUsername,String rpDeptnm,String rpIp,
-                        String rpMailTitle,String rpMailFrom,String rpMailAddr,Date rpRcptDate,
-                        Date rpOpenDate,String rpContents) {
+                        String rpMailTitle,String rpMailFrom,String rpMailAddr,LocalDateTime rpRcptDate,
+                        LocalDateTime rpOpenDate,String rpContents) {
         this.rpId = rpId;
         this.trrId = trrId;
         this.rpUsername = rpUsername;

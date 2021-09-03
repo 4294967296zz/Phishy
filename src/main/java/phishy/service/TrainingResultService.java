@@ -35,6 +35,7 @@ public class TrainingResultService {
         trainingResultEntity.setTrrAttachClick("N");
         trainingResultEntity.setTrrAttachOpen("N");
         trainingResultEntity.setTrrPhishingclick("N");
+        trainingResultEntity.setTrrReport("N");
 
        return trainingResultRepository.save(trainingResultEntity).getTrrId();
     }
@@ -74,6 +75,14 @@ public class TrainingResultService {
         TrainingResultEntity TRREntity = TRREntityWrapper.get();
         TRREntity.setTrrAttachOpen("Y");
         TRREntity.setTrrAttachOpenDate(LocalDateTime.now());
+        trainingResultRepository.save(TRREntity);
+    }
+
+    @Transactional
+    public void updateReport(Long trrId) {
+        Optional<TrainingResultEntity> TRREntityWrapper = trainingResultRepository.findById(trrId);
+        TrainingResultEntity TRREntity = TRREntityWrapper.get();
+        TRREntity.setTrrReport("Y");
         trainingResultRepository.save(TRREntity);
     }
 
@@ -132,6 +141,7 @@ public class TrainingResultService {
                     .trrPhishingContent(TrainingResultEntity.getTrrPhishingContent())
                     .trrReturnIp(TrainingResultEntity.getTrrReturnIp())
                     .trrReturnUserinfo(TrainingResultEntity.getTrrReturnUserinfo())
+                    .trrReport(TrainingResultEntity.getTrrReport())
                     .build();
             TRRDtoList.add(TRRDto);
         }

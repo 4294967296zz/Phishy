@@ -34,6 +34,7 @@ public class TrainingResultDto {
     private String trrPhishingContent;
     private String trrReturnIp;
     private String trrReturnUserinfo;
+    private String trrReport;
 
     public TrainingResultEntity toEntity() {
         TrainingResultEntity trainingResultEntity = TrainingResultEntity.builder()
@@ -58,6 +59,7 @@ public class TrainingResultDto {
                 .trrPhishingContent(trrPhishingContent)
                 .trrReturnIp(trrReturnIp)
                 .trrReturnUserinfo(trrReturnUserinfo)
+                .trrReport(trrReport)
                 .build();
         return trainingResultEntity;
     }
@@ -67,7 +69,7 @@ public class TrainingResultDto {
                                 String trrOpen, LocalDateTime trrOpenDate, String trrLink, LocalDateTime trrLinkDate,
                                 String trrAttachClick, LocalDateTime trrAttachClickDate, String trrAttachOpen,
                                 LocalDateTime trrAttachOpenDate, String trrPhishingclick, LocalDateTime trrPhishingclickDate,
-                                String trrPhishingContent, String trrReturnIp, String trrReturnUserinfo) {
+                                String trrPhishingContent, String trrReturnIp, String trrReturnUserinfo, String trrReport) {
 
         this.trrId                  = trrId;
         this.trpId                  = trpId;
@@ -90,6 +92,7 @@ public class TrainingResultDto {
         this.trrPhishingContent     = trrPhishingContent;
         this.trrReturnIp            = trrReturnIp;
         this.trrReturnUserinfo      = trrReturnUserinfo;
+        this.trrReport              = trrReport;
     }
 
 
