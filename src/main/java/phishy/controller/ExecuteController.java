@@ -1,32 +1,32 @@
 package phishy.controller;
 
 import lombok.AllArgsConstructor;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.ResponseEntity;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.bind.annotation.*;
+import phishy.dto.TrainingProjectDto;
+import phishy.dto.TrainingResultDto;
 import phishy.service.*;
 
-import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
 import java.io.*;
 import java.net.URLEncoder;
-import java.net.http.HttpHeaders;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -36,6 +36,20 @@ public class ExecuteController {
     private TrainingUserService trainingUserService;
     private ExecuteService executeService;
     private TrainingResultService trainingResultService;
+    private UserService userService;
+
+    private String getBrowser(HttpServletRequest request) {
+        String header =request.getHeader("User-Agent");
+        if (header.contains("MSIE")) {
+                return "MSIE";
+         } else if(header.contains("Chrome")) {
+                return "Chrome";
+         } else if(header.contains("Opera")) {
+                return "Opera";
+         }
+         return "Firefox";
+    }
+
 
     @RequestMapping(value = "/executeMail.do", method = RequestMethod.POST)
     public @ResponseBody
@@ -87,7 +101,7 @@ public class ExecuteController {
             mp.put("mail_content", content);
         }
 
-        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId, trsId);
+        executeService.sendMail(mp, trainingUserService.getTUIemail(tugId), trpId, trsId, tugId);
         trainingProjectService.updateTRP(trpId, "완료");
 
         Object result = mp;
@@ -223,6 +237,164 @@ public class ExecuteController {
           if(so!=null) so.close();
           if(fis!=null) fis.close();
      }
+
+     @GetMapping("/excelReport.do")
+     public void excelDownload(HttpServletResponse response,HttpServletRequest request, @RequestParam("tp") Long tp) throws IOException {
+
+        TrainingProjectDto TRP = trainingProjectService.getTRP(tp);
+        List<TrainingResultDto> TRR = trainingResultService.getTRR(tp);
+
+        Workbook wb = new XSSFWorkbook();
+        Sheet sheet = wb.createSheet("이메일모의훈련");
+        Sheet sheet1 = wb.createSheet("통합 훈련결과");
+        Sheet sheet2 = wb.createSheet("부서별 훈련결과");
+        Sheet sheet3 = wb.createSheet("직급별 훈련결과");
+        Row first = null;
+        Row row = null;
+        Cell cell = null;
+        Cell first_cell = null;
+        int rowNum = 0;
+
+        CellStyle firstStyle = wb.createCellStyle();
+        Font fonttest = wb.createFont();
+        fonttest.setFontHeight((short) (16*40));
+        fonttest.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        firstStyle.setFont(fonttest);
+        first = sheet.createRow(0);
+        first_cell = first.createCell(1);
+        first_cell.setCellStyle(firstStyle);
+        first_cell.setCellValue("마블시스템 피싱쉴드 이메일모의훈련");
+        sheet.addMergedRegion(new CellRangeAddress(0,3,1,6));
+
+
+        // Header
+        row = sheet1.createRow(rowNum++);
+        cell = row.createCell(0);
+        cell.setCellValue("번호");
+        cell = row.createCell(1);
+        cell.setCellValue("이름");
+        cell = row.createCell(2);
+        cell.setCellValue("이메일");
+        cell = row.createCell(3);
+        cell.setCellValue("직급");
+        cell = row.createCell(4);
+        cell.setCellValue("소속");
+        cell = row.createCell(5);
+        cell.setCellValue("부서");
+        cell = row.createCell(5);
+        cell.setCellValue("메일열람");
+        cell = row.createCell(6);
+        cell.setCellValue("열람시간");
+        cell = row.createCell(7);
+        cell.setCellValue("버튼클릭");
+        cell = row.createCell(8);
+        cell.setCellValue("클릭시간");
+        cell = row.createCell(9);
+        cell.setCellValue("첨부파일 다운로드");
+        cell = row.createCell(10);
+        cell.setCellValue("다운로드 시간");
+        cell = row.createCell(11);
+        cell.setCellValue("첨부파일 실행");
+        cell = row.createCell(12);
+        cell.setCellValue("첨부파일 실행 시간");
+        cell = row.createCell(13);
+        cell.setCellValue("피싱사이트 접속");
+        cell = row.createCell(14);
+        cell.setCellValue("피싱사이트 접속 시간");
+        cell = row.createCell(15);
+        cell.setCellValue("피싱사이트 입력 정보");
+        cell = row.createCell(16);
+        cell.setCellValue("사고신고여부");
+
+
+        // Body
+        for (int i=0; i<TRR.size(); i++) {
+            row = sheet1.createRow(rowNum++);
+            cell = row.createCell(0);
+            cell.setCellValue(TRR.get(i).getTrrId());
+            cell = row.createCell(1);
+            cell.setCellValue(TRR.get(i).getUserNm());
+            cell = row.createCell(2);
+            cell.setCellValue(userService.getUserByEmail(TRR.get(i).getUserId()).getUserEmail());
+            cell = row.createCell(3);
+            cell.setCellValue(TRR.get(i).getUserRank());
+            cell = row.createCell(4);
+            cell.setCellValue(userService.getUserByEmail(TRR.get(i).getUserId()).getCorpNm());
+            cell = row.createCell(5);
+            cell.setCellValue(userService.getUserByEmail(TRR.get(i).getUserId()).getDeptNm());
+            cell = row.createCell(5);
+            cell.setCellValue(TRR.get(i).getTrrOpen());
+            cell = row.createCell(6);
+            if(TRR.get(i).getTrrOpenDate() == null) {
+                cell.setCellValue(" ");
+            } else {
+                cell.setCellValue(TRR.get(i).getTrrOpenDate().toString());
+            }
+            cell = row.createCell(7);
+            cell.setCellValue(TRR.get(i).getTrrLink());
+            cell = row.createCell(8);
+            if(TRR.get(i).getTrrLinkDate() == null) {
+                cell.setCellValue(" ");
+            } else {
+                cell.setCellValue(TRR.get(i).getTrrLinkDate().toString());
+            }
+            cell = row.createCell(9);
+            cell.setCellValue(TRR.get(i).getTrrAttachClick());
+            cell = row.createCell(10);
+            if(TRR.get(i).getTrrAttachClickDate() == null) {
+                cell.setCellValue(" ");
+            } else {
+                cell.setCellValue(TRR.get(i).getTrrAttachClickDate().toString());
+            }
+            cell = row.createCell(11);
+            cell.setCellValue(TRR.get(i).getTrrAttachOpen());
+            cell = row.createCell(12);
+            if(TRR.get(i).getTrrAttachOpenDate() == null) {
+                cell.setCellValue(" ");
+            } else {
+                cell.setCellValue(TRR.get(i).getTrrAttachOpenDate().toString());
+            }
+            cell = row.createCell(13);
+            cell.setCellValue(TRR.get(i).getTrrPhishingclick());
+            cell = row.createCell(14);
+            if(TRR.get(i).getTrrPhishingclickDate() == null) {
+                cell.setCellValue(" ");
+            } else {
+                cell.setCellValue(TRR.get(i).getTrrPhishingclickDate().toString());
+            }
+            cell = row.createCell(15);
+            cell.setCellValue(TRR.get(i).getTrrPhishingContent());
+            cell = row.createCell(16);
+            cell.setCellValue(TRR.get(i).getTrrReport());
+
+        }
+
+
+        // 컨텐츠 타입과 파일명 지정 & 한글 인코딩
+        String fileName = TRP.getTrpNm()+"_결과보고서.xlsx";
+        String header = getBrowser(request);
+        if (header.contains("MSIE")) {
+               String docName = URLEncoder.encode(fileName,"UTF-8").replaceAll("\\+", "%20");
+               response.setHeader("Content-Disposition", "attachment;filename=" + docName + ";");
+        } else if (header.contains("Firefox")) {
+               String docName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+        } else if (header.contains("Opera")) {
+               String docName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+        } else if (header.contains("Chrome")) {
+               String docName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+               response.setHeader("Content-Disposition", "attachment; filename=\"" + docName + "\"");
+        }
+        response.setHeader("Content-Type", "application/octet-stream");
+        response.setHeader("Content-Transfer-Encoding", "binary;");
+        response.setHeader("Pragma", "no-cache;");
+        response.setHeader("Expires", "-1;");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
 
 }
 

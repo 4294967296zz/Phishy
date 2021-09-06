@@ -215,8 +215,9 @@
         location.href="/result_detail?trp="+trpId+"&sent="+trpSent;
       });
 
-      table.on('click', '.to_execute', function() {
-        location.href="/execute";
+      table.on('click', '.report_exec', function() {
+        var trpId = $(this).attr("data-trp_id");
+        location.href="http://localhost:8080/excelReport.do?tp="+trpId;
       });
 
 
@@ -224,7 +225,6 @@
         e.preventDefault();
         $('.res-btn').removeData('trs_id').removeData('trp_id').removeData('tug_id');
       });
-
 
     });
   </script>

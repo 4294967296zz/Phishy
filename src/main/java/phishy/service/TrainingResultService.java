@@ -19,13 +19,14 @@ public class TrainingResultService {
     private TrainingResultRepository trainingResultRepository;
 
     @Transactional
-    public Long registerTRR(String userNm, String userRank, String userId, Long trpId, Long trsId, Integer trpSent) {
+    public Long registerTRR(String userNm, String userRank, String userId, Long trpId, Long trsId, Long tugId, Integer trpSent) {
 
         TrainingResultDto trainingResultDto = new TrainingResultDto();
         TrainingResultEntity trainingResultEntity = trainingResultDto.toEntity();
 
         trainingResultEntity.setTrpId(trpId);
         trainingResultEntity.setTrsId(trsId);
+        trainingResultEntity.setTugId(tugId);
         trainingResultEntity.setTrpSent(trpSent+1);
         trainingResultEntity.setUserNm(userNm);
         trainingResultEntity.setUserId(userId);
@@ -36,6 +37,9 @@ public class TrainingResultService {
         trainingResultEntity.setTrrAttachOpen("N");
         trainingResultEntity.setTrrPhishingclick("N");
         trainingResultEntity.setTrrReport("N");
+        trainingResultEntity.setTrrReturnIp(" ");
+        trainingResultEntity.setTrrReturnUserinfo(" ");
+        trainingResultEntity.setTrrPhishingContent(" ");
 
        return trainingResultRepository.save(trainingResultEntity).getTrrId();
     }

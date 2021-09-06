@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="fragments/header"></head>
 
@@ -80,12 +81,144 @@
 
       </div> <!-- row ends -->
 
-      <footer th:replace="fragments/footer"></footer>ㅑ
+      <footer th:replace="fragments/footer"></footer>
+
+      <div class="modal fade" id="regModal" tabindex="-1" role="">
+        <div class="modal-dialog modal-login" role="document">
+          <div class="modal-content">
+            <div class="card card-signup">
+              <div class="modal-header">
+                <div class="card-header card-header-primary text-center">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="material-icons">clear</i>
+                  </button>
+                  <h4 class="card-title">해킹메일 사고신고서</h4>
+                </div>
+              </div>
+              <div class="modal-body">
+                <form id="report_form" class="form" method="post" action="/registerReport.do" autocomplete="off" novalidate="novalidate">
+                  <p class="description text-center">사고신고서 등록</p>
+                  <div class="card-body">
+                    <div class="row">
+                      <fieldset disabled>
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group is-filled">
+                              <label class="md-label-floating">이름</label>
+                              <input type="text" class="form-control" name="rp_username" id="rp_username" required="true" aria-required="true">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group is-filled">
+                              <label class="md-label-floating">소속부서</label>
+                              <input type="text" class="form-control" name="rp_deptnm" id="rp_deptnm" required="true" aria-required="true">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group is-filled">
+                              <label class="md-label-floating">IP주소</label>
+                              <input type="text" class="form-control" name="rp_ip" id="rp_ip" required="true" aria-required="true">
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group is-filled">
+                              <label class="md-label-floating">메일제목</label>
+                              <input type="text" class="form-control" name="rp_mail_title" id="rp_mail_title" required="true" aria-required="true">
+                            </div>
+                          </div>
+                          <div class="col-md-5">
+                            <div class="form-group md-form-group is-filled">
+                              <div class="input-group">
+                                 <label class="md-label-floating">발신자명</label>
+                                <input type="text" class="form-control" name="rp_mail_from" id="rp_mail_from" required="true" aria-required="true">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-7">
+                            <div class="form-group md-form-group is-filled">
+                              <div class="input-group">
+                                 <label class="md-label-floating">발신메일주소</label>
+                                <input type="email" class="form-control" name="rp_mail_addr" id="rp_mail_addr" required="true" aria-required="true">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group is-filled">
+                            <label class="">수신일자</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control datetimepicker" id="rp_rcpt_date" name="rp_rcpt_date">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group md-form-group is-filled">
+                              <label class="">열람일자</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control datetimepicker" id="rp_open_date" name="rp_open_date">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group md-form-group is-filled">
+                              <div class="input-group">
+                                <label class="md-label-floating">초동조치</label>
+                                <input type="text" class="form-control" id="rp_contents" name="rp_contents">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </fieldset>
+                    </div>
+                  </div>
+                  <div class="card-footer ml-auto mr-auto" style="float: right;">
+                    <button type="submit" class="btn btn-rose">제출하기<div class="ripple-container"></div></button>
+                  </div>
+                  <input type="hidden" th:value="${#httpServletRequest.getParameter('tr')}" name="trrId">
+                </form>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
 
   <script>
 
     var trpId = geturlparam("trp");
     var trpSent = geturlparam("sent");
+
+    function reportDetail(trrId) {
+      $.ajax({
+        url : "getReport.do",
+        type : "POST",
+        dataType : "json",
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader(header, token);
+        },
+        data: {'trrId' : trrId},
+        success: function (result) {
+          console.log(result);
+          var rpRcptDate = moment(result.rpRcptDate).format('YYYY-MM-DD hh:mm a');
+          var rpOpenDate = moment(result.rpOpenDate).format('YYYY-MM-DD hh:mm a');
+          $('#rp_username').val(result.rpUsername);
+          $('#rp_deptnm').val(result.rpDeptnm);
+          $('#rp_ip').val(result.rpIp);
+          $('#rp_mail_title').val(result.rpMailTitle);
+          $('#rp_mail_from').val(result.rpMailFrom);
+          $('#rp_mail_addr').val(result.rpMailAddr);
+          $('#rp_rcpt_date').val(rpRcptDate);
+          $('#rp_open_date').val(rpOpenDate);
+          $('#rp_contents').val(result.rpContents);
+        },
+        error: function (thrownError) {
+          console.log(thrownError);
+        }
+      });
+    }
 
     $(document).ready(function() {
 
@@ -220,8 +353,11 @@
               data : "trrReport",
               className : "text-center",
               render : function(data,type,row) {
+                var trr_id = row['trrId'];
                 if(data == "Y") {
-                  return '<a href="#" class="btn btn-link text-warning btn-just-icon edit" data-u_id="'+data+'"><i class="material-icons">dvr</i></a>';
+                  return '<a href="#" data-toggle="modal" data-target="#regModal" class="btn btn-link text-warning btn-just-icon edit" data-trr_id="'+trr_id+'"><i class="material-icons">dvr</i></a>';
+                } else {
+                  return data;
                 }
               }
             },
@@ -330,21 +466,30 @@
           {
             title : "사고신고",
             data : "trrReport",
-            className : "text-center"
+            className : "text-center",
+            render : function(data,type,row) {
+              var trr_id = row['trrId'];
+              if(data == "Y") {
+                return '<a href="#" data-toggle="modal" data-target="#regModal" class="btn btn-link text-warning btn-just-icon edit" data-trr_id="'+trr_id+'"><i class="material-icons">dvr</i></a>';
+              } else {
+                return data;
+              }
+            }
           },
       ],
 
       });
 
+      var table = $('#ResultDatatable').DataTable();
+
+      table.on('click', '.edit', function() {
+        var trrId = $(this).attr('data-trr_id');
+        console.log(trrId);
+        reportDetail(trrId);
+      });
+
 
     });
-
-    // var table = $('#ResultDatatable').dataTable();
-    //
-    // $('#table_filter').on('change',function() {
-    //   table.search(this.value).draw();
-    // });
-
 
   </script>
 

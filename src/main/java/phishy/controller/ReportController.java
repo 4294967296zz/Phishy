@@ -46,4 +46,10 @@ public class ReportController {
         redirectView.setUrl("http://localhost:8080/notice?done=1");
         return redirectView;
     }
+
+    @RequestMapping(value = "/getReport.do", method = RequestMethod.POST)
+    public @ResponseBody Object getReport(
+            @RequestParam("trrId") Long trrId) {
+        return reportService.getReport(trrId);
+    }
 }

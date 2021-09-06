@@ -10,6 +10,7 @@ import phishy.dto.ReportDto;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +31,27 @@ public class ReportService {
         reportEntity.setRpRcptDate(rp_rcpt_date);
         reportEntity.setRpOpenDate(rp_open_date);
         return reportRepository.save(reportEntity).getRpId();
+    }
+
+    @Transactional
+    public ReportDto getReport(Long trrId) {
+        Optional<ReportEntity> reportEntityWrapper = reportRepository.findByTrrId(trrId);
+        ReportEntity reportEntity = reportEntityWrapper.get();
+
+        ReportDto reportDTO = ReportDto.builder()
+                .rpId(reportEntity.getRpId())
+                .rpUsername(reportEntity.getRpUsername())
+                .rpDeptnm(reportEntity.getRpDeptnm())
+                .rpMailFrom(reportEntity.getRpMailFrom())
+                .rpMailAddr(reportEntity.getRpMailAddr())
+                .rpMailTitle(reportEntity.getRpMailTitle())
+                .rpIp(reportEntity.getRpIp())
+                .rpRcptDate(reportEntity.getRpRcptDate())
+                .rpOpenDate(reportEntity.getRpRcptDate())
+                .rpContents(reportEntity.getRpContents())
+                .build();
+
+        return reportDTO;
     }
 
 }

@@ -153,6 +153,8 @@ public class UserService {
                 .userEmail(userEntity.getUserEmail())
                 .userNm(userEntity.getUserNm())
                 .userRank(userEntity.getUserRank())
+                .corpNm(userEntity.getCorpNm())
+                .deptNm(userEntity.getDeptNm())
                 .build();
 
         return userDTO;

@@ -26,7 +26,7 @@ public class ExecuteService {
     private UserService userService;
 
     @Transactional
-    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId, Long trsId) throws IOException, MessagingException, InterruptedException {
+    public void sendMail(Map<String, String> data, List<String> email_list, Long trpId, Long trsId, Long tugId) throws IOException, MessagingException, InterruptedException {
         // 훈련 실행 즉시 상태 update
         Integer trpSent = trainingProjectService.updateTRP(trpId, "진행중");
 
@@ -60,7 +60,7 @@ public class ExecuteService {
             Long trrId = trainingResultService.registerTRR(
                     userService.getUserByEmail(rcpt).getUserNm(),
                     userService.getUserByEmail(rcpt).getUserRank(),
-                    rcpt, trpId, trsId, trpSent
+                    rcpt, trpId, trsId, tugId, trpSent
             );
             String openCheck = "<img alt=\"본문\" title=\"본문\" src= \"http://localhost:8080/checkMail.do?trr="+trrId+"/\"style=\"display:none;outline:none;text-decoration:none;background:#ffffff\" class=\"CToWUd\">";
             String attach = data.get("attach").replace("{#tr}",trrId.toString());

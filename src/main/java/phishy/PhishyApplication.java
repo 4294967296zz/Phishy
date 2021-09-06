@@ -10,4 +10,5 @@ public class PhishyApplication {
     public static void main(String[] args) {
         SpringApplication.run(PhishyApplication.class, args);
     }
+
 }
